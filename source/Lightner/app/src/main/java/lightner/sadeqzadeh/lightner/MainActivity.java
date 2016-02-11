@@ -2,6 +2,7 @@ package lightner.sadeqzadeh.lightner;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yakivmospan.scytale.Crypto;
 import com.yakivmospan.scytale.Options;
@@ -41,6 +43,7 @@ import lightner.sadeqzadeh.lightner.encryption.EnCryptor;
 import lightner.sadeqzadeh.lightner.entity.DaoSession;
 import lightner.sadeqzadeh.lightner.fragment.GetMobileNumberFragment;
 import lightner.sadeqzadeh.lightner.fragment.HomeFragment;
+import lightner.sadeqzadeh.lightner.fragment.ReviewFlashcard;
 import lightner.sadeqzadeh.lightner.util.IabHelper;
 import lightner.sadeqzadeh.lightner.util.IabResult;
 import lightner.sadeqzadeh.lightner.util.Purchase;
@@ -56,11 +59,13 @@ public class MainActivity extends AppCompatActivity
     private DeCryptor decryptor;
     private DaoSession daoSession;
     public boolean backPressed = false;
+    public TextToSpeech textToSpeech;
+    public boolean speechStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Util.context  = getApplicationContext();
+        Util.context = getApplicationContext();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,48 +92,29 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //check  if user doesn't registered already redirect to registration page
-        if(!Util.isUserLogged()){
+        if (!Util.isUserLogged()) {
             GetMobileNumberFragment getMobileNumerFragment = new GetMobileNumberFragment();
             replaceFragment(getMobileNumerFragment, GetMobileNumberFragment.TAG);
             return;
-        }else {
+        } else {
             HomeFragment fragment = new HomeFragment();
             replaceFragment(fragment, HomeFragment.TAG);
         }
 
-        final IabHelper mHelper;
-        String base64EncodedPublicKey= "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC3jgRLYRj+0xcjee9urNoEuRo72pWKQk2gd36hdkDLYxBicuIwGWzV9hfmmSu/36llEf4wHpZt44iS7PfZouD9tbL1i2oorVg9O+FkNR/OeJVn0nRajT+gbY2nURDdsh4pZe+qvb0+70//nbD3YrZUhlDa7HhUvokbJqu4UmGnaNF0TUU+EtmtkrpwSt6xu2Buv+nQvcUkT2+RMkpW+TXSUodEVyMISghtWo2JwbMCAwEAAQ==";
-        mHelper = new IabHelper(getApplicationContext(), base64EncodedPublicKey);
-        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
-                }
-
-                IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
-                        = new IabHelper.OnIabPurchaseFinishedListener() {
-                    public void onIabPurchaseFinished(IabResult result, Purchase purchase)
-                    {
-                        if (result.isFailure()) {
-                            Log.d(TAG, "Error purchasing: " + result);
-                            return;
-                        }
-                        else if (purchase.getSku().equals("1")) {//user bought packge 1
-
-                        }
-                        else if (purchase.getSku().equals("2")) {//user bought packge 2
-
-                        }
-                    }
-                };
-
-                mHelper.launchPurchaseFlow(MainActivity.this,"1",1,mPurchaseFinishedListener);
-            }
-        });
-
+        initTextToSpeech();
     }
 
+    private void initTextToSpeech() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status == TextToSpeech.SUCCESS ){
+                    speechStatus = true;
+                    textToSpeech.setLanguage(Locale.US);
+                }
+            }
+        });
+    }
 
     @Override
     public void onBackPressed() {

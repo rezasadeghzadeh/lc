@@ -1,6 +1,7 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageButton;
@@ -8,14 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import lightner.sadeqzadeh.lightner.Const;
@@ -40,6 +44,8 @@ public class ReviewFlashcard extends Fragment {
     private AppCompatImageButton correctBtn;
     private AppCompatImageButton inCorrectBtn;
     private boolean reviewMode;
+    private ImageView speech;
+    TextToSpeech textToSpeech;
 
     public static final String TAG = ReviewFlashcard.class.getName();
 
@@ -63,6 +69,7 @@ public class ReviewFlashcard extends Fragment {
         viewAnswerBtn = view.findViewById(R.id.view_answer_btn);
         correctBtn = view.findViewById(R.id.correct_btn);
         inCorrectBtn = view.findViewById(R.id.incorrect_btn);
+        speech  = view.findViewById(R.id.speech);
 
         final Date currentDate  =  new Date();
 
@@ -94,6 +101,14 @@ public class ReviewFlashcard extends Fragment {
             @Override
             public void onClick(View v) {
                 answerBox.setVisibility(View.VISIBLE);
+            }
+        });
+        speech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mainActivity.textToSpeech != null && mainActivity.speechStatus){
+                    mainActivity.textToSpeech.speak(question.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                }
             }
         });
 
@@ -178,6 +193,12 @@ public class ReviewFlashcard extends Fragment {
         return null;
     }
 
-
+    public void onPause(){
+        if(textToSpeech !=null){
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onPause();
+    }
 
 }

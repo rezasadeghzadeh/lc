@@ -8,18 +8,20 @@
     <string name="action_settings">Settings</string>
     <string name="action_add_favourite" />
     <string name="action_play_next" />
-    <string name="mobile_number_is_not_valid" >لطفا شماره موبایل را درست وارد کنید</string>
-    <string name="send_sms_failed_try_agin" >ارسال اس ام اس با مشکل مواجه شد. لطفا بعدا تلاش نمایید</string>
-    <string name="otp_is_not_correct" >کد فعال سازی درست نمی باشد. لطفا مجددا تلاش نمایید</string>
-    <string name="error_in_saving_user_data" >خطا در ذخیره سازی اطلاعات کاربر. لطفا بعدا تلاش  نمایید</string>
-    <string name="ads_text" >خوش آمدید</string>
-    <string name="category_name_is_requirement" >لطفا نام دسته بندی را وارد نمایید</string>
-    <string name="question_is_requirement" >لطفا سوال را وارد نمایید</string>
-    <string name="answer_is_requirement" >لطفا سوال را وارد نمایید</string>
-    <string name="error_in_getting_packages" >خطا در دریافت لیست بسته ها</string>
+    <string name="mobile_number_is_not_valid">لطفا شماره موبایل را درست وارد کنید</string>
+    <string name="send_sms_failed_try_agin">ارسال اس ام اس با مشکل مواجه شد. لطفا بعدا تلاش نمایید</string>
+    <string name="otp_is_not_correct">کد فعال سازی درست نمی باشد. لطفا مجددا تلاش نمایید</string>
+    <string name="error_in_saving_user_data">خطا در ذخیره سازی اطلاعات کاربر. لطفا بعدا تلاش  نمایید</string>
+    <string name="ads_text">خوش آمدید</string>
+    <string name="category_name_is_requirement">لطفا نام دسته بندی را وارد نمایید</string>
+    <string name="question_is_requirement">لطفا سوال را وارد نمایید</string>
+    <string name="answer_is_requirement">لطفا سوال را وارد نمایید</string>
+    <string name="error_in_getting_packages">خطا در دریافت لیست بسته ها</string>
     <string name="toman">تومان</string>
     <string name="buy_with_number">خرید(%s)</string>
     <string name="check_internet_connection">ارتباط با سرور برقرار نشد. لطفا اینترنت را بررسی  نمایید</string>
     <string name="invalid_user_code">کد کاربر معتبر نیست. لطفا برنامه را دوباره نصب کنید</string>
+    <string name="title_activity_iap">IAPActivity</string>
+    <string name="error_in_purchase">خطا در خرید از کافه بازار</string>
 
 </resources>

@@ -34,17 +34,20 @@
         <item name="android:textSize">@dimen/header2</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="header3">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">@dimen/header3</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="header4">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">@dimen/header4</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">3dp</item>
     </style>
+
     <style name="header5">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">@dimen/header5</item>

@@ -6,6 +6,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public  interface LightnerAPI {
     @GET("sendSms/{mobileNumber}")
@@ -21,5 +22,8 @@ public  interface LightnerAPI {
     @POST("packagesInfo")
     @FormUrlEncoded
     Call<PackagesDataResponse> getPackagesList(@Field("userCode") String userCode);
+
+    @GET("packages/flashcards")
+    Call<PackageWordsResponse> getPackageFlashcards(@Query("userCode") String userCode, @Query("packageId") String packageId);
 
 }
