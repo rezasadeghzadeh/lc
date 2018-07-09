@@ -1,0 +1,120 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="@dimen/card_margin"
+        android:elevation="3dp"
+        card_view:cardCornerRadius="@dimen/card_category_radius">
+
+        <LinearLayout
+            android:padding="@dimen/layout_padding"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/category_title_padding"
+                android:text="لغات پایه ۱۱ دبیرستان"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/header1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:text="تعداد لغت: 745"
+                android:textColor="@android:color/black"
+
+                android:textSize="@dimen/header4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:text="قیمت :  5000  تومان"
+                android:textColor="@android:color/black"
+
+                android:textSize="@dimen/header4" />
+            <Button
+                android:background="@android:color/holo_green_light"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="خرید"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view2"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="@dimen/card_margin"
+        android:elevation="5dp"
+        card_view:cardCornerRadius="@dimen/card_category_radius">
+
+        <LinearLayout
+            android:padding="@dimen/layout_padding"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/category_title_padding"
+                android:text="لغات پایه ۱۲ دبیرستان"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/header1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:text="تعداد لغت: 745"
+                android:textColor="@android:color/black"
+
+                android:textSize="@dimen/header4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:text="قیمت :  5000  تومان"
+                android:textColor="@android:color/black"
+
+                android:textSize="@dimen/header4" />
+            <Button
+                android:background="@android:color/holo_green_light"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="خرید"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

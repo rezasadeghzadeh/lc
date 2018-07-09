@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent" android:padding="@dimen/layout_padding"
+    android:layout_height="match_parent" android:layout_gravity="center" android:layoutDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/header4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="لطفا پس از دریافت اس ام اس، کد فعال سازی را در کادر زیر وارد نمایید"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/otp_edit"
+            style="@style/textBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_text_box"
+            android:hint="XXXX"
+            android:maxLength="4"
+            android:inputType="phone"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/check_otp_btn"
+            android:background="@drawable/round_button_enabled"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="مرحله بعدی" />
+    </LinearLayout>
+
+</RelativeLayout>
+

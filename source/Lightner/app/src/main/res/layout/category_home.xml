@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layoutDirection="rtl"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="@dimen/layout_padding">
+    <LinearLayout
+        android:id="@+id/category_box1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/layout_padding"
+        android:layout_margin="@dimen/card_margin"
+        android:background="@drawable/lightner_box">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/circle"
+                android:layout_width="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="20dp"  android:src="@drawable/circle_green"/>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_margin="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/circle"
+                android:text="خانه اول"
+                android:textSize="@dimen/header2" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp" android:layout_margin="@dimen/card_margin"
+            android:background="@color/light_gray"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title44"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:text="موجود: 25"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/header5" />
+
+            <TextView
+                android:id="@+id/title33"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:textColor="@android:color/black"
+                android:text="قابل مرور: 7"
+                android:textSize="@dimen/header5" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/title55"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:textColor="@android:color/black"
+                android:text="آخرین مرور: 10-04-1397"
+
+                android:textSize="@dimen/header5" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/card_margin"
+        android:padding="@dimen/layout_padding"
+        android:background="@drawable/lightner_box">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/circle2"
+                android:layout_width="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="20dp"  android:src="@drawable/circle_red"/>
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_margin="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/circle2"
+                android:text="خانه دوم"
+                android:textSize="@dimen/header2" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp" android:layout_margin="@dimen/card_margin"
+            android:background="@color/light_gray"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title434"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:text="موجود: 25"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/header5" />
+
+            <TextView
+                android:id="@+id/title333"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:textColor="@android:color/black"
+                android:text="قابل مرور: 7"
+                android:textSize="@dimen/header5" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/title515"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/category_title_padding"
+                android:paddingRight="@dimen/category_title_padding"
+                android:paddingTop="@dimen/category_title_padding"
+                android:paddingBottom="@dimen/category_title_padding"
+                android:textColor="@android:color/black"
+                android:text="آخرین مرور: 10-04-1397"
+
+                android:textSize="@dimen/header5" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

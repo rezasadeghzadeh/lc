@@ -1,0 +1,201 @@
+package lightner.sadeqzadeh.lightner;
+
+import android.content.Context;
+import android.content.SharedPreferences.Editor;
+import android.os.Build.VERSION;
+import android.os.Environment;
+import android.text.TextUtils;
+import android.util.Log;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+
+public class Util {
+    private static final Pattern DIR_SEPORATOR;
+    public static Context context;
+
+
+
+    public static void writeToLogFile(String inputText, Object... objects) {
+        String log = new Date().toString() + " : " + String.format(inputText, objects);
+        File logFile = new File(getDownloadDirectoryPath() + "/lightner.log");
+        if (!logFile.exists()) {
+            logFile.getParentFile().mkdirs();
+            try {
+                logFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (logFile.length() > 500000) {
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(logFile);
+                fileOutputStream.write(BuildConfig.FLAVOR.getBytes());
+                fileOutputStream.flush();
+                fileOutputStream.close();
+            } catch (FileNotFoundException e2) {
+                e2.printStackTrace();
+            } catch (IOException e3) {
+                e3.printStackTrace();
+            }
+        }
+        try {
+            FileWriter fileWriter = new FileWriter(logFile, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(log);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            fileWriter.close();
+        } catch (FileNotFoundException e22) {
+            e22.printStackTrace();
+        } catch (IOException e32) {
+            e32.printStackTrace();
+        }
+    }
+
+    public static String getDownloadDirectoryPath() {
+        String downloadPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
+        File dir = new File(downloadPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return downloadPath;
+    }
+
+
+    static {
+        DIR_SEPORATOR = Pattern.compile("/");
+    }
+
+    public static String[] getStorageDirectories() {
+        Set<String> rv = new HashSet();
+        String rawExternalStorage = System.getenv("EXTERNAL_STORAGE");
+        String rawSecondaryStoragesStr = System.getenv("SECONDARY_STORAGE");
+        String rawEmulatedStorageTarget = System.getenv("EMULATED_STORAGE_TARGET");
+        if (!TextUtils.isEmpty(rawEmulatedStorageTarget)) {
+            String rawUserId;
+            if (VERSION.SDK_INT < 17) {
+                rawUserId = BuildConfig.FLAVOR;
+            } else {
+                String[] folders = DIR_SEPORATOR.split(Environment.getExternalStorageDirectory().getAbsolutePath());
+                String lastFolder = folders[folders.length - 1];
+                boolean isDigit = false;
+                try {
+                    Integer.valueOf(lastFolder);
+                    isDigit = true;
+                } catch (NumberFormatException e) {
+                }
+                rawUserId = isDigit ? lastFolder : BuildConfig.FLAVOR;
+            }
+            if (TextUtils.isEmpty(rawUserId)) {
+                rv.add(rawEmulatedStorageTarget);
+            } else {
+                rv.add(rawEmulatedStorageTarget + File.separator + rawUserId);
+            }
+        } else if (TextUtils.isEmpty(rawExternalStorage)) {
+            rv.add("/storage/sdcard0");
+        } else {
+            rv.add(rawExternalStorage);
+        }
+        if (!TextUtils.isEmpty(rawSecondaryStoragesStr)) {
+            Collections.addAll(rv, rawSecondaryStoragesStr.split(File.pathSeparator));
+        }
+        return (String[]) rv.toArray(new String[rv.size()]);
+    }
+
+    public static String fetchFromPreferences(String key) {
+        String str = Const.APP_CONFIG;
+        return context.getSharedPreferences(str, 0).getString(key, null);
+    }
+
+    public static void saveInPreferences(String key, String value) {
+        String str = Const.APP_CONFIG;
+        Editor editor = context.getSharedPreferences(str, 0).edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public static boolean fetchBooleanFromPreferences(String key, boolean defaultValue) {
+        String str = Const.APP_CONFIG;
+        return context.getSharedPreferences(str, 0).getBoolean(key, defaultValue);
+    }
+
+    public static void saveBooleanInPreferences(String key, boolean value) {
+        String str = Const.APP_CONFIG;
+        Editor editor = context.getSharedPreferences(str, 0).edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+
+    public static void login() {
+/*
+        if (fetchFromPreferences(Const.USERNAME) != null) {
+            ApplicationController.getInstance().addToRequestQueue(new LoginRequest(1, URL.LOGIN, new LoginResponseListener(), new LoginErrorResponseListener()));
+        }
+*/
+    }
+
+    public static void moveFile(String inputFile, String outputPath) {
+
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+
+            //create output directory if it doesn't exist
+            File dir = new File(outputPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+
+            in = new FileInputStream(inputFile);
+            out = new FileOutputStream(inputFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            in = null;
+
+            // write the output file
+            out.flush();
+            out.close();
+            out = null;
+
+            // delete the original file
+            new File(inputFile).delete();
+
+
+        } catch (FileNotFoundException fnfe1) {
+            Log.e("tag", fnfe1.getMessage());
+        } catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
+    }
+
+    public static boolean isUserLogged(){
+        String mobile = fetchFromPreferences(Const.MOBILE);
+        if(mobile  ==  null || mobile.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+}
+
