@@ -42,7 +42,7 @@ public class Const {
     public static final int LOST = 1;
     public static final String ID = "Id";
     public static final String CATEGORY_TITLES = "CategoryTitles";
-    public static final String MOBILE = "Mobile";
+    public static final String MSISDN = "MSISDN";
     public static final String LATITUDE = "Latitude";
     public static final String LONGITUDE = "Longitude";
     public static final String ADDRESS = "Address";
@@ -58,4 +58,6 @@ public class Const {
     public static final String FIREBASE_TOKEN = "FirebaseToken";
     public static final String REDIRECT_TO_NEW = "RedirectToNew";
     public static final String REDIRECT_TO_MY = "RedirectToMy";
+    public static final String ALIAS = "lightner";
+    public static final String ENCRYPTION_IV = "ENCRYPTION_IV";
 }

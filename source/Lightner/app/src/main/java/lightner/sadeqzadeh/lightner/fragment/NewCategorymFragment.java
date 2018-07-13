@@ -9,22 +9,58 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
+import com.larswerkman.holocolorpicker.SVBar;
+import com.larswerkman.holocolorpicker.SaturationBar;
+import com.larswerkman.holocolorpicker.ValueBar;
+
+import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.entity.Category;
+import lightner.sadeqzadeh.lightner.entity.CategoryDao;
 
 public class NewCategorymFragment extends Fragment {
     public static final String TAG = NewCategorymFragment.class.getName();
-
+    EditText categoryNameEdit;
+    CategoryDao categoryDao;
+    MainActivity mainActivity;
+    ColorPicker picker;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mainActivity  = (MainActivity) getActivity();
+        categoryDao = mainActivity.getDaoSession().getCategoryDao();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_category_fragment_layout, container, false);
-
+        categoryNameEdit  = view.findViewById(R.id.category_name);
+        initColorPicker(view);
         return  view;
+    }
+
+    private void initColorPicker(View view) {
+        picker = view.findViewById(R.id.picker);
+        SVBar svBar = view.findViewById(R.id.svbar);
+        OpacityBar opacityBar = view.findViewById(R.id.opacitybar);
+        SaturationBar saturationBar = view.findViewById(R.id.saturationbar);
+        ValueBar valueBar = view.findViewById(R.id.valuebar);
+
+        picker.addSVBar(svBar);
+        picker.addOpacityBar(opacityBar);
+        picker.addSaturationBar(saturationBar);
+        picker.addValueBar(valueBar);
+
+        //to turn of showing the old color
+        picker.setShowOldCenterColor(false);
+
+        //TODO add in edit
+        ///picker.setOldCenterColor(picker.getColor());
 
     }
 
@@ -32,7 +68,6 @@ public class NewCategorymFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.new_category_fragment_menu, menu);
-
     }
 
     @Override
@@ -40,11 +75,24 @@ public class NewCategorymFragment extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.save_category:
-
+                saveCategory();
             default:
                 break;
         }
 
         return false;
+    }
+
+    private void saveCategory() {
+        if(categoryNameEdit.getText().length() < 1){
+            categoryNameEdit.setError(getString(R.string.category_name_is_requirement));
+            return;
+        }
+        Category category  = new Category();
+        category.setName(categoryNameEdit.getText().toString());
+        category.setCodeColor(String.valueOf(picker.getColor()));
+        categoryDao.insert(category);
+        HomeFragment homeFragment = new HomeFragment();
+        mainActivity.replaceFragment(homeFragment,HomeFragment.TAG);
     }
 }

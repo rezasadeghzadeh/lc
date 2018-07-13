@@ -1,6 +1,7 @@
 package lightner.sadeqzadeh.lightner;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build.VERSION;
 import android.os.Environment;
@@ -15,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -190,7 +192,7 @@ public class Util {
     }
 
     public static boolean isUserLogged(){
-        String mobile = fetchFromPreferences(Const.MOBILE);
+        String mobile = fetchFromPreferences(Const.MSISDN);
         if(mobile  ==  null || mobile.isEmpty()){
             return false;
         }

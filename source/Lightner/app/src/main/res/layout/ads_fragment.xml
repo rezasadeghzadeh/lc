@@ -7,8 +7,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -16,19 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="لطفا پس از دریافت اس ام اس، کد فعال سازی را در کادر زیر وارد نمایید"
-            android:textAlignment="center" />
+            android:text="خوش آمدید!" />
 
-        <EditText
-            android:id="@+id/otp_edit"
-            style="@style/textBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_text_box"
-            android:hint="XXXX"
-            android:maxLength="4"
-            android:inputType="phone"
-            android:textAlignment="center" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -40,12 +28,12 @@
         android:orientation="horizontal">
 
         <Button
-                android:id="@+id/check_otp_btn"
+            android:id="@+id/view_home_btn"
             android:background="@drawable/round_button_enabled"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="مرحله بعدی" />
+            android:text="شروع" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -52,7 +52,7 @@ public class GetMobileNumberFragment extends Fragment{
                             mainActivity.hideProgressbar();
                             GetOtpFragment getOtpFragment = new GetOtpFragment();
                             Bundle args = new Bundle();
-                            args.putString(Const.MOBILE,mobileNumber);
+                            args.putString(Const.MSISDN,mobileNumber);
                             getOtpFragment.setArguments(args);
                             mainActivity.replaceFragment(getOtpFragment, GetOtpFragment.TAG);
                         }else {
@@ -72,7 +72,5 @@ public class GetMobileNumberFragment extends Fragment{
 
         return  view;
     }
-
-
 
 }

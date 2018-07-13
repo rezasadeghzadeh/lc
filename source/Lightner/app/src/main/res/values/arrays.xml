@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="baseItems">
+    <string-array name="educationBaseKeys">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="educationBaseValues">
         <item>دهم</item>
         <item>یازدهم</item>
-        <item>کنکور</item>
+        <item>کنکوری</item>
+        <item>دانش آموز نیستم</item>
     </string-array>
+
+    <string-array name="educationFieldKeys">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="educationFieldValues">
+        <item>ریاضی</item>
+        <item>تجربی</item>
+        <item>انسانی</item>
+    </string-array>
+
 </resources>

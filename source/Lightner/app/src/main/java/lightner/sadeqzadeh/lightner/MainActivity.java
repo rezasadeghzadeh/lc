@@ -3,7 +3,6 @@ package lightner.sadeqzadeh.lightner;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,31 +10,83 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.yakivmospan.scytale.Crypto;
+import com.yakivmospan.scytale.Options;
+import com.yakivmospan.scytale.Store;
+
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
 import java.util.Locale;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
-import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
+import lightner.sadeqzadeh.lightner.encryption.DeCryptor;
+import lightner.sadeqzadeh.lightner.encryption.EnCryptor;
+import lightner.sadeqzadeh.lightner.entity.DaoSession;
 import lightner.sadeqzadeh.lightner.fragment.GetMobileNumberFragment;
 import lightner.sadeqzadeh.lightner.fragment.HomeFragment;
-import lightner.sadeqzadeh.lightner.fragment.NewCategorymFragment;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = MainActivity.class.getName();
     private SectionsStatePagerAdapter sectionsStatePagerAdapter;
     private SmoothProgressBar progressBar;
+    private EnCryptor encryptor;
+    private DeCryptor decryptor;
+    private DaoSession daoSession;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Util.context  = getApplicationContext();
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //init encryption
+        encryptor = new EnCryptor();
+
+        try {
+            decryptor = new DeCryptor();
+        } catch (CertificateException | NoSuchAlgorithmException | KeyStoreException |
+                IOException e) {
+            e.printStackTrace();
+        }
+
+
+        String text = "reza sadeqzadeh";
+
+        Store store = new Store(getApplicationContext());
+        if (!store.hasKey("test")) {
+            SecretKey key = store.generateSymmetricKey("test", null);
+        }
+        SecretKey key = store.getSymmetricKey("test", null);
+        Crypto crypto = new Crypto(Options.TRANSFORMATION_SYMMETRIC);
+
+        String encryptedData = crypto.encrypt(text, key);
+        Log.i("Scytale", "Encrypted data: " + encryptedData);
+
+        String decryptedData = crypto.decrypt(encryptedData, key);
+        Log.i("Scytale", "Decrypted data: " + decryptedData);
+
 
         progressBar = findViewById(R.id.progressbar);
 
@@ -58,6 +109,7 @@ public class MainActivity extends AppCompatActivity
             replaceFragment(fragment, HomeFragment.TAG);
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -111,6 +163,44 @@ public class MainActivity extends AppCompatActivity
         ft.replace(R.id.container, fragment)
                 .addToBackStack(TAG)
                 .commit();
+    }
+
+    public String decryptText(byte[] encryptedData) {
+        try {
+            System.out.println("IVBase64EncodedFetched:" + Util.fetchFromPreferences(Const.ENCRYPTION_IV));
+            byte[] iv = Base64.decode(Util.fetchFromPreferences(Const.ENCRYPTION_IV),Base64.DEFAULT);
+            System.out.println("IVFromPreferences:" + iv);
+            return decryptor
+                    .decryptData(Const.ALIAS,encryptedData, iv);
+        } catch (UnrecoverableEntryException | NoSuchAlgorithmException |
+                KeyStoreException | NoSuchPaddingException | NoSuchProviderException |
+                IOException | InvalidKeyException e) {
+            Log.e(TAG, "decryptData() called with: " + e.getMessage(), e);
+        } catch (IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String encryptText(String textToEncrypt) {
+
+        try {
+            final byte[] encryptedText = encryptor
+                    .encryptText(Const.ALIAS, textToEncrypt);
+            return Base64.encodeToString(encryptedText, Base64.DEFAULT);
+        } catch (UnrecoverableEntryException | NoSuchAlgorithmException | NoSuchProviderException |
+                KeyStoreException | IOException | NoSuchPaddingException | InvalidKeyException e) {
+            Log.e(TAG, "called with: " + e.getMessage(), e);
+        } catch (InvalidAlgorithmParameterException | SignatureException |
+                IllegalBlockSizeException | BadPaddingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public DaoSession  getDaoSession(){
+        daoSession = ((App) getApplication()).getDaoSession();
+        return  daoSession;
     }
 
 }
