@@ -80,7 +80,9 @@ public class CategoryHomeFragment extends Fragment {
                 Category  category  = categoryDao.load(id);
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(Const.EDIT,true);
+                bundle.putLong(Const.ID,category.getId());
                 bundle.putString(Const.NAME,category.getName());
+                bundle.putString(Const.COLOR,category.getCodeColor());
                 NewCategorymFragment  newCategorymFragment= new NewCategorymFragment();
                 newCategorymFragment.setArguments(bundle);
                 mainActivity.replaceFragment(newCategorymFragment, NewCategorymFragment.TAG);

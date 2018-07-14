@@ -29,6 +29,7 @@ public class NewCategorymFragment extends Fragment {
     CategoryDao categoryDao;
     MainActivity mainActivity;
     ColorPicker picker;
+    long categoryId;
     Bundle args;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +46,9 @@ public class NewCategorymFragment extends Fragment {
         categoryNameEdit  = view.findViewById(R.id.category_name);
         initColorPicker(view);
         if(args != null && args.getBoolean(Const.EDIT)){
+            categoryId  =  args.getLong(Const.ID);
             categoryNameEdit.setText(args.getString(Const.NAME));
+            picker.setColor(Integer.parseInt(args.getString(Const.COLOR)));
         }
         return  view;
     }
@@ -94,10 +97,19 @@ public class NewCategorymFragment extends Fragment {
             categoryNameEdit.setError(getString(R.string.category_name_is_requirement));
             return;
         }
-        Category category  = new Category();
+        Category category = null;
+        if(categoryId != 0){
+            category  =  categoryDao.load(categoryId);
+        }else {
+            category = new Category();
+        }
         category.setName(categoryNameEdit.getText().toString());
         category.setCodeColor(String.valueOf(picker.getColor()));
-        categoryDao.insert(category);
+        if(categoryId != 0) {
+            categoryDao.update(category);
+        }else {
+            categoryDao.insert(category);
+        }
         HomeFragment homeFragment = new HomeFragment();
         mainActivity.replaceFragment(homeFragment,HomeFragment.TAG);
     }
