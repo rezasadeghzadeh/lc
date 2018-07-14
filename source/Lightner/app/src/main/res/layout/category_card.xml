@@ -20,6 +20,7 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
+                android:id="@+id/category_header"
                 android:layout_width="match_parent"
                 android:background="@drawable/round_rect_shape_red"
                 android:layout_margin="@dimen/card_margin"

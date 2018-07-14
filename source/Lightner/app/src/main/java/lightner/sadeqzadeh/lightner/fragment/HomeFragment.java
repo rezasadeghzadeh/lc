@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     private void initCategoriesCardView() {
         categoryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         List<Category> categoryList  = categoryDao.queryBuilder().list();
-        CategoryCardViewAdapter categoryCardViewAdapter  = new CategoryCardViewAdapter(getContext(), categoryList);
+        CategoryCardViewAdapter categoryCardViewAdapter  = new CategoryCardViewAdapter(getContext(), mainActivity, categoryList);
         categoryRecyclerView.setAdapter(categoryCardViewAdapter);
     }
 

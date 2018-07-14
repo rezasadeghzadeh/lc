@@ -17,6 +17,7 @@ import com.larswerkman.holocolorpicker.SVBar;
 import com.larswerkman.holocolorpicker.SaturationBar;
 import com.larswerkman.holocolorpicker.ValueBar;
 
+import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
 import lightner.sadeqzadeh.lightner.entity.Category;
@@ -28,12 +29,14 @@ public class NewCategorymFragment extends Fragment {
     CategoryDao categoryDao;
     MainActivity mainActivity;
     ColorPicker picker;
+    Bundle args;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mainActivity  = (MainActivity) getActivity();
         categoryDao = mainActivity.getDaoSession().getCategoryDao();
+        args = getArguments();
     }
 
     @Override
@@ -41,6 +44,9 @@ public class NewCategorymFragment extends Fragment {
         View view = inflater.inflate(R.layout.new_category_fragment_layout, container, false);
         categoryNameEdit  = view.findViewById(R.id.category_name);
         initColorPicker(view);
+        if(args != null && args.getBoolean(Const.EDIT)){
+            categoryNameEdit.setText(args.getString(Const.NAME));
+        }
         return  view;
     }
 

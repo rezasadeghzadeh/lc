@@ -60,4 +60,7 @@ public class Const {
     public static final String REDIRECT_TO_MY = "RedirectToMy";
     public static final String ALIAS = "lightner";
     public static final String ENCRYPTION_IV = "ENCRYPTION_IV";
+    public static final String CATEGORY_ID = "CATEGORY_ID";
+    public static final String NAME = "NAME";
+    public static final String EDIT = "edit";
 }

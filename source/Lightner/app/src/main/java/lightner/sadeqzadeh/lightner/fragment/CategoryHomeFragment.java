@@ -11,17 +11,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.entity.Category;
+import lightner.sadeqzadeh.lightner.entity.CategoryDao;
 
 public class CategoryHomeFragment extends Fragment {
-
+    private Long id;
+    private Bundle args;
+    private CategoryDao categoryDao;
+    MainActivity mainActivity;
     public static final String TAG = CategoryHomeFragment.class.getName();
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mainActivity = (MainActivity) getActivity();
+        args = getArguments();
+        id  = args.getLong(Const.CATEGORY_ID);
+        categoryDao = mainActivity.getDaoSession().getCategoryDao();
     }
 
     @Override
@@ -59,6 +70,20 @@ public class CategoryHomeFragment extends Fragment {
             case R.id.action_download_packages:{
                 DownloadPackageFragment fragment = new DownloadPackageFragment();
                 mainActivity.replaceFragment(fragment, fragment.TAG);
+                return false;
+            }case R.id.action_delete_category:{
+                categoryDao.deleteByKey(id);
+                HomeFragment homeFragment = new HomeFragment();
+                mainActivity.replaceFragment(homeFragment, HomeFragment.TAG);
+                return false;
+            }case R.id.action_edit_category:{
+                Category  category  = categoryDao.load(id);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(Const.EDIT,true);
+                bundle.putString(Const.NAME,category.getName());
+                NewCategorymFragment  newCategorymFragment= new NewCategorymFragment();
+                newCategorymFragment.setArguments(bundle);
+                mainActivity.replaceFragment(newCategorymFragment, NewCategorymFragment.TAG);
                 return false;
             }
 
