@@ -66,7 +66,7 @@ public class NewCategorymFragment extends Fragment {
         picker.addSaturationBar(saturationBar);
         picker.addValueBar(valueBar);
 
-        //to turn of showing the old color
+        //to turn of showing the old light_green
         picker.setShowOldCenterColor(false);
 
         //TODO add in edit

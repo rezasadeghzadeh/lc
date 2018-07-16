@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -19,17 +22,21 @@ import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
 import lightner.sadeqzadeh.lightner.entity.Category;
+import lightner.sadeqzadeh.lightner.entity.Flashcard;
+import lightner.sadeqzadeh.lightner.entity.FlashcardDao;
 import lightner.sadeqzadeh.lightner.fragment.CategoryHomeFragment;
 
 public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardViewAdapter.ViewHolder> {
     MainActivity mainActivity;
     Context context;
     List<Category> categoryList;
+    FlashcardDao flashcardDao;
 
     public CategoryCardViewAdapter(Context context, MainActivity mainActivity, List<Category> categoryList) {
         this.context = context;
         this.mainActivity = mainActivity;
         this.categoryList = categoryList;
+        this.flashcardDao = mainActivity.getDaoSession().getFlashcardDao();
     }
 
     @Override
@@ -62,6 +69,23 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
             }
         });
 
+        //set stats
+        SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+        try {
+            Date currentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+            QueryBuilder<Flashcard> queryBuilder = flashcardDao.queryBuilder();
+            long total = queryBuilder.where(
+                    FlashcardDao.Properties.CategoryId.eq(category.getId())).buildCount().count();
+            long reviewable = queryBuilder.where(
+                    FlashcardDao.Properties.NextVisit.ge(currentDate),
+                    FlashcardDao.Properties.CategoryId.eq(category.getId())
+            ).buildCount().count();
+            holder.total.setText(String.format("%s %d",holder.total.getText(),total));
+            holder.reviewable.setText(String.format("%s %d",holder.reviewable.getText(),reviewable));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -73,11 +97,16 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
         TextView name;
         GradientDrawable shapeDrawable;
         CardView cardView;
+        TextView total;
+        TextView reviewable;
         public ViewHolder(View itemView) {
             super(itemView);
-            name =  (TextView) itemView.findViewById(R.id.title);
+            name =  itemView.findViewById(R.id.title);
             cardView = itemView.findViewById(R.id.card_view);
-            shapeDrawable  = (GradientDrawable) itemView.findViewById(R.id.category_header).getBackground();
+            shapeDrawable = (GradientDrawable) itemView.findViewById(R.id.category_header).getBackground();
+            total = itemView.findViewById(R.id.total);
+            reviewable = itemView.findViewById(R.id.reviewable);
+
         }
 
     }

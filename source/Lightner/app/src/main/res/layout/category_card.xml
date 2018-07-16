@@ -52,7 +52,7 @@
                     android:src="@drawable/ic_dots" />
             </RelativeLayout>
             <TextView
-                android:id="@+id/title33"
+                android:id="@+id/reviewable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/category_title_padding"
@@ -60,10 +60,10 @@
                 android:paddingTop="@dimen/category_title_padding"
                 android:paddingBottom="@dimen/category_title_padding"
                 android:textColor="@android:color/black"
-                android:text="قابل مرور: 7"
+                android:text="قابل مرور: "
                 android:textSize="@dimen/header5" />
             <TextView
-                android:id="@+id/title44"
+                android:id="@+id/total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/category_title_padding"
@@ -71,7 +71,7 @@
                 android:paddingTop="@dimen/category_title_padding"
                 android:paddingBottom="@dimen/category_title_padding"
                 android:textColor="@android:color/black"
-                android:text="کل: 25"
+                android:text="کل: "
 
                 android:textSize="@dimen/header5" />
 

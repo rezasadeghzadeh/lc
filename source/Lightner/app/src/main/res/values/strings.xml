@@ -14,4 +14,7 @@
     <string name="error_in_saving_user_data" >خطا در ذخیره سازی اطلاعات کاربر. لطفا بعدا تلاش  نمایید</string>
     <string name="ads_text" >خوش آمدید</string>
     <string name="category_name_is_requirement" >لطفا نام دسته بندی را وارد نمایید</string>
+    <string name="question_is_requirement" >لطفا سوال را وارد نمایید</string>
+    <string name="answer_is_requirement" >لطفا سوال را وارد نمایید</string>
+
 </resources>
