@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private EnCryptor encryptor;
     private DeCryptor decryptor;
     private DaoSession daoSession;
+    public boolean backPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        backPressed = true;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);

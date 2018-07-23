@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
@@ -37,6 +39,13 @@ public class CategoryHomeFragment extends Fragment {
     private CategoryDao categoryDao;
     private FlashcardDao flashcardDao;
     MainActivity mainActivity;
+    Button startReviewBtn;
+    private LinearLayout box1;
+    private LinearLayout box2;
+    private LinearLayout box3;
+    private LinearLayout box4;
+    private LinearLayout box5;
+
     private TextView total1;
     private TextView total2;
     private TextView total3;
@@ -75,15 +84,13 @@ public class CategoryHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.category_home, container, false);
-        LinearLayout  linearLayout = view.findViewById(R.id.category_box1);
         final MainActivity mainActivity = (MainActivity) getActivity();
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
-                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG);
-            }
-        });
+        startReviewBtn  =  view.findViewById(R.id.start_review_btn);
+        box1 = view.findViewById(R.id.category_box1);
+        box2 = view.findViewById(R.id.category_box2);
+        box3 = view.findViewById(R.id.category_box3);
+        box4 = view.findViewById(R.id.category_box4);
+        box5 = view.findViewById(R.id.category_box5);
 
         total1  =  view.findViewById(R.id.total_words_1);
         total2  =  view.findViewById(R.id.total_words_2);
@@ -102,14 +109,29 @@ public class CategoryHomeFragment extends Fragment {
         circle5 = view.findViewById(R.id.circle5);
 
         populateBoxesStats();
-
+        initStartReviewBtn();
         return  view;
     }
 
+    private void initStartReviewBtn() {
+
+        startReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle boxArgs  = new Bundle();
+                boxArgs.putBoolean(Const.REVIEW_MODE,true);
+                boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
+                reviewFlashcard.setArguments(boxArgs);
+                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG);
+            }
+        });
+    }
+
     private void populateBoxesStats() {
-        SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         try {
-            Date currentDate  =  simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+            boolean hasReviewItems = false;
+            Date currentDate  =  new Date();
 
             ////////////////////////box1 ///////////////////////
             QueryBuilder<Flashcard> queryBuilder = flashcardDao.queryBuilder();
@@ -117,18 +139,21 @@ public class CategoryHomeFragment extends Fragment {
                     FlashcardDao.Properties.CategoryId.eq(categoryId),
                     FlashcardDao.Properties.CurrentBox.eq(1)
             ).buildCount().count();
-            long  reviewable = queryBuilder.where(
-                    FlashcardDao.Properties.NextVisit.ge(currentDate),
+            final List<Flashcard> reviewableList = queryBuilder.where(
+                    FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CurrentBox.eq(1),
                     FlashcardDao.Properties.CategoryId.eq(categoryId)
-                    ).buildCount().count();
+                    ).list();
+            long reviewable = reviewableList.size();
             total1.setText(String.format("%s %d",total1.getText(),total));
             reviewable1.setText(String.format("%s %d",reviewable1.getText(), reviewable));
             if(reviewable > 0){
-                circle1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
+                circle1.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+                hasReviewItems  = true;
             }else {
                 circle1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
             }
+
 
             ////////////// box 2/////////////////////////////
             queryBuilder = flashcardDao.queryBuilder();
@@ -137,14 +162,15 @@ public class CategoryHomeFragment extends Fragment {
                     FlashcardDao.Properties.CurrentBox.eq(2)
             ).buildCount().count();
             reviewable = queryBuilder.where(
-                    FlashcardDao.Properties.NextVisit.ge(currentDate),
+                    FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CurrentBox.eq(2),
                     FlashcardDao.Properties.CategoryId.eq(categoryId)
             ).buildCount().count();
             total2.setText(String.format("%s %d",total2.getText(),total));
             reviewable2.setText(String.format("%s %d",reviewable2.getText(), reviewable));
             if(reviewable > 0){
-                circle2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
+                circle2.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+                hasReviewItems  = true;
             }else {
                 circle2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
             }
@@ -156,14 +182,15 @@ public class CategoryHomeFragment extends Fragment {
                     FlashcardDao.Properties.CurrentBox.eq(3)
             ).buildCount().count();
             reviewable = queryBuilder.where(
-                    FlashcardDao.Properties.NextVisit.ge(currentDate),
+                    FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CurrentBox.eq(3),
                     FlashcardDao.Properties.CategoryId.eq(categoryId)
             ).buildCount().count();
             total3.setText(String.format("%s %d",total3.getText(),total));
             reviewable3.setText(String.format("%s %d",reviewable3.getText(), reviewable));
             if(reviewable > 0){
-                circle3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
+                circle3.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+                hasReviewItems  = true;
             }else {
                 circle3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
             }
@@ -175,14 +202,15 @@ public class CategoryHomeFragment extends Fragment {
                     FlashcardDao.Properties.CurrentBox.eq(4)
             ).buildCount().count();
             reviewable = queryBuilder.where(
-                    FlashcardDao.Properties.NextVisit.ge(currentDate),
+                    FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CurrentBox.eq(4),
                     FlashcardDao.Properties.CategoryId.eq(categoryId)
             ).buildCount().count();
             total4.setText(String.format("%s %d",total4.getText(),total));
             reviewable4.setText(String.format("%s %d",reviewable4.getText(), reviewable));
             if(reviewable > 0){
-                circle4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
+                circle4.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+                hasReviewItems  = true;
             }else {
                 circle4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
             }
@@ -193,18 +221,24 @@ public class CategoryHomeFragment extends Fragment {
                     FlashcardDao.Properties.CurrentBox.eq(5)
             ).buildCount().count();
             reviewable = queryBuilder.where(
-                    FlashcardDao.Properties.NextVisit.ge(currentDate),
+                    FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CurrentBox.eq(5),
                     FlashcardDao.Properties.CategoryId.eq(categoryId)
             ).buildCount().count();
             total5.setText(String.format("%s %d",total5.getText(),total));
             reviewable5.setText(String.format("%s %d",reviewable5.getText(), reviewable));
             if(reviewable > 0){
-                circle5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
+                circle5.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+                hasReviewItems  = true;
             }else {
                 circle5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
             }
-        } catch (ParseException e) {
+
+            startReviewBtn.setEnabled(hasReviewItems);
+            if(!hasReviewItems){
+                startReviewBtn.setBackgroundColor(getResources().getColor(R.color.light_gray));
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

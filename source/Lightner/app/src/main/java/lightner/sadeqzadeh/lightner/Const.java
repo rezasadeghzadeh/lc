@@ -65,4 +65,8 @@ public class Const {
     public static final String EDIT = "edit";
     public static final String COLOR = "COLOR";
     public static final String CATEGORY = "CATEGORY";
+    public static final String BOX1 = "BOX1";
+
+    public static final String BOX_ID = "BOX_ID";
+    public static final String REVIEW_MODE = "REVIEW_MODE";
 }

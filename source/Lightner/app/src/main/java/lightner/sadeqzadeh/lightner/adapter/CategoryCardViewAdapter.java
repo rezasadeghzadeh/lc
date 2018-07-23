@@ -68,16 +68,17 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
                 mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG);
             }
         });
-
+        if(category.getLastVisit()!= null){
+            holder.lastVisit.setText(category.getLastVisit().toString());
+        }
         //set stats
-        SimpleDateFormat simpleDateFormat  = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         try {
-            Date currentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+            Date currentDate = new Date();
             QueryBuilder<Flashcard> queryBuilder = flashcardDao.queryBuilder();
             long total = queryBuilder.where(
                     FlashcardDao.Properties.CategoryId.eq(category.getId())).buildCount().count();
             long reviewable = queryBuilder.where(
-                    FlashcardDao.Properties.NextVisit.ge(currentDate),
+                    FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CategoryId.eq(category.getId())
             ).buildCount().count();
             holder.total.setText(String.format("%s %d",holder.total.getText(),total));
@@ -99,6 +100,7 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
         CardView cardView;
         TextView total;
         TextView reviewable;
+        TextView lastVisit;
         public ViewHolder(View itemView) {
             super(itemView);
             name =  itemView.findViewById(R.id.title);
@@ -106,6 +108,7 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
             shapeDrawable = (GradientDrawable) itemView.findViewById(R.id.category_header).getBackground();
             total = itemView.findViewById(R.id.total);
             reviewable = itemView.findViewById(R.id.reviewable);
+            lastVisit  =  itemView.findViewById(R.id.last_visit);
 
         }
 

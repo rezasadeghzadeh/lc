@@ -6,6 +6,7 @@ import org.greenrobot.greendao.database.Database;
 
 import lightner.sadeqzadeh.lightner.entity.DaoMaster;
 import lightner.sadeqzadeh.lightner.entity.DaoSession;
+import lightner.sadeqzadeh.lightner.sqlite.UpgradeHelper;
 
 public class App extends Application {
 
@@ -15,8 +16,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "lightner");
-        Database db = helper.getWritableDb();
+        UpgradeHelper upgradeHelper = new UpgradeHelper(this, "lightner",null);
+        Database db = upgradeHelper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
     }
 

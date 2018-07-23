@@ -5,6 +5,8 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.util.Date;
+
 @Entity
 public class Category {
     @Id
@@ -12,11 +14,14 @@ public class Category {
     @NotNull
     private String name;
     private String codeColor;
-    @Generated(hash = 489304180)
-    public Category(Long id, @NotNull String name, String codeColor) {
+    private Date lastVisit;
+    @Generated(hash = 239746488)
+    public Category(Long id, @NotNull String name, String codeColor,
+            Date lastVisit) {
         this.id = id;
         this.name = name;
         this.codeColor = codeColor;
+        this.lastVisit = lastVisit;
     }
     @Generated(hash = 1150634039)
     public Category() {
@@ -38,5 +43,13 @@ public class Category {
     }
     public void setCodeColor(String codeColor) {
         this.codeColor = codeColor;
+    }
+
+    public Date getLastVisit() {
+        return lastVisit;
+    }
+
+    public void setLastVisit(Date lastVisit) {
+        this.lastVisit = lastVisit;
     }
 }

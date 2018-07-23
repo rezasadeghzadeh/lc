@@ -76,7 +76,7 @@
                 android:textSize="@dimen/header5" />
 
             <TextView
-                android:id="@+id/title55"
+                android:id="@+id/last_visit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/category_title_padding"
