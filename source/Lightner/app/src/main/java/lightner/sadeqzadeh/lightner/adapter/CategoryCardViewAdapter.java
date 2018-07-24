@@ -25,6 +25,8 @@ import lightner.sadeqzadeh.lightner.entity.Category;
 import lightner.sadeqzadeh.lightner.entity.Flashcard;
 import lightner.sadeqzadeh.lightner.entity.FlashcardDao;
 import lightner.sadeqzadeh.lightner.fragment.CategoryHomeFragment;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardViewAdapter.ViewHolder> {
     MainActivity mainActivity;
@@ -69,7 +71,9 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
             }
         });
         if(category.getLastVisit()!= null){
-            holder.lastVisit.setText(category.getLastVisit().toString());
+            PersianDate  persianDate  = new PersianDate(category.getLastVisit().getTime());
+            PersianDateFormat persianDateFormat  = new PersianDateFormat("j F  y ");
+            holder.lastVisit.setText(String.format("%s %s",holder.lastVisit.getText(),persianDateFormat.format(persianDate)));
         }
         //set stats
         try {

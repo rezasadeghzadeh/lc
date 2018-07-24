@@ -84,22 +84,9 @@
                 android:paddingTop="@dimen/category_title_padding"
                 android:paddingBottom="@dimen/category_title_padding"
                 android:textColor="@android:color/black"
-                android:text="آخرین مرور: 10-04-1397"
-
+                android:text="آخرین مرور: "
                 android:textSize="@dimen/header5" />
 
-            <TextView
-                android:id="@+id/title66"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/category_title_padding"
-                android:paddingRight="@dimen/category_title_padding"
-                android:paddingTop="@dimen/category_title_padding"
-                android:paddingBottom="@dimen/category_title_padding"
-                android:textColor="@android:color/black"
-                android:text="درصد اشتباه: 15٪"
-
-                android:textSize="@dimen/header5" />
 
 
         </LinearLayout>

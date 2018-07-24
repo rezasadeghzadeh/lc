@@ -100,7 +100,7 @@ public class ReviewFlashcard extends Fragment {
         correctBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flashcard.setNextVisit(getNextVisitDate(flashcard.getCurrentBox()));
+                flashcard.setNextVisit(getCorrectNextVisitDate(flashcard.getCurrentBox()));
                 flashcard.setCurrentBox(flashcard.getCurrentBox() + 1);
                 flashcardDao.update(flashcard);
                 Bundle boxArgs  = new Bundle();
@@ -112,6 +112,19 @@ public class ReviewFlashcard extends Fragment {
             }
         });
 
+        inCorrectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flashcard.setNextVisit(getIncorrectNextVisitDate());
+                flashcard.setCurrentBox(1);
+                flashcardDao.update(flashcard);
+                Bundle boxArgs  = new Bundle();
+                boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                boxArgs.putBoolean(Const.REVIEW_MODE,true);
+                ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
+                reviewFlashcard.setArguments(boxArgs);
+                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG);            }
+        });
         //update last review
         Category category = categoryDao.load(categoryId);
         category.setLastVisit(new Date());
@@ -119,7 +132,22 @@ public class ReviewFlashcard extends Fragment {
         return  view;
     }
 
-    private Date getNextVisitDate(int boxNumber) {
+    private Date getIncorrectNextVisitDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+        Date currentDate;
+        try {
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+            currentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(currentDate);
+            calendar.add(Calendar.DAY_OF_MONTH,1);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Date getCorrectNextVisitDate(int boxNumber) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         Date currentDate;
         try {

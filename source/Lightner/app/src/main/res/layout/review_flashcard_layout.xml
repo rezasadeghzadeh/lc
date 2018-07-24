@@ -64,39 +64,62 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/layout_padding"
-        android:layout_margin="@dimen/card_margin">
-        <!--android:background="#559344"-->
-        <ImageButton
-            android:id="@+id/correct_btn"
-            android:background="#559344"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/ic_checkmark"
-            android:padding="3dp"
-            android:layout_height="50dp"   />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/view_answer_btn"
+        <LinearLayout
             android:layout_width="0dp"
-            android:background="#dce0e5"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="پاسخ" />
-        <ImageButton
-            android:id="@+id/incorrect_btn"
-            android:background="#ce0606"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/correct_btn"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="80dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#559344"
+                android:padding="3dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_checkmark" />
+
+            <ImageButton
+                android:id="@+id/incorrect_btn"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="#ce0606"
+                android:layout_gravity="center"
+                android:padding="3dp"
+                android:src="@drawable/ic_multiply" />
+
+        </LinearLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_marginRight="5dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_multiply"
-            android:padding="3dp"
-            android:layout_height="50dp"   />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/view_answer_btn"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:background="#dce0e5"
+                android:gravity="center"
+                android:text="پاسخ" />
+
+        </RelativeLayout>
+
+        <!--android:background="#559344"-->
+
 
     </LinearLayout>
 
