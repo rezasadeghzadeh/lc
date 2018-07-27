@@ -69,4 +69,5 @@ public class Const {
 
     public static final String BOX_ID = "BOX_ID";
     public static final String REVIEW_MODE = "REVIEW_MODE";
+    public static final String USER_CODE = "USER_CODE";
 }

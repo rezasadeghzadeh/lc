@@ -5,8 +5,15 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build.VERSION;
 import android.os.Environment;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyProperties;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.yakivmospan.scytale.Crypto;
+import com.yakivmospan.scytale.Options;
+import com.yakivmospan.scytale.Store;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,11 +24,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.regex.Pattern;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 
 public class Util {
@@ -199,5 +212,31 @@ public class Util {
         return true;
     }
 
+
+    public static String random(int len) {
+        String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        char tempChar;
+        for (int i = 0; i < len; i++){
+            tempChar = ALLOWED_CHARACTERS.charAt(generator.nextInt(35 ) + 1 );
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
+    }
+
+    public static void encryptAndSave(Context context,String key, String value){
+        Store store = new Store(context);
+        SecretKey secretKey=null;
+        if (!store.hasKey(Const.ALIAS)) {
+            secretKey = store.generateSymmetricKey(Const.ALIAS, null);
+        }else {
+            secretKey = store.getSymmetricKey(Const.ALIAS, null);
+        }
+        Crypto crypto = new Crypto(Options.TRANSFORMATION_SYMMETRIC);
+
+        String encryptedData = crypto.encrypt(value, secretKey);
+        saveInPreferences(key, encryptedData);
+    }
 }
 

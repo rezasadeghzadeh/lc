@@ -72,23 +72,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-
-        String text = "reza sadeqzadeh";
-
-        Store store = new Store(getApplicationContext());
-        if (!store.hasKey("test")) {
-            SecretKey key = store.generateSymmetricKey("test", null);
-        }
-        SecretKey key = store.getSymmetricKey("test", null);
-        Crypto crypto = new Crypto(Options.TRANSFORMATION_SYMMETRIC);
-
-        String encryptedData = crypto.encrypt(text, key);
-        Log.i("Scytale", "Encrypted data: " + encryptedData);
-
-        String decryptedData = crypto.decrypt(encryptedData, key);
-        Log.i("Scytale", "Decrypted data: " + decryptedData);
-
-
         progressBar = findViewById(R.id.progressbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -62,8 +62,8 @@ public class RegistrationFragment extends Fragment {
                 LightnerAPI lightnerAPI = RetrofitClientInstance.getRetrofitInstance().create(LightnerAPI.class);
                 int educationBaseId = Integer.parseInt(educationBaseSpin.getSelectedItem().toString());
                 int educationFieldId = Integer.parseInt(educationFieldSpin.getSelectedItem().toString());
-
-                Call<SaveUserDataResponse> responseCall = lightnerAPI.saveUserData(msisdn, educationBaseId, educationFieldId);
+                final String  userCode= Util.random(50);
+                Call<SaveUserDataResponse> responseCall = lightnerAPI.saveUserData(userCode ,msisdn, educationBaseId, educationFieldId);
                 mainActivity.showProgressbar();
                 responseCall.enqueue(new Callback<SaveUserDataResponse>() {
                     @Override
@@ -72,8 +72,10 @@ public class RegistrationFragment extends Fragment {
                         if(response.body().isResult()){
                             //save msisdn in preferences
                             Util.saveInPreferences(Const.MSISDN,msisdn);
+                            Util.encryptAndSave(mainActivity.getApplicationContext(),Const.USER_CODE, userCode);
                             AdsFragment adsFragment = new AdsFragment();
                             mainActivity.replaceFragment(adsFragment, AdsFragment.TAG);
+                            Util.fetchFromPreferences(Const.USER_CODE);
                         }else{
                             Toast.makeText(getActivity(), getText(R.string.error_in_saving_user_data), Toast.LENGTH_SHORT).show();
                         }
