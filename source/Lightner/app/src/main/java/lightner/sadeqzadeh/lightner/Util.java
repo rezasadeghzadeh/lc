@@ -238,5 +238,18 @@ public class Util {
         String encryptedData = crypto.encrypt(value, secretKey);
         saveInPreferences(key, encryptedData);
     }
+
+    public static String fetchAndDecrypt(Context context, String key){
+        Store store = new Store(context);
+        SecretKey secretKey=null;
+        if (!store.hasKey(Const.ALIAS)) {
+            secretKey = store.generateSymmetricKey(Const.ALIAS, null);
+        }else {
+            secretKey = store.getSymmetricKey(Const.ALIAS, null);
+        }
+        Crypto crypto = new Crypto(Options.TRANSFORMATION_SYMMETRIC);
+
+        return crypto.decrypt(fetchFromPreferences(key), secretKey);
+    }
 }
 

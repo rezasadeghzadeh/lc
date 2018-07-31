@@ -16,5 +16,7 @@
     <string name="category_name_is_requirement" >لطفا نام دسته بندی را وارد نمایید</string>
     <string name="question_is_requirement" >لطفا سوال را وارد نمایید</string>
     <string name="answer_is_requirement" >لطفا سوال را وارد نمایید</string>
+    <string name="error_in_getting_packages" >خطا در دریافت لیست بسته ها</string>
+    <string name="toman">تومان</string>
 
 </resources>

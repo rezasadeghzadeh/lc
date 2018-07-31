@@ -13,8 +13,13 @@ public  interface LightnerAPI {
 
     @GET("validateOtp/{mobileNumber}/{otpNumber}")
     Call<OtpValidateResponse> validateOtp(@Path("mobileNumber") String mobileNumber, @Path("otpNumber") String otpNumber);
+
     @POST("saveUserData")
     @FormUrlEncoded
     Call<SaveUserDataResponse> saveUserData(@Field("userCode") String userCode, @Field("msisdn") String msisdn, @Field("educationBase") int educationBase, @Field("educationField") int educationField);
+
+    @POST("packagesInfo")
+    @FormUrlEncoded
+    Call<PackagesDataResponse> getPackagesList(@Field("userCode") String userCode);
 
 }
