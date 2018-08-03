@@ -13,36 +13,72 @@
         android:layout_margin="@dimen/card_margin"
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_package_radius">
-
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/category_title_padding"
-                android:paddingLeft="@dimen/category_title_padding"
-                android:paddingRight="@dimen/category_title_padding"
-                android:paddingTop="@dimen/category_title_padding"
-                android:text="نام  بسته"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/header5" />
+                <TextView
+                    android:id="@+id/add_package_to_basket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:text="اضافه به سبد خرید"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/header5" />
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/category_title_padding"
-                android:paddingLeft="@dimen/category_title_padding"
-                android:paddingRight="@dimen/category_title_padding"
-                android:paddingTop="@dimen/category_title_padding"
-                android:text="قیمت:"
-                android:textColor="@android:color/black"
+                <TextView
+                    android:id="@+id/insert_flashcards"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:text="درج فلش کارت ها در دسته بندی"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/header5" />
 
-                android:textSize="@dimen/header5" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/category_title_padding"
+                    android:paddingLeft="@dimen/category_title_padding"
+                    android:paddingRight="@dimen/category_title_padding"
+                    android:paddingTop="@dimen/category_title_padding"
+                    android:text="نام  بسته"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/header5" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/category_title_padding"
+                    android:paddingLeft="@dimen/category_title_padding"
+                    android:paddingRight="@dimen/category_title_padding"
+                    android:paddingTop="@dimen/category_title_padding"
+                    android:text="قیمت:"
+                    android:textColor="@android:color/black"
+
+                    android:textSize="@dimen/header5" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

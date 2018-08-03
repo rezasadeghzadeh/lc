@@ -4,6 +4,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/buy_flashcard_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/round_button_enabled"
+        android:layout_margin="@dimen/card_margin"
+        android:text="خرید(0)" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/packages_recycler"
         android:layout_width="match_parent"

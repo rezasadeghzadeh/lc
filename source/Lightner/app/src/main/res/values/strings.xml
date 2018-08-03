@@ -18,5 +18,8 @@
     <string name="answer_is_requirement" >لطفا سوال را وارد نمایید</string>
     <string name="error_in_getting_packages" >خطا در دریافت لیست بسته ها</string>
     <string name="toman">تومان</string>
+    <string name="buy_with_number">خرید(%s)</string>
+    <string name="check_internet_connection">ارتباط با سرور برقرار نشد. لطفا اینترنت را بررسی  نمایید</string>
+    <string name="invalid_user_code">کد کاربر معتبر نیست. لطفا برنامه را دوباره نصب کنید</string>
 
 </resources>
