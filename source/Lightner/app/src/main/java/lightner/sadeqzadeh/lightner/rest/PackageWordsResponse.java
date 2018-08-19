@@ -3,6 +3,7 @@ package lightner.sadeqzadeh.lightner.rest;
 import java.util.List;
 
 public class PackageWordsResponse {
+
     private List<PackageFlashcard> flashcards;
     private String  status;
 

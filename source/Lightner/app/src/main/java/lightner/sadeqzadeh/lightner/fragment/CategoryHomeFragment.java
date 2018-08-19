@@ -1,6 +1,7 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,8 +19,6 @@ import android.widget.TextView;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +26,7 @@ import java.util.List;
 import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.Util;
 import lightner.sadeqzadeh.lightner.entity.BoxStat;
 import lightner.sadeqzadeh.lightner.entity.Category;
 import lightner.sadeqzadeh.lightner.entity.CategoryDao;
@@ -38,6 +38,7 @@ public class CategoryHomeFragment extends Fragment {
     private Bundle args;
     private CategoryDao categoryDao;
     private FlashcardDao flashcardDao;
+    private Category category;
     MainActivity mainActivity;
     Button startReviewBtn;
     private LinearLayout box1;
@@ -79,6 +80,7 @@ public class CategoryHomeFragment extends Fragment {
         categoryId = args.getLong(Const.CATEGORY_ID);
         categoryDao = mainActivity.getDaoSession().getCategoryDao();
         flashcardDao = mainActivity.getDaoSession().getFlashcardDao();
+        category  = categoryDao.load(categoryId);
     }
 
     @Override
@@ -108,8 +110,18 @@ public class CategoryHomeFragment extends Fragment {
         circle4 = view.findViewById(R.id.circle4);
         circle5 = view.findViewById(R.id.circle5);
 
+        mainActivity.setTitle(category.getName());
+        int color=0;
+        try{
+            color  =  Integer.parseInt(category.getCodeColor());
+        }catch (Exception e){
+
+        }
+
         populateBoxesStats();
         initStartReviewBtn();
+
+        Util.hideKeyboard(getActivity());
         return  view;
     }
 

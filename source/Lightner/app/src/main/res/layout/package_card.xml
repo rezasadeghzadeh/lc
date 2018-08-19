@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:text="اضافه به سبد خرید"
+                    android:text="خرید"
                     android:textColor="@android:color/holo_blue_dark"
                     android:textSize="@dimen/header5" />
 

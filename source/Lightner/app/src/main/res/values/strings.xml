@@ -23,5 +23,12 @@
     <string name="invalid_user_code">کد کاربر معتبر نیست. لطفا برنامه را دوباره نصب کنید</string>
     <string name="title_activity_iap">IAPActivity</string>
     <string name="error_in_purchase">خطا در خرید از کافه بازار</string>
+    <string name="flashcard_inserted_successfull">تعداد  %d فلش کارت در دسته بندی جاری درج گردید</string>
+    <string name="error_in_get_inventory">خطا در دریافت لیست بسته های کاربر از بازار</string>
+    <string name="invalid_package">بسته نامعتبر است</string>
+    <string name="buy_success">خرید با موفقیت انجام شد. می توانید فلاش کارت ها را در دسته بندی درج نمایید</string>
+    <string name="user_data_saved_successfull">اطلاعات کاربر با موفقیت ذخیره شد</string>
+    <string name="error_in_getting_user_data">خطا در دریافت اطلاعات کاربر. لطفا بعدا تلاش  نمایید</string>
+    <string name="user_data_not_found">اطلاعات کاربر یافت نشد</string>
 
 </resources>

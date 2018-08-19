@@ -1,5 +1,6 @@
 package lightner.sadeqzadeh.lightner;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -43,7 +44,9 @@ import lightner.sadeqzadeh.lightner.encryption.EnCryptor;
 import lightner.sadeqzadeh.lightner.entity.DaoSession;
 import lightner.sadeqzadeh.lightner.fragment.GetMobileNumberFragment;
 import lightner.sadeqzadeh.lightner.fragment.HomeFragment;
+import lightner.sadeqzadeh.lightner.fragment.RegistrationFragment;
 import lightner.sadeqzadeh.lightner.fragment.ReviewFlashcard;
+import lightner.sadeqzadeh.lightner.fragment.SettingsFragment;
 import lightner.sadeqzadeh.lightner.util.IabHelper;
 import lightner.sadeqzadeh.lightner.util.IabResult;
 import lightner.sadeqzadeh.lightner.util.Purchase;
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity
     public boolean backPressed = false;
     public TextToSpeech textToSpeech;
     public boolean speechStatus = false;
+    public IabHelper mHelper;
+    public boolean iapStatus= false;
+    public DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //init drawer
+        drawer = findViewById(R.id.drawer_layout);
 
         //init encryption
         encryptor = new EnCryptor();
@@ -101,7 +109,28 @@ public class MainActivity extends AppCompatActivity
             replaceFragment(fragment, HomeFragment.TAG);
         }
 
+        initIAP();
         initTextToSpeech();
+    }
+
+    private void initIAP() {
+        //TODO check bazar is installed
+        String base64EncodedPublicKey=  "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC3jgRLYRj+0xcjee9urNoEuRo72pWKQk2gd36hdkDLYxBicuIwGWzV9hfmmSu/36llEf4wHpZt44iS7PfZouD9tbL1i2oorVg9O+FkNR/OeJVn0nRajT+gbY2nURDdsh4pZe+qvb0+70//nbD3YrZUhlDa7HhUvokbJqu4UmGnaNF0TUU+EtmtkrpwSt6xu2Buv+nQvcUkT2+RMkpW+TXSUodEVyMISghtWo2JwbMCAwEAAQ==";
+        try {
+            mHelper = new IabHelper(getApplicationContext(), base64EncodedPublicKey);
+            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                public void onIabSetupFinished(IabResult result) {
+                    if (!result.isSuccess()) {
+                        // Oh noes, there was a problem.
+                        Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                    }
+                    iapStatus = true;
+                }
+            });
+        }catch (Exception e){
+            Log.e(MainActivity.TAG,"initIAP: " + e.toString());
+        }
+
     }
 
     private void initTextToSpeech() {
@@ -119,8 +148,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         backPressed = true;
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+       if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -142,10 +170,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.settings) {
-
+            SettingsFragment settingsFragment = new SettingsFragment();
+            replaceFragment(settingsFragment,RegistrationFragment.TAG);
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -209,4 +236,19 @@ public class MainActivity extends AppCompatActivity
         return  daoSession;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+
+        // Pass on the activity result to the helper for handling
+        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+            // not handled, so handle it ourselves (here's where you'd
+            // perform any handling of activity results not related to in-app
+            // billing...
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+        else {
+            Log.d(TAG, "onActivityResult handled by IABUtil.");
+        }
+    }
 }

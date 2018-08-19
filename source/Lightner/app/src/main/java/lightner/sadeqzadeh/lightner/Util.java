@@ -1,5 +1,6 @@
 package lightner.sadeqzadeh.lightner;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -9,6 +10,8 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.yakivmospan.scytale.Crypto;
 import com.yakivmospan.scytale.Options;
@@ -213,7 +216,7 @@ public class Util {
     }
 
 
-    public static String random(int len) {
+    public static String randomToken(int len) {
         String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
         Random generator = new Random();
         StringBuilder randomStringBuilder = new StringBuilder();
@@ -223,6 +226,11 @@ public class Util {
             randomStringBuilder.append(tempChar);
         }
         return randomStringBuilder.toString();
+    }
+
+    public static int randomNumber(int bound){
+        Random random = new Random();
+        return random.nextInt(bound);
     }
 
     public static void encryptAndSave(Context context,String key, String value){
@@ -251,5 +259,24 @@ public class Util {
 
         return crypto.decrypt(fetchFromPreferences(key), secretKey);
     }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        view.clearFocus();
+
+    }
+
 }
 

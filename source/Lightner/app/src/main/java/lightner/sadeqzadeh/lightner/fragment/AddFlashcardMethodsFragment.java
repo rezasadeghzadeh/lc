@@ -4,6 +4,7 @@ package lightner.sadeqzadeh.lightner.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,17 @@ import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
 import lightner.sadeqzadeh.lightner.Util;
+import lightner.sadeqzadeh.lightner.adapter.PackagesAdapter;
 import lightner.sadeqzadeh.lightner.entity.Flashcard;
 import lightner.sadeqzadeh.lightner.entity.FlashcardDao;
 import lightner.sadeqzadeh.lightner.rest.LightnerAPI;
 import lightner.sadeqzadeh.lightner.rest.PackageFlashcard;
 import lightner.sadeqzadeh.lightner.rest.PackageWordsResponse;
 import lightner.sadeqzadeh.lightner.rest.RetrofitClientInstance;
+import lightner.sadeqzadeh.lightner.util.IabHelper;
+import lightner.sadeqzadeh.lightner.util.IabResult;
+import lightner.sadeqzadeh.lightner.util.Inventory;
+import lightner.sadeqzadeh.lightner.util.Purchase;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +40,8 @@ public class AddFlashcardMethodsFragment extends Fragment {
     private Long categoryId;
     private Button addManuallyBtn;
     private Button buyFlashcardBtn;
-    private Button importPackage1Btn;
+    private Button usePackageBzarBtn;
+
     private FlashcardDao flashcardDao;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,43 +72,60 @@ public class AddFlashcardMethodsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DownloadPackageFragment fragment = new DownloadPackageFragment();
+                Bundle args  = new Bundle();
+                args.putLong(Const.CATEGORY_ID,categoryId);
+                fragment.setArguments(args);
                 mainActivity.replaceFragment(fragment, fragment.TAG);
             }
         });
 
-        importPackage1Btn = view.findViewById(R.id.import_package1_btn);
-        importPackage1Btn.setOnClickListener(new View.OnClickListener() {
+        usePackageBzarBtn = view.findViewById(R.id.use_package_in_bazar_btn);
+        usePackageBzarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userCode = Util.fetchAndDecrypt(mainActivity.getApplicationContext(), Const.USER_CODE);
-                LightnerAPI lightnerAPI = RetrofitClientInstance.getRetrofitInstance().create(LightnerAPI.class);
-                Call<PackageWordsResponse> call = lightnerAPI.getPackageFlashcards(userCode,"1");
-                call.enqueue(new Callback<PackageWordsResponse>() {
-                    @Override
-                    public void onResponse(Call<PackageWordsResponse> call, Response<PackageWordsResponse> response) {
-                        if(response.body().getStatus() != null && (response.body().getStatus().equals("invalid user")  || response.body().getStatus().equals("invalid package") )){
-                            Toast.makeText(mainActivity.getApplicationContext(),getString(R.string.invalid_user_code),Toast.LENGTH_LONG).show();
+                //get  purchased packages
+                IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+                    public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+                        mainActivity.hideProgressbar();
+                        Log.d(TAG, "Query inventory finished.");
+                        if (result.isFailure()) {
+                            Log.d(TAG, "Failed to query inventory: " + result);
                             return;
                         }
-                        List<PackageFlashcard> flashcardList  =  response.body().getFlashcards();
-                        if (flashcardList == null){
-                            return;
-                        }
+                        else {
+                            Log.d(TAG, "Query inventory was successful.");
 
-                        for(PackageFlashcard flashcard : flashcardList){
-                            Flashcard f = new Flashcard(flashcard.getQuestion(), flashcard.getAnswer(), 1, null,null,categoryId);
-                            flashcardDao.insert(f);
-                        }
-                    }
+                            IabHelper.OnConsumeFinishedListener mConsumeFinishedListener =
+                                    new IabHelper.OnConsumeFinishedListener() {
+                                        public void onConsumeFinished(Purchase purchase, IabResult result) {
+                                            if (result.isSuccess()) {
+                                                Toast.makeText(mainActivity.getApplicationContext(),"مصرف شد",Toast.LENGTH_LONG).show();
+                                            }
+                                            else {
+                                                Toast.makeText(mainActivity.getApplicationContext(),result.getMessage(),Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    };
+                            if(mainActivity.iapStatus){
+                                mainActivity.mHelper.flagEndAsync();
+                                mainActivity.mHelper.consumeAsync(inventory.getPurchase("1"),mConsumeFinishedListener);
+                            }
 
-                    @Override
-                    public void onFailure(Call<PackageWordsResponse> call, Throwable t) {
-                        Toast.makeText(mainActivity.getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+                        Log.d(TAG, "Initial inventory query finished; enabling main UI.");
                     }
-                });
+                };
+                if(mainActivity.iapStatus){
+                    mainActivity.mHelper.flagEndAsync();
+                    mainActivity.mHelper.queryInventoryAsync(mGotInventoryListener);
+                }
             }
+
         });
 
+        //if user pressed back after going to buy
+        mainActivity.hideProgressbar();
         return  view;
     }
 

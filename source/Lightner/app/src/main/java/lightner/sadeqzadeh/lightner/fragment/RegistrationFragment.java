@@ -62,7 +62,7 @@ public class RegistrationFragment extends Fragment {
                 LightnerAPI lightnerAPI = RetrofitClientInstance.getRetrofitInstance().create(LightnerAPI.class);
                 int educationBaseId = Integer.parseInt(educationBaseSpin.getSelectedItem().toString());
                 int educationFieldId = Integer.parseInt(educationFieldSpin.getSelectedItem().toString());
-                final String  userCode= Util.random(50);
+                final String  userCode= Util.randomToken(50);
                 Call<SaveUserDataResponse> responseCall = lightnerAPI.saveUserData(userCode ,msisdn, educationBaseId, educationFieldId);
                 mainActivity.showProgressbar();
                 responseCall.enqueue(new Callback<SaveUserDataResponse>() {

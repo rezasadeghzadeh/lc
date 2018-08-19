@@ -24,6 +24,8 @@ public  interface LightnerAPI {
     Call<PackagesDataResponse> getPackagesList(@Field("userCode") String userCode);
 
     @GET("packages/flashcards")
-    Call<PackageWordsResponse> getPackageFlashcards(@Query("userCode") String userCode, @Query("packageId") String packageId);
+    Call<PackageWordsResponse> getPackageFlashcards(@Query("userCode") String userCode, @Query("packageId") long packageId);
 
+    @GET("user/data")
+    Call<GetUserDataResponse> getUserData(@Query("userCode") String userCode);
 }

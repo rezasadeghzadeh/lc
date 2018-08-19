@@ -18,6 +18,7 @@ import java.util.List;
 
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.Util;
 import lightner.sadeqzadeh.lightner.adapter.CategoryCardViewAdapter;
 import lightner.sadeqzadeh.lightner.entity.Category;
 import lightner.sadeqzadeh.lightner.entity.CategoryDao;
@@ -42,7 +43,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         categoryRecyclerView  =  view.findViewById(R.id.category_recycler);
         initCategoriesCardView();
-
+        Util.hideKeyboard(mainActivity);
+        mainActivity.backPressed = false;
+        mainActivity.setTitle(getString(R.string.app_name));
         return  view;
 
     }
