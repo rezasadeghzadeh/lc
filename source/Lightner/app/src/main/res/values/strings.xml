@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lightner</string>
+    <string name="app_name">Wordika</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Smart Lightner</string>
@@ -24,11 +24,12 @@
     <string name="title_activity_iap">IAPActivity</string>
     <string name="error_in_purchase">خطا در خرید از کافه بازار</string>
     <string name="flashcard_inserted_successfull">تعداد  %d فلش کارت در دسته بندی جاری درج گردید</string>
-    <string name="error_in_get_inventory">خطا در دریافت لیست بسته های کاربر از بازار</string>
+    <string name="error_in_get_inventory">برنامه بازار باید روی گوشی  نصب باشد . بررسی  کنید  که در بازار لاگین هستید</string>
     <string name="invalid_package">بسته نامعتبر است</string>
     <string name="buy_success">خرید با موفقیت انجام شد. می توانید فلاش کارت ها را در دسته بندی درج نمایید</string>
     <string name="user_data_saved_successfull">اطلاعات کاربر با موفقیت ذخیره شد</string>
     <string name="error_in_getting_user_data">خطا در دریافت اطلاعات کاربر. لطفا بعدا تلاش  نمایید</string>
     <string name="user_data_not_found">اطلاعات کاربر یافت نشد</string>
+    <string name="bad_request">BAD_REQUEST</string>
 
 </resources>

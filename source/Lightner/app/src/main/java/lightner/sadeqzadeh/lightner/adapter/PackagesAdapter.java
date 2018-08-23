@@ -109,6 +109,7 @@ public class PackagesAdapter  extends RecyclerView.Adapter<PackagesAdapter.ViewH
         holder.insertFlashcards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.showProgressbar();
                 LightnerAPI lightnerAPI = RetrofitClientInstance.getRetrofitInstance().create(LightnerAPI.class);
                 String userCode = Util.fetchAndDecrypt(mainActivity.getApplicationContext(), Const.USER_CODE);
 
@@ -116,12 +117,20 @@ public class PackagesAdapter  extends RecyclerView.Adapter<PackagesAdapter.ViewH
                 call.enqueue(new Callback<PackageWordsResponse>() {
                     @Override
                     public void onResponse(Call<PackageWordsResponse> call, Response<PackageWordsResponse> response) {
-                        if(response.body().getStatus() != null &&  response.body().getStatus().equals("invalid user") ){
+                        if( response.code() == 400 ){
+                            mainActivity.hideProgressbar();
+                            Toast.makeText(mainActivity.getApplicationContext(),mainActivity.getString(R.string.bad_request),Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if( response.body().getStatus() != null &&  response.body().getStatus().equals("invalid user") ){
+                            mainActivity.hideProgressbar();
                             Toast.makeText(mainActivity.getApplicationContext(),mainActivity.getString(R.string.invalid_user_code),Toast.LENGTH_LONG).show();
                             return;
                         }
 
                         if(response.body().getStatus() != null && response.body().getStatus().equals("invalid package") ){
+                            mainActivity.hideProgressbar();
                             Toast.makeText(mainActivity.getApplicationContext(),mainActivity.getString(R.string.invalid_package),Toast.LENGTH_LONG).show();
                             return;
                         }
@@ -134,6 +143,7 @@ public class PackagesAdapter  extends RecyclerView.Adapter<PackagesAdapter.ViewH
                             Flashcard f = new Flashcard(flashcard.getQuestion(), flashcard.getAnswer(), 1, null,new Date(), currentCategoryId);
                             flashcardDao.insert(f);
                         }
+                        mainActivity.hideProgressbar();
                         Toast.makeText(mainActivity.getApplicationContext(),String.format(mainActivity.getString(R.string.flashcard_inserted_successfull),flashcardList.size()),Toast.LENGTH_LONG).show();
                         Bundle args = new Bundle();
                         args.putLong(Const.CATEGORY_ID,currentCategoryId);
@@ -145,6 +155,7 @@ public class PackagesAdapter  extends RecyclerView.Adapter<PackagesAdapter.ViewH
 
                     @Override
                     public void onFailure(Call<PackageWordsResponse> call, Throwable t) {
+                        mainActivity.hideProgressbar();
                         Toast.makeText(mainActivity.getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });

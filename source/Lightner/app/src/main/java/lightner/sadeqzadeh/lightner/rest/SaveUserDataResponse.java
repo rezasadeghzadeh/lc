@@ -2,7 +2,7 @@ package lightner.sadeqzadeh.lightner.rest;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SaveUserDataResponse {
+public class    SaveUserDataResponse {
 
     @SerializedName("result")
     private boolean result;

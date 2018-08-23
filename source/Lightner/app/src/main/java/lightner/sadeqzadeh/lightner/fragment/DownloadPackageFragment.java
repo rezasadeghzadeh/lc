@@ -70,7 +70,8 @@ public class DownloadPackageFragment extends Fragment {
                         Log.d(TAG, "Query inventory finished.");
                         if (result.isFailure()) {
                             Log.d(TAG, "Failed to query inventory: " + result);
-                            Toast.makeText(mainActivity.getApplicationContext(),getString(R.string.error_in_get_inventory) + result,Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(mainActivity.getApplicationContext(),getString(R.string.error_in_get_inventory) ,Toast.LENGTH_LONG).show();
                             return;
                         }
                         else {

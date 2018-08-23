@@ -1,8 +1,13 @@
 package lightner.sadeqzadeh.lightner.rest;
 
+import com.google.gson.annotations.SerializedName;
+
 public class LightnerPackage {
+    @SerializedName("ID")
     private long id;
+    @SerializedName("Name")
     private String name;
+    @SerializedName("Price")
     private long  price;
 
     public long getId() {

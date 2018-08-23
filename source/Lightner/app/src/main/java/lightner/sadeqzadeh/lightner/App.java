@@ -16,7 +16,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        UpgradeHelper upgradeHelper = new UpgradeHelper(this, "lightner",null);
+        UpgradeHelper upgradeHelper = new UpgradeHelper(this, "Wordika",null);
         Database db = upgradeHelper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
     }
