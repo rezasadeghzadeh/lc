@@ -31,5 +31,6 @@
     <string name="error_in_getting_user_data">خطا در دریافت اطلاعات کاربر. لطفا بعدا تلاش  نمایید</string>
     <string name="user_data_not_found">اطلاعات کاربر یافت نشد</string>
     <string name="bad_request">BAD_REQUEST</string>
+    <string name="press_back_again_to_exit">برای خروج از برنامه دکمه برگشت را دوباره بزنید</string>
 
 </resources>

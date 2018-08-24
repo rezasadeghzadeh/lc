@@ -3,8 +3,10 @@ package lightner.sadeqzadeh.lightner;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity
     public IabHelper mHelper;
     public boolean iapStatus= false;
     public DrawerLayout drawer;
-
+    boolean doubleBackToExitPressed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,11 +149,32 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        FragmentManager fragmentManager =getSupportFragmentManager();
+        int backStackCount  = fragmentManager.getBackStackEntryCount();
         backPressed = true;
        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(backStackCount > 0){
+                super.onBackPressed();
+            }else {
+                if (doubleBackToExitPressed) {
+                    finish();
+                    System.exit(0);
+                }
+                this.doubleBackToExitPressed = true;
+                Toast.makeText(this, getString(R.string.press_back_again_to_exit), Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressed =false;
+                    }
+                }, 2000);
+
+            }
+
         }
     }
 
