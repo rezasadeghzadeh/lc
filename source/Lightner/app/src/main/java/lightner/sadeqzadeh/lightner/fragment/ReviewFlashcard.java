@@ -78,12 +78,12 @@ public class ReviewFlashcard extends Fragment {
                 FlashcardDao.Properties.NextVisit.le(currentDate),
                 FlashcardDao.Properties.CategoryId.eq(categoryId)
         ).orderDesc(FlashcardDao.Properties.CurrentBox).limit(1).list();
-        if(mainActivity.backPressed){
+       /* if(mainActivity.backPressed){
             mainActivity.backPressed  = false;
             HomeFragment  homeFragment  = new HomeFragment();
-            mainActivity.replaceFragment(homeFragment, HomeFragment.TAG);
+            mainActivity.replaceFragment(homeFragment, HomeFragment.TAG,true);
             return view;
-        }
+        }*/
         if(flashcardList.size() > 0 ){
             flashcard = flashcardList.get(0);
             question.setText(flashcard.getQuestion());
@@ -93,7 +93,7 @@ public class ReviewFlashcard extends Fragment {
             args.putLong(Const.CATEGORY_ID,categoryId);
             CategoryHomeFragment  categoryHomeFragment  = new CategoryHomeFragment();
             categoryHomeFragment.setArguments(args);
-            mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG);
+            mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,true);
             return view;
         }
 
@@ -123,7 +123,7 @@ public class ReviewFlashcard extends Fragment {
                 boxArgs.putBoolean(Const.REVIEW_MODE,true);
                 ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
                 reviewFlashcard.setArguments(boxArgs);
-                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG);
+                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
             }
         });
 
@@ -138,7 +138,8 @@ public class ReviewFlashcard extends Fragment {
                 boxArgs.putBoolean(Const.REVIEW_MODE,true);
                 ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
                 reviewFlashcard.setArguments(boxArgs);
-                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG);            }
+                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
+            }
         });
         //update last review
         Category category = categoryDao.load(categoryId);

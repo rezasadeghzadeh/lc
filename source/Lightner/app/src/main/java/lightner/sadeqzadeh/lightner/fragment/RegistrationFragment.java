@@ -74,7 +74,7 @@ public class RegistrationFragment extends Fragment {
                             Util.saveInPreferences(Const.MSISDN,msisdn);
                             Util.encryptAndSave(mainActivity.getApplicationContext(),Const.USER_CODE, userCode);
                             AdsFragment adsFragment = new AdsFragment();
-                            mainActivity.replaceFragment(adsFragment, AdsFragment.TAG);
+                            mainActivity.replaceFragment(adsFragment, AdsFragment.TAG,false);
                             Util.fetchFromPreferences(Const.USER_CODE);
                         }else{
                             Toast.makeText(getActivity(), getText(R.string.error_in_saving_user_data), Toast.LENGTH_SHORT).show();

@@ -102,11 +102,11 @@ public class MainActivity extends AppCompatActivity
         //check  if user doesn't registered already redirect to registration page
         if (!Util.isUserLogged()) {
             GetMobileNumberFragment getMobileNumerFragment = new GetMobileNumberFragment();
-            replaceFragment(getMobileNumerFragment, GetMobileNumberFragment.TAG);
+            replaceFragment(getMobileNumerFragment, GetMobileNumberFragment.TAG,false);
             return;
         } else {
             HomeFragment fragment = new HomeFragment();
-            replaceFragment(fragment, HomeFragment.TAG);
+            replaceFragment(fragment, HomeFragment.TAG,false);
         }
 
         initIAP();
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.settings) {
             SettingsFragment settingsFragment = new SettingsFragment();
-            replaceFragment(settingsFragment,RegistrationFragment.TAG);
+            replaceFragment(settingsFragment,SettingsFragment.TAG,true);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -191,11 +191,16 @@ public class MainActivity extends AppCompatActivity
                 getBaseContext().getResources().getDisplayMetrics());
     }
 
-    public void replaceFragment(Fragment fragment, String TAG){
+    public void replaceFragment(Fragment fragment, String TAG, boolean addToBackStack){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, fragment)
-                .addToBackStack(TAG)
-                .commit();
+        if(addToBackStack){
+            ft.replace(R.id.container, fragment)
+                    .addToBackStack(TAG)
+                    .commit();
+        }else {
+            ft.replace(R.id.container, fragment)
+                    .commit();
+        }
     }
 
     public String decryptText(byte[] encryptedData) {

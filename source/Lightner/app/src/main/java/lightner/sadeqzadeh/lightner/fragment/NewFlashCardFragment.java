@@ -90,7 +90,7 @@ public class NewFlashCardFragment extends Fragment{
         args.putLong(Const.CATEGORY_ID,categoryId);
         CategoryHomeFragment  categoryHomeFragment  = new CategoryHomeFragment();
         categoryHomeFragment.setArguments(args);
-        mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG);
+        mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,true);
 
     }
 

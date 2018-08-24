@@ -135,7 +135,7 @@ public class CategoryHomeFragment extends Fragment {
                 boxArgs.putLong(Const.CATEGORY_ID,categoryId);
                 ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
                 reviewFlashcard.setArguments(boxArgs);
-                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG);
+                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,true);
             }
         });
     }
@@ -271,12 +271,12 @@ public class CategoryHomeFragment extends Fragment {
                 argsFragment.putLong(Const.CATEGORY_ID, categoryId);
                 AddFlashcardMethodsFragment addFlashcardMethodsFragment = new AddFlashcardMethodsFragment();
                 addFlashcardMethodsFragment.setArguments(argsFragment);
-                mainActivity.replaceFragment(addFlashcardMethodsFragment, AddFlashcardMethodsFragment.TAG);
+                mainActivity.replaceFragment(addFlashcardMethodsFragment, AddFlashcardMethodsFragment.TAG,false);
                 return false;
             }case R.id.action_delete_category:{
                 categoryDao.deleteByKey(categoryId);
                 HomeFragment homeFragment = new HomeFragment();
-                mainActivity.replaceFragment(homeFragment, HomeFragment.TAG);
+                mainActivity.replaceFragment(homeFragment, HomeFragment.TAG,true);
                 return false;
             }case R.id.action_edit_category:{
                 Category  category  = categoryDao.load(categoryId);
@@ -287,7 +287,7 @@ public class CategoryHomeFragment extends Fragment {
                 bundle.putString(Const.COLOR,category.getCodeColor());
                 NewCategorymFragment  newCategorymFragment= new NewCategorymFragment();
                 newCategorymFragment.setArguments(bundle);
-                mainActivity.replaceFragment(newCategorymFragment, NewCategorymFragment.TAG);
+                mainActivity.replaceFragment(newCategorymFragment, NewCategorymFragment.TAG,true);
                 return false;
             }
 

@@ -24,7 +24,7 @@ public class AdsFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 HomeFragment homeFragment = new HomeFragment();
-                mainActivity.replaceFragment(homeFragment, HomeFragment.TAG);
+                mainActivity.replaceFragment(homeFragment, HomeFragment.TAG,false);
             }
         });
         return view;

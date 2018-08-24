@@ -47,7 +47,7 @@ public class GetOtpFragment extends Fragment{
                         if(response.body().isResult()){
                             Fragment registrationFragment = new RegistrationFragment();
                             registrationFragment.setArguments(args);
-                            mainActivity.replaceFragment(registrationFragment, RegistrationFragment.TAG);
+                            mainActivity.replaceFragment(registrationFragment, RegistrationFragment.TAG,false);
                         }else {
                             Toast.makeText(getActivity(), getText(R.string.otp_is_not_correct), Toast.LENGTH_SHORT).show();
                         }

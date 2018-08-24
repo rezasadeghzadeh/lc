@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_add_category:
                 NewCategorymFragment fragment = new NewCategorymFragment();
-                mainActivity.replaceFragment(fragment, fragment.TAG);
+                mainActivity.replaceFragment(fragment, fragment.TAG,true);
                 return false;
             default:
                 break;

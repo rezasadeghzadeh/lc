@@ -54,7 +54,7 @@ public class GetMobileNumberFragment extends Fragment{
                             Bundle args = new Bundle();
                             args.putString(Const.MSISDN,mobileNumber);
                             getOtpFragment.setArguments(args);
-                            mainActivity.replaceFragment(getOtpFragment, GetOtpFragment.TAG);
+                            mainActivity.replaceFragment(getOtpFragment, GetOtpFragment.TAG,false);
                         }else {
                             mainActivity.hideProgressbar();
                             Toast.makeText(getActivity(), getText(R.string.send_sms_failed_try_agin), Toast.LENGTH_SHORT).show();

@@ -112,6 +112,6 @@ public class NewCategorymFragment extends Fragment {
             categoryDao.insert(category);
         }
         HomeFragment homeFragment = new HomeFragment();
-        mainActivity.replaceFragment(homeFragment,HomeFragment.TAG);
+        mainActivity.replaceFragment(homeFragment,HomeFragment.TAG,true);
     }
 }

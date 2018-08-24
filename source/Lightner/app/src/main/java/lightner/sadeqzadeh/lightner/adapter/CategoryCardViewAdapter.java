@@ -67,7 +67,7 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
                 args.putLong(Const.CATEGORY_ID,category.getId());
                 CategoryHomeFragment  categoryHomeFragment  = new CategoryHomeFragment();
                 categoryHomeFragment.setArguments(args);
-                mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG);
+                mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,true);
             }
         });
         if(category.getLastVisit()!= null){

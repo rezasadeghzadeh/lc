@@ -149,7 +149,7 @@ public class PackagesAdapter  extends RecyclerView.Adapter<PackagesAdapter.ViewH
                         args.putLong(Const.CATEGORY_ID,currentCategoryId);
                         CategoryHomeFragment categoryHomeFragment  = new CategoryHomeFragment();
                         categoryHomeFragment.setArguments(args);
-                        mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG);
+                        mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,true);
 
                     }
 
