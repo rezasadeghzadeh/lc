@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class ReviewFlashcard extends Fragment {
     private boolean reviewMode;
     private ImageView speech;
     TextToSpeech textToSpeech;
+    private LinearLayout correctIncorrectBtnContainer;
+    private RelativeLayout viewAnswerContainer;
 
     public static final String TAG = ReviewFlashcard.class.getName();
 
@@ -70,7 +73,8 @@ public class ReviewFlashcard extends Fragment {
         correctBtn = view.findViewById(R.id.correct_btn);
         inCorrectBtn = view.findViewById(R.id.incorrect_btn);
         speech  = view.findViewById(R.id.speech);
-
+        correctIncorrectBtnContainer= view.findViewById(R.id.correct_incorrect_btn_container);
+        viewAnswerContainer  = view.findViewById(R.id.view_answer_container);
         final Date currentDate  =  new Date();
 
         //get current flash card
@@ -101,6 +105,8 @@ public class ReviewFlashcard extends Fragment {
             @Override
             public void onClick(View v) {
                 answerBox.setVisibility(View.VISIBLE);
+                viewAnswerContainer.setVisibility(View.GONE);
+                correctIncorrectBtnContainer.setVisibility(View.VISIBLE);
             }
         });
         speech.setOnClickListener(new View.OnClickListener() {

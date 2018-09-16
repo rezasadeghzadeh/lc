@@ -1,5 +1,6 @@
 package lightner.sadeqzadeh.lightner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ import lightner.sadeqzadeh.lightner.fragment.SettingsFragment;
 import lightner.sadeqzadeh.lightner.util.IabHelper;
 import lightner.sadeqzadeh.lightner.util.IabResult;
 import lightner.sadeqzadeh.lightner.util.Purchase;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class MainActivity extends AppCompatActivity
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        initIAP();
+        initTextToSpeech();
+
         //init drawer
         drawer = findViewById(R.id.drawer_layout);
 
@@ -110,9 +116,6 @@ public class MainActivity extends AppCompatActivity
             HomeFragment fragment = new HomeFragment();
             replaceFragment(fragment, HomeFragment.TAG,false);
         }
-
-        initIAP();
-        initTextToSpeech();
     }
 
     private void initIAP() {
@@ -278,5 +281,10 @@ public class MainActivity extends AppCompatActivity
         else {
             Log.d(TAG, "onActivityResult handled by IABUtil.");
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

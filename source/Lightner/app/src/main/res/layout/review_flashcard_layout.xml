@@ -68,52 +68,57 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:orientation="horizontal">
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/correct_incorrect_btn_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/correct_btn"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="80dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="#559344"
                 android:padding="3dp"
-                android:layout_gravity="center"
                 android:src="@drawable/ic_checkmark" />
 
             <ImageButton
                 android:id="@+id/incorrect_btn"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="#ce0606"
-                android:layout_gravity="center"
                 android:padding="3dp"
                 android:src="@drawable/ic_multiply" />
 
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/view_answer_container"
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/view_answer_btn"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
+                android:layout_width="232dp"
+                android:layout_height="77dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:background="#dce0e5"
                 android:gravity="center"
+
                 android:text="پاسخ" />
 
         </RelativeLayout>
