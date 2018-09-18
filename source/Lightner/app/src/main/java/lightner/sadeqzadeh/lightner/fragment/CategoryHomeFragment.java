@@ -258,6 +258,7 @@ public class CategoryHomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.category_home_fragment_menu, menu);
 
     }
@@ -271,7 +272,7 @@ public class CategoryHomeFragment extends Fragment {
                 argsFragment.putLong(Const.CATEGORY_ID, categoryId);
                 AddFlashcardMethodsFragment addFlashcardMethodsFragment = new AddFlashcardMethodsFragment();
                 addFlashcardMethodsFragment.setArguments(argsFragment);
-                mainActivity.replaceFragment(addFlashcardMethodsFragment, AddFlashcardMethodsFragment.TAG,false);
+                mainActivity.replaceFragment(addFlashcardMethodsFragment, AddFlashcardMethodsFragment.TAG,true);
                 return false;
             }case R.id.action_delete_category:{
                 categoryDao.deleteByKey(categoryId);

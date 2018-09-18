@@ -42,6 +42,7 @@ public class RegistrationFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         mainActivity = (MainActivity) getActivity();
+        Util.hideKeyboard(mainActivity);
         View view = inflater.inflate(R.layout.registration_fragment, container, false);
         educationBaseSpin = view.findViewById(R.id.education_base_spin);
         String[] baseKeys  =  getResources().getStringArray(R.array.educationBaseKeys);

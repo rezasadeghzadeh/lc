@@ -63,7 +63,7 @@ public class AddFlashcardMethodsFragment extends Fragment {
                 argsFragment.putLong(Const.CATEGORY_ID,categoryId);
                 NewFlashCardFragment fragment = new NewFlashCardFragment();
                 fragment.setArguments(argsFragment);
-                mainActivity.replaceFragment(fragment, fragment.TAG,true);
+                mainActivity.replaceFragment(fragment, fragment.TAG,false);
             }
         });
 
@@ -75,7 +75,7 @@ public class AddFlashcardMethodsFragment extends Fragment {
                 Bundle args  = new Bundle();
                 args.putLong(Const.CATEGORY_ID,categoryId);
                 fragment.setArguments(args);
-                mainActivity.replaceFragment(fragment, fragment.TAG,true);
+                mainActivity.replaceFragment(fragment, fragment.TAG,false);
             }
         });
 

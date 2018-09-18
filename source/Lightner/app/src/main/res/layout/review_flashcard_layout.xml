@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="50dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -87,7 +87,7 @@
                 android:layout_marginBottom="80dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="#559344"
+                android:background="@drawable/round_button_green"
                 android:padding="3dp"
                 android:src="@drawable/ic_checkmark" />
 
@@ -97,7 +97,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:background="#ce0606"
+                android:background="@drawable/round_button_red"
                 android:padding="3dp"
                 android:src="@drawable/ic_multiply" />
 
@@ -112,13 +112,13 @@
 
             <Button
                 android:id="@+id/view_answer_btn"
-                android:layout_width="232dp"
-                android:layout_height="77dp"
-                android:layout_centerInParent="true"
+                android:layout_width="218dp"
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:background="#dce0e5"
+                android:background="@drawable/round_button_enabled"
                 android:gravity="center"
-
                 android:text="پاسخ" />
 
         </RelativeLayout>

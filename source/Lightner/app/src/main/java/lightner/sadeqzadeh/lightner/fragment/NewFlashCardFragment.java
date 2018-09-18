@@ -50,6 +50,7 @@ public class NewFlashCardFragment extends Fragment{
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.new_flashcard_menu, menu);
 
     }
@@ -60,12 +61,12 @@ public class NewFlashCardFragment extends Fragment{
         switch (item.getItemId()) {
             case R.id.save_flashcard:
                 saveFlashCard();
-                return false;
+                return true;
             default:
                 break;
         }
 
-        return false;
+        return true;
     }
 
     private void saveFlashCard() {
@@ -90,7 +91,7 @@ public class NewFlashCardFragment extends Fragment{
         args.putLong(Const.CATEGORY_ID,categoryId);
         CategoryHomeFragment  categoryHomeFragment  = new CategoryHomeFragment();
         categoryHomeFragment.setArguments(args);
-        mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,true);
+        mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,false);
 
     }
 

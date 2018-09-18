@@ -32,5 +32,6 @@
     <string name="user_data_not_found">اطلاعات کاربر یافت نشد</string>
     <string name="bad_request">BAD_REQUEST</string>
     <string name="press_back_again_to_exit">برای خروج از برنامه دکمه برگشت را دوباره بزنید</string>
+    <string name="add_category_first">برای ایجاد گروه لغات از دکمه  + بالا استفاده  نمایید</string>
 
 </resources>

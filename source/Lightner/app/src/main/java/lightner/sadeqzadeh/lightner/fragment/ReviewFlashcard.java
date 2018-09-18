@@ -82,12 +82,12 @@ public class ReviewFlashcard extends Fragment {
                 FlashcardDao.Properties.NextVisit.le(currentDate),
                 FlashcardDao.Properties.CategoryId.eq(categoryId)
         ).orderDesc(FlashcardDao.Properties.CurrentBox).limit(1).list();
-       /* if(mainActivity.backPressed){
+        if(mainActivity.backPressed){
             mainActivity.backPressed  = false;
             HomeFragment  homeFragment  = new HomeFragment();
             mainActivity.replaceFragment(homeFragment, HomeFragment.TAG,true);
             return view;
-        }*/
+        }
         if(flashcardList.size() > 0 ){
             flashcard = flashcardList.get(0);
             question.setText(flashcard.getQuestion());

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
     MainActivity mainActivity;
     CategoryDao categoryDao;
     RecyclerView categoryRecyclerView;
+    TextView noCategoryMessage;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         categoryRecyclerView  =  view.findViewById(R.id.category_recycler);
+        noCategoryMessage = view.findViewById(R.id.no_category_message);
         initCategoriesCardView();
         Util.hideKeyboard(mainActivity);
         mainActivity.backPressed = false;
@@ -53,6 +56,9 @@ public class HomeFragment extends Fragment {
     private void initCategoriesCardView() {
         categoryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         List<Category> categoryList  = categoryDao.queryBuilder().list();
+        if(categoryList.size() == 0){
+            noCategoryMessage.setVisibility(View.VISIBLE);
+        }
         CategoryCardViewAdapter categoryCardViewAdapter  = new CategoryCardViewAdapter(getContext(), mainActivity, categoryList);
         categoryRecyclerView.setAdapter(categoryCardViewAdapter);
     }
@@ -60,6 +66,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
         inflater.inflate(R.menu.home_fragment_menu, menu);
 
     }
