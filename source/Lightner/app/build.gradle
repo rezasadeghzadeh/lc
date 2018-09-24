@@ -26,6 +26,7 @@ android {
 }
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 greendao {
     schemaVersion 2
@@ -45,6 +46,8 @@ dependencies {
     implementation 'com.larswerkman:HoloColorPicker:1.5'
     implementation 'com.github.samanzamani.persiandate:PersianDate:0.3'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'com.github.jkwiecien:EasyImage:2.1.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

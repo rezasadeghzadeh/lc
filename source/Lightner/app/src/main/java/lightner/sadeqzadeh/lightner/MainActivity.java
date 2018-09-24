@@ -65,13 +65,14 @@ public class MainActivity extends AppCompatActivity
     private EnCryptor encryptor;
     private DeCryptor decryptor;
     private DaoSession daoSession;
-    public boolean backPressed = false;
     public TextToSpeech textToSpeech;
     public boolean speechStatus = false;
     public IabHelper mHelper;
     public boolean iapStatus= false;
     public DrawerLayout drawer;
     boolean doubleBackToExitPressed = false;
+    SecretKey key=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +139,16 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private Crypto getCrypto(){
+        Store store = new Store(getApplicationContext());
+        if (!store.hasKey(Const.ALIAS)) {
+            key = store.generateSymmetricKey(Const.ALIAS, null);
+        }
+        key = store.getSymmetricKey(Const.ALIAS, null);
+        Crypto crypto = new Crypto(Options.TRANSFORMATION_SYMMETRIC);
+        return crypto;
+    }
+
     private void initTextToSpeech() {
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -154,7 +165,6 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         FragmentManager fragmentManager =getSupportFragmentManager();
         int backStackCount  = fragmentManager.getBackStackEntryCount();
-        backPressed = true;
        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -229,37 +239,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public String decryptText(byte[] encryptedData) {
-        try {
-            System.out.println("IVBase64EncodedFetched:" + Util.fetchFromPreferences(Const.ENCRYPTION_IV));
-            byte[] iv = Base64.decode(Util.fetchFromPreferences(Const.ENCRYPTION_IV),Base64.DEFAULT);
-            System.out.println("IVFromPreferences:" + iv);
-            return decryptor
-                    .decryptData(Const.ALIAS,encryptedData, iv);
-        } catch (UnrecoverableEntryException | NoSuchAlgorithmException |
-                KeyStoreException | NoSuchPaddingException | NoSuchProviderException |
-                IOException | InvalidKeyException e) {
-            Log.e(TAG, "decryptData() called with: " + e.getMessage(), e);
-        } catch (IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public String decryptText(String encryptedData) {
+        return  getCrypto().decrypt(encryptedData, key);
     }
 
     public String encryptText(String textToEncrypt) {
-
-        try {
-            final byte[] encryptedText = encryptor
-                    .encryptText(Const.ALIAS, textToEncrypt);
-            return Base64.encodeToString(encryptedText, Base64.DEFAULT);
-        } catch (UnrecoverableEntryException | NoSuchAlgorithmException | NoSuchProviderException |
-                KeyStoreException | IOException | NoSuchPaddingException | InvalidKeyException e) {
-            Log.e(TAG, "called with: " + e.getMessage(), e);
-        } catch (InvalidAlgorithmParameterException | SignatureException |
-                IllegalBlockSizeException | BadPaddingException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getCrypto().encrypt(textToEncrypt, key);
     }
 
     public DaoSession  getDaoSession(){

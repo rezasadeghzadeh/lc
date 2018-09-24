@@ -47,7 +47,6 @@ public class HomeFragment extends Fragment {
         noCategoryMessage = view.findViewById(R.id.no_category_message);
         initCategoriesCardView();
         Util.hideKeyboard(mainActivity);
-        mainActivity.backPressed = false;
         mainActivity.setTitle(getString(R.string.app_name));
         return  view;
 

@@ -140,7 +140,7 @@ public class PackagesAdapter  extends RecyclerView.Adapter<PackagesAdapter.ViewH
                         }
 
                         for(PackageFlashcard flashcard : flashcardList){
-                            Flashcard f = new Flashcard(flashcard.getQuestion(), flashcard.getAnswer(), 1, null,new Date(), currentCategoryId);
+                            Flashcard f = new Flashcard(mainActivity.encryptText(flashcard.getQuestion()), mainActivity.encryptText(flashcard.getAnswer()), 1, null,new Date(), currentCategoryId);
                             flashcardDao.insert(f);
                         }
                         mainActivity.hideProgressbar();

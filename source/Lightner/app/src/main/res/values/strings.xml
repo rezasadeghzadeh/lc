@@ -33,5 +33,9 @@
     <string name="bad_request">BAD_REQUEST</string>
     <string name="press_back_again_to_exit">برای خروج از برنامه دکمه برگشت را دوباره بزنید</string>
     <string name="add_category_first">برای ایجاد گروه لغات از دکمه  + بالا استفاده  نمایید</string>
+    <string name="return_to_home">بازگشت</string>
+    <string name="or">یا</string>
+    <string name="flash_added_sucess">فلش کارت با موفقیت اضافه گردید</string>
+    <string name="review_finished">تمامی کارتهای این دسته بندی مرور شدند</string>
 
 </resources>

@@ -44,7 +44,8 @@ public class GetOtpFragment extends Fragment{
                     public void onResponse(Call<OtpValidateResponse> call, Response<OtpValidateResponse> response) {
                         mainActivity.hideProgressbar();
 
-                        if(response.body().isResult()){
+                        /*if(response.body().isResult()){*/
+                        if(true){
                             Fragment registrationFragment = new RegistrationFragment();
                             registrationFragment.setArguments(args);
                             mainActivity.replaceFragment(registrationFragment, RegistrationFragment.TAG,false);

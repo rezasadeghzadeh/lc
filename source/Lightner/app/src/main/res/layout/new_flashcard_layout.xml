@@ -7,25 +7,74 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="سوال" />
+        android:gravity="center_vertical"
+        android:text="سوال"
+        android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/question"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
+        android:layout_height="wrap_content" android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" android:padding="0dp"
+            android:src="@drawable/ic_camera" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/or"
+            android:layout_margin="5dp"
+            android:textAlignment="center" />
+
+
+        <EditText
+            android:id="@+id/question"
+            style="@style/textBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_text_box"
+            android:inputType="textPersonName" >
+            <requestFocus
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </EditText>
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/textView4"
+        android:layout_marginTop="150dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="جواب" />
-
-    <EditText
-        android:id="@+id/answer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
+        android:layout_height="wrap_content" android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" android:padding="0dp"
+            android:src="@drawable/ic_camera" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/or"
+            android:layout_margin="5dp"
+            android:textAlignment="center" />
+        <EditText
+            android:id="@+id/answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/textBox"
+            android:background="@drawable/round_text_box"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

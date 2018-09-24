@@ -86,6 +86,7 @@ public class CategoryHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.category_home, container, false);
+
         final MainActivity mainActivity = (MainActivity) getActivity();
         startReviewBtn  =  view.findViewById(R.id.start_review_btn);
         box1 = view.findViewById(R.id.category_box1);
@@ -275,9 +276,17 @@ public class CategoryHomeFragment extends Fragment {
                 mainActivity.replaceFragment(addFlashcardMethodsFragment, AddFlashcardMethodsFragment.TAG,true);
                 return false;
             }case R.id.action_delete_category:{
+                mainActivity.showProgressbar();
                 categoryDao.deleteByKey(categoryId);
+                List<Flashcard> flashcardList  =  flashcardDao.queryBuilder().where(
+                        FlashcardDao.Properties.CategoryId.eq(categoryId)
+                ).list();
+                for(Flashcard flashcard: flashcardList){
+                    flashcardDao.deleteByKey(flashcard.getId());
+                }
                 HomeFragment homeFragment = new HomeFragment();
                 mainActivity.replaceFragment(homeFragment, HomeFragment.TAG,true);
+                mainActivity.hideProgressbar();
                 return false;
             }case R.id.action_edit_category:{
                 Category  category  = categoryDao.load(categoryId);

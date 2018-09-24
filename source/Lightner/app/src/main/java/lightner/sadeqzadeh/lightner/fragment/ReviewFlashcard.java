@@ -3,7 +3,9 @@ package lightner.sadeqzadeh.lightner.fragment;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,22 +84,22 @@ public class ReviewFlashcard extends Fragment {
                 FlashcardDao.Properties.NextVisit.le(currentDate),
                 FlashcardDao.Properties.CategoryId.eq(categoryId)
         ).orderDesc(FlashcardDao.Properties.CurrentBox).limit(1).list();
-        if(mainActivity.backPressed){
-            mainActivity.backPressed  = false;
-            HomeFragment  homeFragment  = new HomeFragment();
-            mainActivity.replaceFragment(homeFragment, HomeFragment.TAG,true);
-            return view;
-        }
         if(flashcardList.size() > 0 ){
             flashcard = flashcardList.get(0);
-            question.setText(flashcard.getQuestion());
-            answer.setText(flashcard.getAnswer());
+            question.setText(mainActivity.decryptText(flashcard.getQuestion()));
+            answer.setText(mainActivity.decryptText(flashcard.getAnswer()));
         }else if(reviewMode){
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment prev = getFragmentManager().findFragmentByTag(ReviewFinishedDialogFragment.class.getName());
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+            DialogFragment dialogFragment = new ReviewFinishedDialogFragment();
             Bundle args = new Bundle();
             args.putLong(Const.CATEGORY_ID,categoryId);
-            CategoryHomeFragment  categoryHomeFragment  = new CategoryHomeFragment();
-            categoryHomeFragment.setArguments(args);
-            mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,true);
+            dialogFragment.setArguments(args);
+            dialogFragment.show(ft, ReviewFinishedDialogFragment.class.getName());
             return view;
         }
 

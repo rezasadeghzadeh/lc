@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/header3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/review_finished"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/return_to_home_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="104dp"
+        android:background="@drawable/round_button_enabled"
+        android:text="@string/return_to_home" />
+</RelativeLayout>
