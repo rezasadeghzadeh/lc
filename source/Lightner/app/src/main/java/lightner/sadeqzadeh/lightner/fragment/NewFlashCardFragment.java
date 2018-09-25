@@ -9,8 +9,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Date;
 
@@ -24,6 +28,8 @@ public class NewFlashCardFragment extends Fragment{
 
     public static final String TAG = NewFlashCardFragment.class.getName();
     private EditText question;
+    private Button questionTakeImage;
+    private Button answerTakeImage;
     private EditText answer;
     FlashcardDao flashcardDao;
     private Bundle args;
@@ -39,11 +45,28 @@ public class NewFlashCardFragment extends Fragment{
         flashcardDao  = mainActivity.getDaoSession().getFlashcardDao();
     }
 
+    private void initQuestionTakeImage(View view) {
+        view.findViewById(R.id.take_question_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setActivityTitle(getString(R.string.question_image_title))
+                        .setCropShape(CropImageView.CropShape.RECTANGLE)
+                        .setCropMenuCropButtonTitle("Done")
+                        .setRequestedSize(400, 300)
+                        .setCropMenuCropButtonIcon(R.drawable.ok_button)
+                        .start(mainActivity);
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_flashcard_layout, container, false);
         question  = view.findViewById(R.id.question);
         answer = view.findViewById(R.id.answer);
+        initQuestionTakeImage(view);
 
         return  view;
     }
