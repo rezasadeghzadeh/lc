@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageActivity;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Date;
