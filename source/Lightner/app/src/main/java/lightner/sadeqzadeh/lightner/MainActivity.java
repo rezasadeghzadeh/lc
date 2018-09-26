@@ -259,17 +259,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
 
         // Pass on the activity result to the helper for handling
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                ((ImageView) findViewById(R.id.question_image)).setImageURI(result.getUri());
-                Toast.makeText(
-                        this, "Cropping successful, Sample: " + result.getSampleSize(), Toast.LENGTH_LONG)
-                        .show();
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Toast.makeText(this, "Cropping failed: " + result.getError(), Toast.LENGTH_LONG).show();
-            }
-        }else if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...
