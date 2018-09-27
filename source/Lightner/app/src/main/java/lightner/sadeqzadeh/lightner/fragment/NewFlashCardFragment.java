@@ -169,19 +169,15 @@ public class NewFlashCardFragment extends Fragment{
             return;
         }
 
-        Flashcard flashcard = new Flashcard(mainActivity.encryptText(question.getText().toString()), mainActivity.encryptText(answer.getText().toString()),1,null,new Date(), categoryId);
+        Flashcard flashcard = new Flashcard(mainActivity.encryptText(question.getText().toString()),questionImageUri, mainActivity.encryptText(answer.getText().toString()), answerImageUri,1,null,new Date(), categoryId);
         flashcardDao.insert(flashcard);
         Toast.makeText(mainActivity.getApplicationContext(), getString(R.string.flash_added_sucess),Toast.LENGTH_LONG).show();
         question.setText("");
         answer.setText("");
-/*
-        Bundle args = new Bundle();
-        args.putLong(Const.CATEGORY_ID,categoryId);
-        CategoryHomeFragment  categoryHomeFragment  = new CategoryHomeFragment();
-        categoryHomeFragment.setArguments(args);
-        mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,false);
-*/
-
+        questionImageView.setImageURI(null);
+        questionImageView.setVisibility(View.GONE);
+        answerImageView.setImageURI(null);
+        answerImageView.setVisibility(View.GONE);
     }
 
 

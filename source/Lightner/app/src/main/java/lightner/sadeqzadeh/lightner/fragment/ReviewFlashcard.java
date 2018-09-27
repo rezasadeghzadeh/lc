@@ -1,5 +1,6 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
@@ -41,7 +42,9 @@ public class ReviewFlashcard extends Fragment {
     private Flashcard flashcard;
     private Long  categoryId;
     private TextView question;
+    private ImageView questionImageView;
     private TextView answer;
+    private ImageView answerImageView;
     private LinearLayout answerBox;
     private Button viewAnswerBtn;
     private AppCompatImageButton correctBtn;
@@ -70,7 +73,9 @@ public class ReviewFlashcard extends Fragment {
         View view = inflater.inflate(R.layout.review_flashcard_layout, container, false);
         answer  =  view.findViewById(R.id.answer);
         answerBox  =  view.findViewById(R.id.answer_box);
+        answerImageView = view.findViewById(R.id.review_answer_image_view);
         question =  view.findViewById(R.id.question);
+        questionImageView = view.findViewById(R.id.review_question_image_view);
         viewAnswerBtn = view.findViewById(R.id.view_answer_btn);
         correctBtn = view.findViewById(R.id.correct_btn);
         inCorrectBtn = view.findViewById(R.id.incorrect_btn);
@@ -88,6 +93,14 @@ public class ReviewFlashcard extends Fragment {
             flashcard = flashcardList.get(0);
             question.setText(mainActivity.decryptText(flashcard.getQuestion()));
             answer.setText(mainActivity.decryptText(flashcard.getAnswer()));
+            if(flashcard.getQuestionUri() != null &&  !flashcard.getQuestionUri().isEmpty()){
+                questionImageView.setImageURI(Uri.parse(flashcard.getQuestionUri()));
+                questionImageView.setVisibility(View.VISIBLE);
+            }
+            if(flashcard.getAnswerUri() != null &&  !flashcard.getAnswerUri().isEmpty() ){
+                answerImageView.setImageURI(Uri.parse(flashcard.getAnswerUri()));
+                answerImageView.setVisibility(View.VISIBLE);
+            }
         }else if(reviewMode){
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             Fragment prev = getFragmentManager().findFragmentByTag(ReviewFinishedDialogFragment.class.getName());
