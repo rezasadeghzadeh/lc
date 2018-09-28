@@ -18,4 +18,5 @@ public class Const {
     public static final String COLOR = "COLOR";
     public static final String REVIEW_MODE = "REVIEW_MODE";
     public static final String USER_CODE = "USER_CODE";
+    public static final String URI = "URI";
 }

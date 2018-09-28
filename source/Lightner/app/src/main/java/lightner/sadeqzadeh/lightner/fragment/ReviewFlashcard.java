@@ -96,10 +96,30 @@ public class ReviewFlashcard extends Fragment {
             if(flashcard.getQuestionUri() != null &&  !flashcard.getQuestionUri().isEmpty()){
                 questionImageView.setImageURI(Uri.parse(flashcard.getQuestionUri()));
                 questionImageView.setVisibility(View.VISIBLE);
+                questionImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Const.URI,flashcard.getQuestionUri());
+                        FullscreenImageFragment fragment = new FullscreenImageFragment();
+                        fragment.setArguments(bundle);
+                        mainActivity.replaceFragment(fragment,FullscreenImageFragment.class.getName(),true);
+                    }
+                });
             }
             if(flashcard.getAnswerUri() != null &&  !flashcard.getAnswerUri().isEmpty() ){
                 answerImageView.setImageURI(Uri.parse(flashcard.getAnswerUri()));
                 answerImageView.setVisibility(View.VISIBLE);
+                answerImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Const.URI,flashcard.getAnswerUri());
+                        FullscreenImageFragment fragment = new FullscreenImageFragment();
+                        fragment.setArguments(bundle);
+                        mainActivity.replaceFragment(fragment,FullscreenImageFragment.class.getName(),true);
+                    }
+                });
             }
         }else if(reviewMode){
             FragmentTransaction ft = getFragmentManager().beginTransaction();

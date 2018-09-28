@@ -79,7 +79,7 @@ public class AddFlashcardMethodsFragment extends Fragment {
             }
         });
 
-        usePackageBzarBtn = view.findViewById(R.id.use_package_in_bazar_btn);
+/*        usePackageBzarBtn = view.findViewById(R.id.use_package_in_bazar_btn);
         usePackageBzarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +122,7 @@ public class AddFlashcardMethodsFragment extends Fragment {
                 }
             }
 
-        });
+        });*/
 
         //if user pressed back after going to buy
         mainActivity.hideProgressbar();

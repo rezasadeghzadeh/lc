@@ -27,14 +27,14 @@
             android:layout_gravity="center"
             android:background="@drawable/round_button_enabled"
             android:text="خرید بسته های آماده" />
-        <Button
+    <!--    <Button
             android:id="@+id/use_package_in_bazar_btn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/round_button_enabled"
             android:text="مصرف بسته در کافه بازار" />
-
+-->
     </LinearLayout>
 
 </RelativeLayout>
