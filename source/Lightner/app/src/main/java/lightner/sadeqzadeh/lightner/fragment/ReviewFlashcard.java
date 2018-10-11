@@ -198,6 +198,7 @@ public class ReviewFlashcard extends Fragment {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
             calendar.add(Calendar.DAY_OF_MONTH,1);
+            return calendar.getTime();
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -152,6 +152,7 @@ public class CategoryHomeFragment extends Fragment {
                     FlashcardDao.Properties.CategoryId.eq(categoryId),
                     FlashcardDao.Properties.CurrentBox.eq(1)
             ).buildCount().count();
+
             final List<Flashcard> reviewableList = queryBuilder.where(
                     FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CurrentBox.eq(1),
@@ -274,7 +275,7 @@ public class CategoryHomeFragment extends Fragment {
                 AddFlashcardMethodsFragment addFlashcardMethodsFragment = new AddFlashcardMethodsFragment();
                 addFlashcardMethodsFragment.setArguments(argsFragment);
                 mainActivity.replaceFragment(addFlashcardMethodsFragment, AddFlashcardMethodsFragment.TAG,true);
-                return false;
+                return true;
             }case R.id.action_delete_category:{
                 mainActivity.showProgressbar();
                 categoryDao.deleteByKey(categoryId);
@@ -287,7 +288,7 @@ public class CategoryHomeFragment extends Fragment {
                 HomeFragment homeFragment = new HomeFragment();
                 mainActivity.replaceFragment(homeFragment, HomeFragment.TAG,true);
                 mainActivity.hideProgressbar();
-                return false;
+                return true;
             }case R.id.action_edit_category:{
                 Category  category  = categoryDao.load(categoryId);
                 Bundle bundle = new Bundle();
@@ -298,14 +299,14 @@ public class CategoryHomeFragment extends Fragment {
                 NewCategorymFragment  newCategorymFragment= new NewCategorymFragment();
                 newCategorymFragment.setArguments(bundle);
                 mainActivity.replaceFragment(newCategorymFragment, NewCategorymFragment.TAG,true);
-                return false;
+                return true;
             }
 
             default:
                 break;
         }
 
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 
 

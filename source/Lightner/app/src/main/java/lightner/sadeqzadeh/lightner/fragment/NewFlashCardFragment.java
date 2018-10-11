@@ -150,7 +150,7 @@ public class NewFlashCardFragment extends Fragment{
                 break;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     private void saveFlashCard() {
