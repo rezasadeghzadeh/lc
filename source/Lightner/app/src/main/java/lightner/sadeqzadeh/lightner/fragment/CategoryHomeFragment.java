@@ -41,6 +41,7 @@ public class CategoryHomeFragment extends Fragment {
     private Category category;
     MainActivity mainActivity;
     Button startReviewBtn;
+    Button freeReviewBtn;
     private LinearLayout box1;
     private LinearLayout box2;
     private LinearLayout box3;
@@ -89,6 +90,7 @@ public class CategoryHomeFragment extends Fragment {
 
         final MainActivity mainActivity = (MainActivity) getActivity();
         startReviewBtn  =  view.findViewById(R.id.start_review_btn);
+        freeReviewBtn  = view.findViewById(R.id.free_review_btn);
         box1 = view.findViewById(R.id.category_box1);
         box2 = view.findViewById(R.id.category_box2);
         box3 = view.findViewById(R.id.category_box3);
@@ -121,9 +123,23 @@ public class CategoryHomeFragment extends Fragment {
 
         populateBoxesStats();
         initStartReviewBtn();
-
+        initFreeReviewBtn();
         Util.hideKeyboard(getActivity());
         return  view;
+    }
+
+    private void initFreeReviewBtn() {
+        freeReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle  = new Bundle();
+                bundle.putLong(Const.CATEGORY_ID,categoryId);
+                bundle.putBoolean(Const.REVIEW_MODE,true);
+                FreeReviewFlashcard freeReviewFlashcard = new FreeReviewFlashcard();
+                freeReviewFlashcard.setArguments(bundle);
+                mainActivity.replaceFragment(freeReviewFlashcard,FreeReviewFlashcard.TAG,true);
+            }
+        });
     }
 
     private void initStartReviewBtn() {

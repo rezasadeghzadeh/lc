@@ -382,7 +382,16 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/free_review_btn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_button_enabled"
+                android:text="@string/free_review" />
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

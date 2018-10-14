@@ -38,5 +38,7 @@
     <string name="flash_added_sucess">فلش کارت با موفقیت اضافه گردید</string>
     <string name="review_finished">تمامی کارتهای این دسته بندی مرور شدند</string>
     <string name="question_image_title">تصویر سوال</string>
+    <string name="free_review">مرور آزاد</string>
+    <string name="flashcard_ended">فلش کارت ها به آخر رسید</string>
 </resources>
 
