@@ -80,14 +80,8 @@ public class HomeFragment extends Fragment {
             public void run() {
             final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                     .targets(
-                            TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(1),
-                            TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help))
-                                    .dimColor(android.R.color.black)
-                                    .outerCircleColor(R.color.colorAccent)
-                                    .targetCircleColor(android.R.color.black)
-                                    .transparentTarget(true)
-                                    .textColor(android.R.color.black)
-                                    .id(2)
+                            TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help)).id(1),
+                            TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(2)
                     )
                     .listener(new TapTargetSequence.Listener() {
                         // This listener will tell us when interesting(tm) events happen in regards

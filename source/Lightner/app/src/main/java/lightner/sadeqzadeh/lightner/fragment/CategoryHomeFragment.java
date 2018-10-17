@@ -1,11 +1,15 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +20,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -278,6 +286,40 @@ public class CategoryHomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.category_home_fragment_menu, menu);
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                        .targets(
+                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_flashcard, getString(R.string.add_flashcard), getString(R.string.add_flashcard_help)).id(1),
+                                TapTarget.forView((Button)mainActivity.findViewById(R.id.start_review_btn),getString(R.string.review_short_hint), getString(R.string.review_long_hint))
+                                        .transparentTarget(true)
+                                        .targetRadius(100)
+                                        .id(2),
+                                TapTarget.forView((Button)mainActivity.findViewById(R.id.free_review_btn),getString(R.string.free_review_short_hint), getString(R.string.free_review_long_hint))
+                                        .transparentTarget(true)
+                                        .targetRadius(100)
+                                        .id(3)
+
+                        )
+                        .listener(new TapTargetSequence.Listener() {
+                            @Override
+                            public void onSequenceFinish() {
+                            }
+
+                            @Override
+                            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+                            }
+
+                            @Override
+                            public void onSequenceCanceled(TapTarget lastTarget) {
+                            }
+                        });
+                sequence.start();
+            }
+        });
 
     }
 

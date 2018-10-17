@@ -45,5 +45,13 @@
     <string name="action_settings_help">برای انجام تنظمیات برنامه اینجا را انتخاب کنید</string>
     <string name="add_category_help">برای ایجاد دسته بندی جدید اینجا را انتخاب نمایید. دسته بندی می تواند مواردی مانند درس ۱ ، لغات عربی، فرمول های دیفرانسیل و  ... باشد</string>
     <string name="add_category">ایجاد دسته بندی جدید</string>
+    <string name="add_flashcard">ایجاد و یا واردکردن فلش کارت</string>
+    <string name="add_flashcard_help">فلش کارت را می توانید به دو روش دستی و یا وارد کردن بسته های آماده  انجام دهید</string>
+    <string name="review_short_hint">شروع مرور فلش کارت ها</string>
+    <string name="review_long_hint">در صورتی که فلش کارتی برای امروز داشته باشید این کلید فعال خواهد شد و شما با انتخاب این دکمه لغات را می توانید مرور کنید</string>
+    <string name="free_review_long_hint">برای مرور آزاد فلش کارت ها از این دکمه استفاده نمایید</string>
+    <string name="free_review_short_hint">مرور آزاد فلش کارت ها</string>
+    <string name="answer_btn_long_hint">برای مشاهده پاسخ ابن کلید را انتخاب نمایید</string>
+    <string name="answer_btn_short_hint">مشاهده پاسخ</string>
 </resources>
 

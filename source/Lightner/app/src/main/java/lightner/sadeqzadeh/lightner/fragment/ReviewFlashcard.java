@@ -2,6 +2,7 @@ package lightner.sadeqzadeh.lightner.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,6 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -186,7 +190,41 @@ public class ReviewFlashcard extends Fragment {
         Category category = categoryDao.load(categoryId);
         category.setLastVisit(new Date());
         categoryDao.update(category);
+
+        displayHelp();
         return  view;
+    }
+
+    private void displayHelp() {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                        .targets(
+                                TapTarget.forView((Button)mainActivity.findViewById(R.id.view_answer_btn),getString(R.string.answer_btn_short_hint), getString(R.string.answer_btn_long_hint))
+                                        .transparentTarget(true)
+                                        .targetRadius(100)
+                                        .id(1)
+
+                        )
+                        .listener(new TapTargetSequence.Listener() {
+                            @Override
+                            public void onSequenceFinish() {
+                            }
+
+                            @Override
+                            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+                            }
+
+                            @Override
+                            public void onSequenceCanceled(TapTarget lastTarget) {
+                            }
+                        });
+                sequence.start();
+            }
+        });
+
     }
 
     private Date getIncorrectNextVisitDate() {
