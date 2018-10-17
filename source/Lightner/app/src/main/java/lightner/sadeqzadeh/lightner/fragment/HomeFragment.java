@@ -1,12 +1,16 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 
 import java.util.List;
 
@@ -47,9 +55,8 @@ public class HomeFragment extends Fragment {
         noCategoryMessage = view.findViewById(R.id.no_category_message);
         initCategoriesCardView();
         Util.hideKeyboard(mainActivity);
-        mainActivity.setTitle(getString(R.string.app_name));
+        mainActivity.setTitle(getString(R.string.available_categories));
         return  view;
-
     }
 
     private void initCategoriesCardView() {
@@ -67,6 +74,54 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.home_fragment_menu, menu);
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+            final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                    .targets(
+                            TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(1),
+                            TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help))
+                                    .dimColor(android.R.color.black)
+                                    .outerCircleColor(R.color.colorAccent)
+                                    .targetCircleColor(android.R.color.black)
+                                    .transparentTarget(true)
+                                    .textColor(android.R.color.black)
+                                    .id(2)
+                    )
+                    .listener(new TapTargetSequence.Listener() {
+                        // This listener will tell us when interesting(tm) events happen in regards
+                        // to the sequence
+                        @Override
+                        public void onSequenceFinish() {
+                        }
+
+                        @Override
+                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                        }
+
+                        @Override
+                        public void onSequenceCanceled(TapTarget lastTarget) {
+                            final AlertDialog dialog = new AlertDialog.Builder(mainActivity)
+                                    .setTitle("Uh oh")
+                                    .setMessage("You canceled the sequence")
+                                    .setPositiveButton("Oops", null).show();
+                            TapTargetView.showFor(dialog,
+                                    TapTarget.forView(dialog.getButton(DialogInterface.BUTTON_POSITIVE), "Uh oh!", "You canceled the sequence at step " + lastTarget.id())
+                                            .cancelable(false)
+                                            .tintTarget(false), new TapTargetView.Listener() {
+                                        @Override
+                                        public void onTargetClick(TapTargetView view) {
+                                            super.onTargetClick(view);
+                                            dialog.dismiss();
+                                        }
+                                    });
+                        }
+                    });
+            sequence.start();
+            }
+        });
 
     }
 

@@ -40,5 +40,10 @@
     <string name="question_image_title">تصویر سوال</string>
     <string name="free_review">مرور آزاد</string>
     <string name="flashcard_ended">فلش کارت ها به آخر رسید</string>
+    <string name="available_categories">دسته بندی های موجود</string>
+    <string name="of">از</string>
+    <string name="action_settings_help">برای انجام تنظمیات برنامه اینجا را انتخاب کنید</string>
+    <string name="add_category_help">برای ایجاد دسته بندی جدید اینجا را انتخاب نمایید. دسته بندی می تواند مواردی مانند درس ۱ ، لغات عربی، فرمول های دیفرانسیل و  ... باشد</string>
+    <string name="add_category">ایجاد دسته بندی جدید</string>
 </resources>
 

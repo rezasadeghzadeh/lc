@@ -74,13 +74,13 @@ public class MainActivity extends AppCompatActivity
     public DrawerLayout drawer;
     boolean doubleBackToExitPressed = false;
     SecretKey key=null;
-
+    public Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Util.context = getApplicationContext();
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         initIAP();

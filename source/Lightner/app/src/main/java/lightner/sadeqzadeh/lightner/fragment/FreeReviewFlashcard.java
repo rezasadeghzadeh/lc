@@ -41,9 +41,11 @@ public class FreeReviewFlashcard extends Fragment{
     private AppCompatImageButton nextBtn;
     private AppCompatImageButton previousBtn;
     private Button viewAnswerBtn;
-    private boolean reviewMode;
+    public boolean reviewMode;
     private Integer numberFlashcardToShow;
     private RelativeLayout viewAnswerContainer;
+    private TextView currentFlashcardTextView;
+    private TextView totalFlashcardsTextView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,11 +74,14 @@ public class FreeReviewFlashcard extends Fragment{
         viewAnswerContainer  = view.findViewById(R.id.view_answer_container);
         nextBtn = view.findViewById(R.id.next_btn);
         previousBtn = view.findViewById(R.id.previous_btn);
+        currentFlashcardTextView = view.findViewById(R.id.current_flashcard);
+        totalFlashcardsTextView = view.findViewById(R.id.total_flashcard);
 
         //get current flash card
         List<Flashcard> flashcardList =  flashcardDao.queryBuilder().where(
                 FlashcardDao.Properties.CategoryId.eq(categoryId)
         ).orderDesc(FlashcardDao.Properties.CurrentBox).list();
+
         if(numberFlashcardToShow < flashcardList.size() && reviewMode){
             flashcard = flashcardList.get(numberFlashcardToShow);
         }else {
@@ -84,11 +89,12 @@ public class FreeReviewFlashcard extends Fragment{
             args.putLong(Const.CATEGORY_ID,categoryId);
             CategoryHomeFragment  categoryHomeFragment  = new CategoryHomeFragment();
             categoryHomeFragment.setArguments(args);
-            mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,true);
+            mainActivity.replaceFragment(categoryHomeFragment, CategoryHomeFragment.TAG,false);
             Toast.makeText(getActivity(),getString(R.string.flashcard_ended),Toast.LENGTH_LONG).show();
             return view;
         }
-
+        currentFlashcardTextView.setText(String.valueOf(numberFlashcardToShow+1));
+        totalFlashcardsTextView.setText(String.valueOf(flashcardList.size()));
         if(flashcard != null){
             question.setText(mainActivity.decryptText(flashcard.getQuestion()));
             answer.setText(mainActivity.decryptText(flashcard.getAnswer()));
@@ -136,6 +142,7 @@ public class FreeReviewFlashcard extends Fragment{
                 Bundle boxArgs  = new Bundle();
                 boxArgs.putLong(Const.CATEGORY_ID,categoryId);
                 boxArgs.putInt(Const.FLASHCARD_TO_SHOW,numberFlashcardToShow+1);
+                boxArgs.putBoolean(Const.REVIEW_MODE,true);
                 FreeReviewFlashcard freeReviewFlashcard = new FreeReviewFlashcard();
                 freeReviewFlashcard.setArguments(boxArgs);
                 mainActivity.replaceFragment(freeReviewFlashcard,FreeReviewFlashcard.TAG,false);
@@ -145,15 +152,25 @@ public class FreeReviewFlashcard extends Fragment{
         previousBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(numberFlashcardToShow == 0){
+                    return;
+                }
                 Bundle boxArgs  = new Bundle();
                 boxArgs.putLong(Const.CATEGORY_ID,categoryId);
                 boxArgs.putInt(Const.FLASHCARD_TO_SHOW,numberFlashcardToShow-1);
+                boxArgs.putBoolean(Const.REVIEW_MODE,true);
                 FreeReviewFlashcard freeReviewFlashcard = new FreeReviewFlashcard();
                 freeReviewFlashcard.setArguments(boxArgs);
                 mainActivity.replaceFragment(freeReviewFlashcard,FreeReviewFlashcard.TAG,false);
             }
         });
         return  view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.numberFlashcardToShow =0;
     }
 
 }
