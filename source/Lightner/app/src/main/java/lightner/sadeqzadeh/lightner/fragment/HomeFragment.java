@@ -84,33 +84,16 @@ public class HomeFragment extends Fragment {
                             TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(2)
                     )
                     .listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
                         @Override
                         public void onSequenceFinish() {
                         }
 
                         @Override
                         public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
                         }
 
                         @Override
                         public void onSequenceCanceled(TapTarget lastTarget) {
-                            final AlertDialog dialog = new AlertDialog.Builder(mainActivity)
-                                    .setTitle("Uh oh")
-                                    .setMessage("You canceled the sequence")
-                                    .setPositiveButton("Oops", null).show();
-                            TapTargetView.showFor(dialog,
-                                    TapTarget.forView(dialog.getButton(DialogInterface.BUTTON_POSITIVE), "Uh oh!", "You canceled the sequence at step " + lastTarget.id())
-                                            .cancelable(false)
-                                            .tintTarget(false), new TapTargetView.Listener() {
-                                        @Override
-                                        public void onTargetClick(TapTargetView view) {
-                                            super.onTargetClick(view);
-                                            dialog.dismiss();
-                                        }
-                                    });
                         }
                     });
             sequence.start();
