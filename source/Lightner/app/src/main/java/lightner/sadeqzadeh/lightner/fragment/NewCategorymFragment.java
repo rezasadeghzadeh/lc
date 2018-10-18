@@ -2,6 +2,7 @@ package lightner.sadeqzadeh.lightner.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
@@ -21,6 +24,7 @@ import com.larswerkman.holocolorpicker.ValueBar;
 import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.Util;
 import lightner.sadeqzadeh.lightner.entity.Category;
 import lightner.sadeqzadeh.lightner.entity.CategoryDao;
 
@@ -78,6 +82,37 @@ public class NewCategorymFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.new_category_fragment_menu, menu);
+        displayHelp();
+    }
+    private void displayHelp() {
+        if(Util.fetchFromPreferences(Const.SEEN_NEW_CATEGORY_HINT) != null){
+            return;
+        }
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                        .targets(
+                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.save_category, getString(R.string.save_category), getString(R.string.save_category_help)).id(1)
+                        )
+                        .listener(new TapTargetSequence.Listener() {
+                            @Override
+                            public void onSequenceFinish() {
+                                Util.saveInPreferences(Const.SEEN_NEW_CATEGORY_HINT,String.valueOf("1"));
+                            }
+
+                            @Override
+                            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+                            }
+
+                            @Override
+                            public void onSequenceCanceled(TapTarget lastTarget) {
+                            }
+                        });
+                sequence.start();
+            }
+        });
     }
 
     @Override

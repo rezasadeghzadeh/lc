@@ -287,40 +287,49 @@ public class CategoryHomeFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.category_home_fragment_menu, menu);
 
+        displayHelp();
+
+    }
+
+    private void displayHelp() {
+        if(Util.fetchFromPreferences(Const.SEEN_CATEGORY_HOME_HINT) != null){
+            return;
+        }
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
-                        .targets(
-                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_flashcard, getString(R.string.add_flashcard), getString(R.string.add_flashcard_help)).id(1),
-                                TapTarget.forView((Button)mainActivity.findViewById(R.id.start_review_btn),getString(R.string.review_short_hint), getString(R.string.review_long_hint))
-                                        .transparentTarget(true)
-                                        .targetRadius(100)
-                                        .id(2),
-                                TapTarget.forView((Button)mainActivity.findViewById(R.id.free_review_btn),getString(R.string.free_review_short_hint), getString(R.string.free_review_long_hint))
-                                        .transparentTarget(true)
-                                        .targetRadius(100)
-                                        .id(3)
+            final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                    .targets(
+                            TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_flashcard, getString(R.string.add_flashcard), getString(R.string.add_flashcard_help)).id(1),
+                            TapTarget.forView((Button)mainActivity.findViewById(R.id.start_review_btn),getString(R.string.review_short_hint), getString(R.string.review_long_hint))
+                                    .transparentTarget(true)
+                                    .targetRadius(100)
+                                    .id(2),
+                            TapTarget.forView((Button)mainActivity.findViewById(R.id.free_review_btn),getString(R.string.free_review_short_hint), getString(R.string.free_review_long_hint))
+                                    .transparentTarget(true)
+                                    .targetRadius(100)
+                                    .id(3)
 
-                        )
-                        .listener(new TapTargetSequence.Listener() {
-                            @Override
-                            public void onSequenceFinish() {
-                            }
+                    )
+                    .listener(new TapTargetSequence.Listener() {
+                        @Override
+                        public void onSequenceFinish() {
+                            Util.saveInPreferences(Const.SEEN_CATEGORY_HOME_HINT,String.valueOf("1"));
+                        }
 
-                            @Override
-                            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                        @Override
+                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onSequenceCanceled(TapTarget lastTarget) {
-                            }
-                        });
-                sequence.start();
+                        @Override
+                        public void onSequenceCanceled(TapTarget lastTarget) {
+                            Util.saveInPreferences(Const.SEEN_CATEGORY_HOME_HINT,String.valueOf("1"));
+                        }
+                    });
+            sequence.start();
             }
         });
-
     }
 
     @Override

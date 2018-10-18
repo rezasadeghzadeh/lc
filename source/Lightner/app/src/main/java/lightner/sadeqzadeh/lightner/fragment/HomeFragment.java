@@ -25,6 +25,7 @@ import com.getkeepsafe.taptargetview.TapTargetView;
 
 import java.util.List;
 
+import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
 import lightner.sadeqzadeh.lightner.Util;
@@ -75,31 +76,39 @@ public class HomeFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.home_fragment_menu, menu);
 
+        displayHelp();
+
+    }
+
+    private void displayHelp() {
+        if(Util.fetchFromPreferences(Const.SEEN_HOME_HINT) != null){
+            return;
+        }
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-            final TapTargetSequence sequence = new TapTargetSequence(getActivity())
-                    .targets(
-                            TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help)).id(1),
-                            TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(2)
-                    )
-                    .listener(new TapTargetSequence.Listener() {
-                        @Override
-                        public void onSequenceFinish() {
-                        }
+                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                        .targets(
+                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help)).id(1),
+                                TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(2)
+                        )
+                        .listener(new TapTargetSequence.Listener() {
+                            @Override
+                            public void onSequenceFinish() {
+                                Util.saveInPreferences(Const.SEEN_HOME_HINT,String.valueOf("1"));
+                            }
 
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                        }
+                            @Override
+                            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                            }
 
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                        }
-                    });
-            sequence.start();
+                            @Override
+                            public void onSequenceCanceled(TapTarget lastTarget) {
+                            }
+                        });
+                sequence.start();
             }
         });
-
     }
 
     @Override

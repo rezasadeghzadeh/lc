@@ -2,6 +2,7 @@ package lightner.sadeqzadeh.lightner.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -25,6 +28,7 @@ import java.util.Date;
 import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.Util;
 import lightner.sadeqzadeh.lightner.entity.Flashcard;
 import lightner.sadeqzadeh.lightner.entity.FlashcardDao;
 
@@ -136,8 +140,41 @@ public class NewFlashCardFragment extends Fragment{
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.new_flashcard_menu, menu);
-
+        displayHelp();
     }
+
+    private void displayHelp() {
+        if(Util.fetchFromPreferences(Const.SEEN_NEW_FLASHCARD_HINT) != null){
+            return;
+        }
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                        .targets(
+                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.save_flashcard, getString(R.string.save_flashcard), getString(R.string.save_flashcard_help)).id(1),
+                                TapTarget.forView(mainActivity.findViewById(R.id.take_question_image), getString(R.string.take_image), getString(R.string.take_image_long_help)).id(2)
+                        )
+                        .listener(new TapTargetSequence.Listener() {
+                            @Override
+                            public void onSequenceFinish() {
+                                Util.saveInPreferences(Const.SEEN_NEW_FLASHCARD_HINT,String.valueOf("1"));
+                            }
+
+                            @Override
+                            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+                            }
+
+                            @Override
+                            public void onSequenceCanceled(TapTarget lastTarget) {
+                            }
+                        });
+                sequence.start();
+            }
+        });
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

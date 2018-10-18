@@ -53,5 +53,15 @@
     <string name="free_review_short_hint">مرور آزاد فلش کارت ها</string>
     <string name="answer_btn_long_hint">برای مشاهده پاسخ ابن کلید را انتخاب نمایید</string>
     <string name="answer_btn_short_hint">مشاهده پاسخ</string>
+    <string name="correct_btn_short_hint">پاسخ درست</string>
+    <string name="correct_btn_long_hint">در صورتی که به فلش کارت پاسخ درست داده اید این دکمه را انتخاب کنید</string>
+    <string name="incorrect_btn_long_hint">در صورتی که به فلش کارت پاسخ اشتباه داده اید این دکمه را انتخاب کنید</string>
+    <string name="incorrect_btn_short_hint">پاسخ اشتباه</string>
+    <string name="save_flashcard_help">برای ذخیره کردن فلش کارت اینجا را انتخاب نمایید</string>
+    <string name="save_flashcard">ذخیره کردن فلش کارت</string>
+    <string name="take_image">اضافه کردن تصویر</string>
+    <string name="take_image_long_help">برای اضافه کردن تصویر به فلش کارت اینجا را انتخاب نمایید</string>
+    <string name="save_category">ذخیره دسته بندی</string>
+    <string name="save_category_help">برای ذخیره دسته بندی اینجا را کلیک کنید</string>
 </resources>
 

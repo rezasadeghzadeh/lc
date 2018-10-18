@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import java.util.TimeZone;
 import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.Util;
 import lightner.sadeqzadeh.lightner.entity.Category;
 import lightner.sadeqzadeh.lightner.entity.CategoryDao;
 import lightner.sadeqzadeh.lightner.entity.Flashcard;
@@ -56,6 +58,8 @@ public class ReviewFlashcard extends Fragment {
     private boolean reviewMode;
     private ImageView speech;
     TextToSpeech textToSpeech;
+    ScrollView scrollView;
+    TapTargetSequence answerButtonSequence;
     private LinearLayout correctIncorrectBtnContainer;
     private RelativeLayout viewAnswerContainer;
 
@@ -75,6 +79,7 @@ public class ReviewFlashcard extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.review_flashcard_layout, container, false);
+        scrollView  =  view.findViewById(R.id.scroll_view);
         answer  =  view.findViewById(R.id.answer);
         answerBox  =  view.findViewById(R.id.answer_box);
         answerImageView = view.findViewById(R.id.review_answer_image_view);
@@ -148,6 +153,7 @@ public class ReviewFlashcard extends Fragment {
                 correctIncorrectBtnContainer.setVisibility(View.VISIBLE);
             }
         });
+
         speech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,12 +196,15 @@ public class ReviewFlashcard extends Fragment {
         Category category = categoryDao.load(categoryId);
         category.setLastVisit(new Date());
         categoryDao.update(category);
-
         displayHelp();
         return  view;
     }
 
     private void displayHelp() {
+        if(Util.fetchFromPreferences(Const.SEEN_REVIEW_FLASHCARD_HINT) != null){
+            return;
+        }
+
         new Handler().post(new Runnable() {
             @Override
             public void run() {
@@ -210,6 +219,7 @@ public class ReviewFlashcard extends Fragment {
                         .listener(new TapTargetSequence.Listener() {
                             @Override
                             public void onSequenceFinish() {
+                                Util.saveInPreferences(Const.SEEN_REVIEW_FLASHCARD_HINT,String.valueOf("1"));
                             }
 
                             @Override

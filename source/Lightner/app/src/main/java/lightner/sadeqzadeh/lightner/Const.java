@@ -20,4 +20,9 @@ public class Const {
     public static final String USER_CODE = "USER_CODE";
     public static final String URI = "URI";
     public static final String FLASHCARD_TO_SHOW = "FLASHCARD_TO_SHOW";
+    public static final String SEEN_HOME_HINT = "SEEN_HOME_HINT";
+    public static final String SEEN_CATEGORY_HOME_HINT = "SEEN_CATEGORY_HOME_HINT";
+    public static final String SEEN_REVIEW_FLASHCARD_HINT = "SEEN_REVIEW_FLASHCARD_HINT";
+    public static final String SEEN_NEW_FLASHCARD_HINT = "SEEN_NEW_FLASHCARD_HINT";
+    public static final String SEEN_NEW_CATEGORY_HINT = "SEEN_NEW_CATEGORY_HINT";
 }
