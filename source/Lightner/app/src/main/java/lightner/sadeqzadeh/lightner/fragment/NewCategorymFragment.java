@@ -48,6 +48,7 @@ public class NewCategorymFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_category_fragment_layout, container, false);
+        mainActivity.setTitle(getString(R.string.new_category));
         categoryNameEdit  = view.findViewById(R.id.category_name);
         initColorPicker(view);
         if(args != null && args.getBoolean(Const.EDIT)){

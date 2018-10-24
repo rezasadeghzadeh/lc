@@ -32,7 +32,7 @@
     <string name="user_data_not_found">اطلاعات کاربر یافت نشد</string>
     <string name="bad_request">BAD_REQUEST</string>
     <string name="press_back_again_to_exit">برای خروج از برنامه دکمه برگشت را دوباره بزنید</string>
-    <string name="add_category_first">برای ایجاد گروه لغات از دکمه  + بالا استفاده  نمایید</string>
+    <string name="add_category_first">برای ایجاد دسته بندی جدید از دکمه  + بالا استفاده  نمایید</string>
     <string name="return_to_home">بازگشت</string>
     <string name="or">یا</string>
     <string name="flash_added_sucess">فلش کارت با موفقیت اضافه گردید</string>
@@ -43,7 +43,7 @@
     <string name="available_categories">دسته بندی های موجود</string>
     <string name="of">از</string>
     <string name="action_settings_help">برای انجام تنظمیات برنامه اینجا را انتخاب کنید</string>
-    <string name="add_category_help">برای ایجاد دسته بندی جدید اینجا را انتخاب نمایید. دسته بندی می تواند مواردی مانند درس ۱ ، لغات عربی، فرمول های دیفرانسیل و  ... باشد</string>
+    <string name="add_category_help">برای ایجاد دسته بندی جدید اینجا را انتخاب نمایید. دسته بندی می تواند مواردی مانند درس ۱ ، لغات عربی، فرمول های ریاضی و  ... باشد</string>
     <string name="add_category">ایجاد دسته بندی جدید</string>
     <string name="add_flashcard">ایجاد و یا واردکردن فلش کارت</string>
     <string name="add_flashcard_help">فلش کارت را می توانید به دو روش دستی و یا وارد کردن بسته های آماده  انجام دهید</string>
@@ -63,5 +63,6 @@
     <string name="take_image_long_help">برای اضافه کردن تصویر به فلش کارت اینجا را انتخاب نمایید</string>
     <string name="save_category">ذخیره دسته بندی</string>
     <string name="save_category_help">برای ذخیره دسته بندی اینجا را کلیک کنید</string>
+    <string name="new_category">دسته بندی جدید</string>
 </resources>
 
