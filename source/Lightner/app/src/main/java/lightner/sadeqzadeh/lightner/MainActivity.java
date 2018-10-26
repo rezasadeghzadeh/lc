@@ -1,5 +1,7 @@
 package lightner.sadeqzadeh.lightner;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -36,6 +38,7 @@ import java.security.NoSuchProviderException;
 import java.security.SignatureException;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
+import java.util.Calendar;
 import java.util.Locale;
 
 import javax.crypto.BadPaddingException;
@@ -44,6 +47,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+import lightner.sadeqzadeh.lightner.alarm.AlarmReceiver;
 import lightner.sadeqzadeh.lightner.encryption.DeCryptor;
 import lightner.sadeqzadeh.lightner.encryption.EnCryptor;
 import lightner.sadeqzadeh.lightner.entity.DaoSession;
@@ -119,6 +123,28 @@ public class MainActivity extends AppCompatActivity
             HomeFragment fragment = new HomeFragment();
             replaceFragment(fragment, HomeFragment.TAG,false);
         }
+        registerAlaram();
+    }
+
+    public void registerAlaram() {
+        //set default hour
+        if(Util.fetchFromPreferences(Const.ALARM_HOUR) == null ){
+            Util.saveInPreferences(Const.ALARM_HOUR,String.valueOf("8"));
+            Util.saveInPreferences(Const.ALARM_MINUTE,String.valueOf("0"));
+        }
+
+        AlarmManager alarmManager;
+        PendingIntent pendingIntent;
+        alarmManager  = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
+        alarmManager.cancel(pendingIntent);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_HOUR)));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_MINUTE)));
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+
+
     }
 
     private void initIAP() {

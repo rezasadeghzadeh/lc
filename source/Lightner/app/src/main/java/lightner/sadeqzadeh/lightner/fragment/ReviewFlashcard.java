@@ -211,7 +211,7 @@ public class ReviewFlashcard extends Fragment {
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
                                 TapTarget.forView((Button)mainActivity.findViewById(R.id.view_answer_btn),getString(R.string.answer_btn_short_hint), getString(R.string.answer_btn_long_hint))
-                                        .transparentTarget(true)
+                                        .cancelable(false).transparentTarget(true)
                                         .targetRadius(100)
                                         .id(1)
 

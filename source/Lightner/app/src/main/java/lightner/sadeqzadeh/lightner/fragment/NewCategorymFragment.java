@@ -94,7 +94,7 @@ public class NewCategorymFragment extends Fragment {
             public void run() {
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
-                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.save_category, getString(R.string.save_category), getString(R.string.save_category_help)).id(1)
+                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.save_category, getString(R.string.save_category), getString(R.string.save_category_help)).id(1).cancelable(false)
                         )
                         .listener(new TapTargetSequence.Listener() {
                             @Override

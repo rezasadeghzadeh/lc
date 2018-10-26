@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import lightner.sadeqzadeh.lightner.Const;
@@ -30,12 +31,14 @@ public class SettingsFragment extends Fragment {
     Button saveBtn;
     Spinner educationBaseSpin;
     Spinner educationFieldSpin;
+    TimePicker alarmTimePicker;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.settings_fragment_layout, container, false);
         mainActivity = (MainActivity) getActivity();
         educationBaseSpin = view.findViewById(R.id.education_base_spin);
+        alarmTimePicker = (TimePicker) view.findViewById(R.id.alarm_time_picker);
         final String[] baseKeys  =  getResources().getStringArray(R.array.educationBaseKeys);
         String[] baseValues =  getResources().getStringArray(R.array.educationBaseValues);
         KeyValueAdapter baseKeyValueAdapter = new KeyValueAdapter(mainActivity,baseKeys,baseValues);
@@ -107,8 +110,14 @@ public class SettingsFragment extends Fragment {
                         Toast.makeText(getActivity(), getText(R.string.error_in_saving_user_data), Toast.LENGTH_LONG).show();
                     }
                 });
+
+                //set alarm
+                Util.saveInPreferences(Const.ALARM_HOUR,alarmTimePicker.getCurrentHour().toString());
+                Util.saveInPreferences(Const.ALARM_MINUTE,alarmTimePicker.getCurrentMinute().toString());
+                mainActivity.registerAlaram();
             }
         });
+
 
         return  view;
 

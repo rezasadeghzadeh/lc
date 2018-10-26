@@ -152,8 +152,8 @@ public class NewFlashCardFragment extends Fragment{
             public void run() {
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
-                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.save_flashcard, getString(R.string.save_flashcard), getString(R.string.save_flashcard_help)).id(1),
-                                TapTarget.forView(mainActivity.findViewById(R.id.take_question_image), getString(R.string.take_image), getString(R.string.take_image_long_help)).id(2)
+                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.save_flashcard, getString(R.string.save_flashcard), getString(R.string.save_flashcard_help)).id(1).cancelable(false),
+                                TapTarget.forView(mainActivity.findViewById(R.id.take_question_image), getString(R.string.take_image), getString(R.string.take_image_long_help)).cancelable(false).id(2)
                         )
                         .listener(new TapTargetSequence.Listener() {
                             @Override

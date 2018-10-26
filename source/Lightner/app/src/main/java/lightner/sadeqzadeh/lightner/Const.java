@@ -25,4 +25,6 @@ public class Const {
     public static final String SEEN_REVIEW_FLASHCARD_HINT = "SEEN_REVIEW_FLASHCARD_HINT";
     public static final String SEEN_NEW_FLASHCARD_HINT = "SEEN_NEW_FLASHCARD_HINT";
     public static final String SEEN_NEW_CATEGORY_HINT = "SEEN_NEW_CATEGORY_HINT";
+    public static final String ALARM_HOUR = "ALARM_HOUR";
+    public static final String ALARM_MINUTE = "ALARM_MINUTE";
 }

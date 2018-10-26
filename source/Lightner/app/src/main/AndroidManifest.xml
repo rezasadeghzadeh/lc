@@ -6,6 +6,7 @@
     <uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".App"
@@ -38,6 +39,11 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
+
+        <service
+            android:name=".alarm.AlarmService"
+            android:enabled="true" />
+        <receiver android:name=".alarm.AlarmReceiver" />
 
     </application>
 

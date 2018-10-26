@@ -64,5 +64,6 @@
     <string name="save_category">ذخیره دسته بندی</string>
     <string name="save_category_help">برای ذخیره دسته بندی اینجا را کلیک کنید</string>
     <string name="new_category">دسته بندی جدید</string>
+    <string name="you_have_flashcard_to_review">شما تعدادی فلش کارت برای مرور دارید</string>
 </resources>
 
