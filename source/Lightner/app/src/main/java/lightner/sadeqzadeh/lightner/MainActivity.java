@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_HOUR)));
         calendar.set(Calendar.MINUTE, Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_MINUTE)));
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
 
     }

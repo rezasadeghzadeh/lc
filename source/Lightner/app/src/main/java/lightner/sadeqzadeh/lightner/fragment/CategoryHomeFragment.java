@@ -309,7 +309,7 @@ public class CategoryHomeFragment extends Fragment {
                             TapTarget.forView((Button)mainActivity.findViewById(R.id.free_review_btn),getString(R.string.free_review_short_hint), getString(R.string.free_review_long_hint))
                                     .transparentTarget(true)
                                     .targetRadius(100)
-                                    .cancelable(false)
+                                    .cancelable(true)
                                     .id(3)
 
                     )
@@ -326,6 +326,7 @@ public class CategoryHomeFragment extends Fragment {
 
                         @Override
                         public void onSequenceCanceled(TapTarget lastTarget) {
+                            Util.saveInPreferences(Const.SEEN_CATEGORY_HOME_HINT,String.valueOf("1"));
                         }
                     });
             sequence.start();
