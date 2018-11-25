@@ -13,9 +13,9 @@
     <dimen name="backdrop_title">30dp</dimen>
     <dimen name="backdrop_subtitle">18dp</dimen>
     <dimen name="card_margin">5dp</dimen>
-    <dimen name="card_category_radius">0dp</dimen>
+    <dimen name="card_category_radius">15dp</dimen>
     <dimen name="category_cover_height">160dp</dimen>
-    <dimen name="category_title_padding">10dp</dimen>
+    <dimen name="category_title_padding">3dp</dimen>
     <dimen name="category_title">15dp</dimen>
     <dimen name="songs_count_padding_bottom">5dp</dimen>
     <dimen name="songs_count">12dp</dimen>
@@ -26,7 +26,7 @@
     <dimen name="header1">20dp</dimen>
     <dimen name="header2">18dp</dimen>
     <dimen name="header3">16dp</dimen>
-    <dimen name="header4">14dp</dimen>
+    <dimen name="header4">12dp</dimen>
     <dimen name="header5">12dp</dimen>
     <dimen name="layout_padding">10dp</dimen>
     <dimen name="card_package_radius">5dp</dimen>

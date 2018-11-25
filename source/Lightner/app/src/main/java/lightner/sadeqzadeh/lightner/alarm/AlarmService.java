@@ -7,10 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.Calendar;
 import java.util.Date;
 import lightner.sadeqzadeh.lightner.App;
+import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
+import lightner.sadeqzadeh.lightner.Util;
 import lightner.sadeqzadeh.lightner.entity.DaoSession;
 import lightner.sadeqzadeh.lightner.entity.Flashcard;
 import lightner.sadeqzadeh.lightner.entity.FlashcardDao;
@@ -24,6 +28,12 @@ public class AlarmService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
+        Calendar calendar  = Calendar.getInstance();
+        int hour = Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_HOUR));
+        int minute = Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_MINUTE));
+        if(calendar.get(Calendar.HOUR_OF_DAY)!= hour ||  calendar.get(Calendar.MINUTE) != minute){
+            return;
+        }
         DaoSession daoSession = ((App) getApplication()).getDaoSession();
         FlashcardDao flashcardDao  = daoSession.getFlashcardDao();
         QueryBuilder<Flashcard> queryBuilder = flashcardDao.queryBuilder();

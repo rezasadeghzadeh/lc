@@ -1,395 +1,438 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layoutDirection="rtl"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layoutDirection="rtl"
     android:background="#fff"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="@dimen/layout_padding">
+    android:layout_height="match_parent" >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout  android:layoutDirection="rtl"
-            android:orientation="vertical" android:layout_width="match_parent"
-            android:layout_height="match_parent" android:padding="@dimen/layout_padding">
-
-            <Button
-                android:id="@+id/start_review_btn"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/round_button_enabled"
-                android:text="شروع مرور" />
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/category_box1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/layout_padding"
-                android:layout_margin="@dimen/card_margin"
-                android:background="@drawable/lightner_box">
+                android:orientation="horizontal" android:background="@drawable/gradiant_7">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal">
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/start_review_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/round_button_enabled"
+                    android:text="شروع مرور"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="#a74be9"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="40dp"
+                    tools:layout_editor_absoluteX="4dp" />
 
-                    <ImageView
-                        android:id="@+id/circle1"
-                        android:layout_width="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="20dp"  />
-
-                    <TextView
-                        android:id="@+id/header_title1"
-                        android:layout_margin="3dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/circle1"
-                        android:text="خانه اول"
-                        android:textSize="@dimen/header2" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp" android:layout_margin="@dimen/card_margin"
-                    android:background="@color/light_gray"/>
-
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/free_review_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="20dp"
+                    android:textColor="#a74be9"
+                    android:background="@drawable/round_button_enabled"
+                    android:text="@string/free_review"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+            <LinearLayout  android:layoutDirection="rtl"
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="match_parent" android:padding="@dimen/layout_padding">
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:id="@+id/category_box1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/layout_padding"
+                    android:layout_margin="@dimen/card_margin"
+                    android:background="@drawable/gradiant_1"
 
-                    <TextView
-                        android:id="@+id/total_words_1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:text="موجود: "
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/header5" />
+                    >
 
-                    <TextView
-                        android:id="@+id/reviewable_1"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:textColor="@android:color/black"
-                        android:text="قابل مرور: "
-                        android:textSize="@dimen/header5" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_alignParentLeft="true"
+                            android:id="@+id/circle1"
+                            android:layout_width="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="20dp"  />
+
+                        <TextView
+                            android:textColor="#fff"
+                            android:id="@+id/header_title1"
+                            android:layout_margin="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/circle1"
+                            android:text="خانه اول"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/header2" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height=".5dp" android:layout_margin="@dimen/card_margin"
+                        android:background="#cae2f9"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/total_words_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:text="موجود: "
+                            android:textColor="#fff"
+                            android:textSize="@dimen/header5" />
+
+                        <TextView
+                            android:id="@+id/reviewable_1"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:textColor="#fff"
+                            android:text="قابل مرور: "
+                            android:textSize="@dimen/header5" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </LinearLayout>
 
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:id="@+id/category_box2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/layout_padding"
+                    android:layout_margin="@dimen/card_margin"
+                    android:background="@drawable/gradiant_2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/circle2"
+                            android:layout_width="20dp"
+                            android:layout_marginTop="5dp" android:layout_alignParentLeft="true"
+                            android:layout_height="20dp"  android:src="@drawable/circle_red"/>
+
+                        <TextView
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/header_title2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_toLeftOf="@+id/circle2"
+                            android:text="خانه دوم"
+                            android:textSize="@dimen/header2"
+                            android:textColor="#fff"/>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height=".5dp" android:layout_margin="@dimen/card_margin"
+                        android:background="#fadcbd" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/total_words_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:text="موجود: "
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/header5" />
+
+                        <TextView
+                            android:id="@+id/reviewable_2"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:textColor="@android:color/white"
+                            android:text="قابل مرور: "
+                            android:textSize="@dimen/header5" />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/category_box3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/layout_padding"
+                    android:layout_margin="@dimen/card_margin"
+                    android:background="@drawable/gradiant_3">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_alignParentLeft="true"
+                            android:id="@+id/circle3"
+                            android:layout_width="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="20dp"  android:src="@drawable/circle_red"/>
+
+                        <TextView
+                            android:id="@+id/header_title3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_toLeftOf="@+id/circle3"
+                            android:text="خانه سوم"
+                            android:textColor="#fff"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/header2" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height=".5dp" android:layout_margin="@dimen/card_margin"
+                        android:background="#f8c3d4"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/total_words_3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:text="موجود: "
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/header5" />
+
+                        <TextView
+                            android:id="@+id/reviewable_3"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:textColor="@android:color/white"
+                            android:text="قابل مرور: "
+                            android:textSize="@dimen/header5" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/category_box4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/layout_padding"
+                    android:layout_margin="@dimen/card_margin"
+                    android:background="@drawable/gradiant_4">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_alignParentLeft="true"
+                            android:id="@+id/circle4"
+                            android:layout_width="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="20dp"  android:src="@drawable/circle_red"/>
+
+                        <TextView
+                            android:id="@+id/header_title4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_toLeftOf="@+id/circle4"
+                            android:text="خانه چهارم"
+                            android:layout_alignParentRight="true"
+                            android:textColor="#fff"
+                            android:textSize="@dimen/header2" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height=".5dp" android:layout_margin="@dimen/card_margin"
+                        android:background="#f3dbff"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/total_words_4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:text="موجود: "
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/header5" />
+
+                        <TextView
+                            android:id="@+id/reviewable_4"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:textColor="@android:color/white"
+                            android:text="قابل مرور: "
+                            android:textSize="@dimen/header5" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/category_box5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/layout_padding"
+                    android:layout_margin="@dimen/card_margin"
+                    android:background="@drawable/gradiant_5">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/circle5"
+                            android:layout_width="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_height="20dp"  android:src="@drawable/circle_red"/>
+
+                        <TextView
+                            android:id="@+id/header_title5"
+                            android:layout_margin="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/circle5"
+                            android:text="خانه پنجم"
+                            android:textColor="#fff"
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/header2" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height=".75dp" android:layout_margin="@dimen/card_margin"
+                        android:background="#c4f5ec"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/total_words_5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:text="موجود: "
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/header5" />
+
+                        <TextView
+                            android:id="@+id/reviewable_5"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/category_title_padding"
+                            android:paddingRight="@dimen/category_title_padding"
+                            android:paddingTop="@dimen/category_title_padding"
+                            android:paddingBottom="@dimen/category_title_padding"
+                            android:textColor="@android:color/white"
+                            android:text="قابل مرور: "
+                            android:textSize="@dimen/header5" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/category_box2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/layout_padding"
-                android:layout_margin="@dimen/card_margin"
-                android:background="@drawable/lightner_box">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/circle2"
-                        android:layout_width="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="20dp"  android:src="@drawable/circle_red"/>
-
-                    <TextView
-                        android:id="@+id/header_title2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:layout_toLeftOf="@+id/circle2"
-                        android:text="خانه دوم"
-                        android:textSize="@dimen/header2" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp" android:layout_margin="@dimen/card_margin"
-                    android:background="@color/light_gray"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/total_words_2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:text="موجود: "
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/header5" />
-
-                    <TextView
-                        android:id="@+id/reviewable_2"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:textColor="@android:color/black"
-                        android:text="قابل مرور: "
-                        android:textSize="@dimen/header5" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/category_box3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/layout_padding"
-                android:layout_margin="@dimen/card_margin"
-                android:background="@drawable/lightner_box">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/circle3"
-                        android:layout_width="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="20dp"  android:src="@drawable/circle_red"/>
-
-                    <TextView
-                        android:id="@+id/header_title3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:layout_toLeftOf="@+id/circle3"
-                        android:text="خانه سوم"
-                        android:textSize="@dimen/header2" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp" android:layout_margin="@dimen/card_margin"
-                    android:background="@color/light_gray"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/total_words_3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:text="موجود: "
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/header5" />
-
-                    <TextView
-                        android:id="@+id/reviewable_3"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:textColor="@android:color/black"
-                        android:text="قابل مرور: "
-                        android:textSize="@dimen/header5" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/category_box4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/layout_padding"
-                android:layout_margin="@dimen/card_margin"
-                android:background="@drawable/lightner_box">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/circle4"
-                        android:layout_width="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="20dp"  android:src="@drawable/circle_red"/>
-
-                    <TextView
-                        android:id="@+id/header_title4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:layout_toLeftOf="@+id/circle4"
-                        android:text="خانه چهارم"
-                        android:textSize="@dimen/header2" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp" android:layout_margin="@dimen/card_margin"
-                    android:background="@color/light_gray"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/total_words_4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:text="موجود: "
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/header5" />
-
-                    <TextView
-                        android:id="@+id/reviewable_4"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:textColor="@android:color/black"
-                        android:text="قابل مرور: "
-                        android:textSize="@dimen/header5" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/category_box5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/layout_padding"
-                android:layout_margin="@dimen/card_margin"
-                android:background="@drawable/lightner_box">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/circle5"
-                        android:layout_width="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="20dp"  android:src="@drawable/circle_red"/>
-
-                    <TextView
-                        android:id="@+id/header_title5"
-                        android:layout_margin="3dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/circle5"
-                        android:text="خانه پنجم"
-                        android:textSize="@dimen/header2" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp" android:layout_margin="@dimen/card_margin"
-                    android:background="@color/light_gray"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/total_words_5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:text="موجود: "
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/header5" />
-
-                    <TextView
-                        android:id="@+id/reviewable_5"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/category_title_padding"
-                        android:paddingRight="@dimen/category_title_padding"
-                        android:paddingTop="@dimen/category_title_padding"
-                        android:paddingBottom="@dimen/category_title_padding"
-                        android:textColor="@android:color/black"
-                        android:text="قابل مرور: "
-                        android:textSize="@dimen/header5" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/free_review_btn"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/round_button_enabled"
-                android:text="@string/free_review" />
         </LinearLayout>
 
     </ScrollView>

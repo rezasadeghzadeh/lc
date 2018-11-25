@@ -274,7 +274,7 @@ public class CategoryHomeFragment extends Fragment {
 
             startReviewBtn.setEnabled(hasReviewItems);
             if(!hasReviewItems){
-                startReviewBtn.setBackgroundColor(getResources().getColor(R.color.light_gray));
+                startReviewBtn.setBackgroundColor(getResources().getColor(R.drawable.round_button_disabled));
             }
         } catch (Exception e) {
             e.printStackTrace();
