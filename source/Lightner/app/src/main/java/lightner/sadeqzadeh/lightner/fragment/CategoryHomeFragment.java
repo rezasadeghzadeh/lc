@@ -1,6 +1,7 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
@@ -274,7 +275,7 @@ public class CategoryHomeFragment extends Fragment {
 
             startReviewBtn.setEnabled(hasReviewItems);
             if(!hasReviewItems){
-                startReviewBtn.setBackgroundColor(getResources().getColor(R.drawable.round_button_disabled));
+                startReviewBtn.setTextColor(Color.parseColor("#C0C0C0"));
             }
         } catch (Exception e) {
             e.printStackTrace();
