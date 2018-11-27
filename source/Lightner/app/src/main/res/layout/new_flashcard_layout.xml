@@ -15,7 +15,7 @@
             android:layout_margin="@dimen/card_margin"
             android:layoutDirection="rtl"
             android:orientation="vertical"
-            android:background="@drawable/gradiant_1"
+            android:background="@drawable/gradiant_4"
             android:padding="@dimen/layout_padding">
 
             <TextView
@@ -69,7 +69,7 @@
             android:layout_margin="@dimen/card_margin"
             android:layoutDirection="rtl"
             android:orientation="vertical"
-            android:background="@drawable/gradiant_3"
+            android:background="@drawable/gradiant_4"
             android:padding="@dimen/layout_padding">
             <TextView
                 android:id="@+id/textView4"

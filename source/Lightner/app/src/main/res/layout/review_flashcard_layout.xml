@@ -14,9 +14,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/lightner_box"
+            android:background="@drawable/gradiant_4"
             android:orientation="vertical"
-            android:layout_margin="@dimen/card_margin"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:padding="@dimen/layout_padding">
 
             <ImageView
@@ -33,7 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_margin="3dp"
+                android:layout_margin="5dp"
+                android:textColor="#fff"
                 android:text="Question"
                 android:textSize="@dimen/header2" />
             <ImageView
@@ -49,11 +53,14 @@
             android:id="@+id/answer_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/lightner_box"
+            android:background="@drawable/gradiant_4"
             android:orientation="vertical"
             android:padding="@dimen/layout_padding"
             android:layout_below="@+id/question_box"
-            android:layout_margin="@dimen/card_margin"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:visibility="gone">
 
             <LinearLayout
@@ -66,7 +73,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="3dp"
+                    android:textColor="#fff"
+                    android:layout_margin="5dp"
                     android:text="Answer"
                     android:textSize="@dimen/header2" />
                 <ImageView
@@ -131,7 +139,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
-                    android:background="@drawable/round_button_enabled"
+                    android:background="@drawable/gradiant_1"
+                    android:textColor="#fff"
                     android:gravity="center"
                     android:text="پاسخ" />
 
