@@ -89,7 +89,6 @@ public class ReviewFlashcard extends Fragment {
         correctBtn = view.findViewById(R.id.correct_btn);
         inCorrectBtn = view.findViewById(R.id.incorrect_btn);
         speech  = view.findViewById(R.id.speech);
-        correctIncorrectBtnContainer= view.findViewById(R.id.correct_incorrect_btn_container);
         viewAnswerContainer  = view.findViewById(R.id.view_answer_container);
         final Date currentDate  =  new Date();
 
@@ -149,8 +148,9 @@ public class ReviewFlashcard extends Fragment {
             @Override
             public void onClick(View v) {
                 answerBox.setVisibility(View.VISIBLE);
-                viewAnswerContainer.setVisibility(View.GONE);
-                correctIncorrectBtnContainer.setVisibility(View.VISIBLE);
+                viewAnswerBtn.setVisibility(View.INVISIBLE);
+                correctBtn.setVisibility(View.VISIBLE);
+                inCorrectBtn.setVisibility(View.VISIBLE);
             }
         });
 

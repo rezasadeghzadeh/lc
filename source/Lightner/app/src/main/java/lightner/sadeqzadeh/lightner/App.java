@@ -19,7 +19,7 @@ public class App extends Application {
         super.onCreate();
 
         //sqlite
-        UpgradeHelper upgradeHelper = new UpgradeHelper(this, "Wordika",null);
+        UpgradeHelper upgradeHelper = new UpgradeHelper(this, "Learnika",null);
         Database db = upgradeHelper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
 
