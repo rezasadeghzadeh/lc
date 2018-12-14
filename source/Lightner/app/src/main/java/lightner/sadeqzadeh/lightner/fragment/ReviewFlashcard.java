@@ -129,6 +129,12 @@ public class ReviewFlashcard extends Fragment {
                     }
                 });
             }
+            if(Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION) == null || Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION).equals("true")) {
+                if (mainActivity.textToSpeech != null && mainActivity.speechStatus) {
+                    mainActivity.textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+
         }else if(reviewMode){
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             Fragment prev = getFragmentManager().findFragmentByTag(ReviewFinishedDialogFragment.class.getName());

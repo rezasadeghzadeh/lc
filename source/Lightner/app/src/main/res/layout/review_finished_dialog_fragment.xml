@@ -28,6 +28,6 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="104dp"
-        android:background="@drawable/round_button_enabled"
+        android:background="@drawable/gradiant_1"
         android:text="@string/return_to_home" />
 </RelativeLayout>

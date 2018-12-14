@@ -10,10 +10,11 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_margin="@dimen/card_margin"
+        android:layout_margin="10dp"
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_package_radius">
         <LinearLayout
+            android:padding="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

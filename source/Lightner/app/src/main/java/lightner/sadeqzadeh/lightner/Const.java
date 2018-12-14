@@ -27,4 +27,6 @@ public class Const {
     public static final String SEEN_NEW_CATEGORY_HINT = "SEEN_NEW_CATEGORY_HINT";
     public static final String ALARM_HOUR = "ALARM_HOUR";
     public static final String ALARM_MINUTE = "ALARM_MINUTE";
+    public static final String AUTO_SPELL_QUESTION = "AUTO_SPELL_QUESTION";
+    public static final String ENABLE_ALARM = "ENABLE_ALARM";
 }

@@ -1,5 +1,6 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,17 +34,48 @@ public class SettingsFragment extends Fragment {
     Spinner educationBaseSpin;
     Spinner educationFieldSpin;
     TimePicker alarmTimePicker;
+    Switch autoSpellQuestion;
+    Switch alarmSwitch;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.settings_fragment_layout, container, false);
         mainActivity = (MainActivity) getActivity();
         educationBaseSpin = view.findViewById(R.id.education_base_spin);
-        alarmTimePicker = (TimePicker) view.findViewById(R.id.alarm_time_picker);
+        autoSpellQuestion = view.findViewById(R.id.spell_question_switch);
+        alarmTimePicker = view.findViewById(R.id.alarm_time_picker);
+        alarmSwitch =  view.findViewById(R.id.alarm_switch);
+        alarmSwitch.setChecked(true);
+        if(Util.fetchFromPreferences(Const.ENABLE_ALARM) != null){
+            alarmSwitch.setChecked(Boolean.valueOf(Util.fetchFromPreferences(Const.ENABLE_ALARM)));
+            int hour  =  Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_HOUR));
+            int minute =  Integer.parseInt(Util.fetchFromPreferences(Const.ALARM_MINUTE));;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmTimePicker.setHour(hour);
+                alarmTimePicker.setMinute(minute);
+            } else {
+                alarmTimePicker.setCurrentHour(hour);
+                alarmTimePicker.setCurrentMinute(minute);
+            }
+        }
+        alarmTimePicker.setIs24HourView(true);
+        alarmTimePicker.setEnabled(alarmSwitch.isChecked());
+
+        alarmSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alarmTimePicker.setEnabled(alarmSwitch.isChecked());
+            }
+        });
         final String[] baseKeys  =  getResources().getStringArray(R.array.educationBaseKeys);
         String[] baseValues =  getResources().getStringArray(R.array.educationBaseValues);
         KeyValueAdapter baseKeyValueAdapter = new KeyValueAdapter(mainActivity,baseKeys,baseValues);
         educationBaseSpin.setAdapter(baseKeyValueAdapter);
+        boolean spellAutoChecked  =  true;
+        if(Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION) != null){
+            spellAutoChecked = Boolean.valueOf(Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION));
+        }
+        autoSpellQuestion.setChecked(spellAutoChecked);
 
         educationFieldSpin  = view.findViewById(R.id.education_field_spin);
         final String[] fieldKeys  =  getResources().getStringArray(R.array.educationFieldKeys);
@@ -114,7 +147,11 @@ public class SettingsFragment extends Fragment {
                 //set alarm
                 Util.saveInPreferences(Const.ALARM_HOUR,alarmTimePicker.getCurrentHour().toString());
                 Util.saveInPreferences(Const.ALARM_MINUTE,alarmTimePicker.getCurrentMinute().toString());
+                Util.saveInPreferences(Const.ENABLE_ALARM, String.valueOf(alarmSwitch.isChecked()));
                 mainActivity.registerAlaram();
+
+                //save preferences
+                Util.saveInPreferences(Const.AUTO_SPELL_QUESTION, String.valueOf(autoSpellQuestion.isChecked()));
             }
         });
 
