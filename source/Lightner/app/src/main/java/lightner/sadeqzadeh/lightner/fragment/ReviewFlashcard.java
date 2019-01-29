@@ -1,5 +1,6 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,27 +9,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import android.widget.TextView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import lightner.sadeqzadeh.lightner.Const;
@@ -49,20 +47,22 @@ public class ReviewFlashcard extends Fragment {
     private Long  categoryId;
     private TextView question;
     private ImageView questionImageView;
-    private TextView answer;
-    private ImageView answerImageView;
-    private LinearLayout answerBox;
-    private Button viewAnswerBtn;
-    private AppCompatImageButton correctBtn;
-    private AppCompatImageButton inCorrectBtn;
+    private TextView option1;
+    private TextView option2;
+    private TextView option3;
+    private TextView option4;
+    private ImageView imageOption1;
+    private ImageView imageOption2;
+    private ImageView imageOption3;
+    private ImageView imageOption4;
+    private LinearLayout optionBox1;
+    private LinearLayout optionBox2;
+    private LinearLayout optionBox3;
+    private LinearLayout optionBox4;
+    private int optionNumber;
     private boolean reviewMode;
     private ImageView speech;
     TextToSpeech textToSpeech;
-    ScrollView scrollView;
-    TapTargetSequence answerButtonSequence;
-    private LinearLayout correctIncorrectBtnContainer;
-    private RelativeLayout viewAnswerContainer;
-
     public static final String TAG = ReviewFlashcard.class.getName();
 
     @Override
@@ -78,18 +78,23 @@ public class ReviewFlashcard extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.review_flashcard_layout, container, false);
-        scrollView  =  view.findViewById(R.id.scroll_view);
-        answer  =  view.findViewById(R.id.answer);
-        answerBox  =  view.findViewById(R.id.answer_box);
-        answerImageView = view.findViewById(R.id.review_answer_image_view);
+        final View view = inflater.inflate(R.layout.review_flashcard_layout, container, false);
         question =  view.findViewById(R.id.question);
         questionImageView = view.findViewById(R.id.review_question_image_view);
-        viewAnswerBtn = view.findViewById(R.id.view_answer_btn);
-        correctBtn = view.findViewById(R.id.correct_btn);
-        inCorrectBtn = view.findViewById(R.id.incorrect_btn);
         speech  = view.findViewById(R.id.speech);
-        viewAnswerContainer  = view.findViewById(R.id.view_answer_container);
+        option1 = view.findViewById(R.id.option1);
+        option2 = view.findViewById(R.id.option2);
+        option3 = view.findViewById(R.id.option3);
+        option4 = view.findViewById(R.id.option4);
+        imageOption1 = view.findViewById(R.id.image_option_1);
+        imageOption2 = view.findViewById(R.id.image_option_2);
+        imageOption3 = view.findViewById(R.id.image_option_3);
+        imageOption4 = view.findViewById(R.id.image_option_4);
+        optionBox1 = view.findViewById(R.id.option_box_1);
+        optionBox2 = view.findViewById(R.id.option_box_2);
+        optionBox3 = view.findViewById(R.id.option_box_3);
+        optionBox4 = view.findViewById(R.id.option_box_4);
+
         final Date currentDate  =  new Date();
 
         //get current flash card
@@ -99,36 +104,20 @@ public class ReviewFlashcard extends Fragment {
         ).orderDesc(FlashcardDao.Properties.CurrentBox).limit(1).list();
         if(flashcardList.size() > 0 ){
             flashcard = flashcardList.get(0);
-            question.setText(mainActivity.decryptText(flashcard.getQuestion()));
-            answer.setText(mainActivity.decryptText(flashcard.getAnswer()));
-            if(flashcard.getQuestionUri() != null &&  !flashcard.getQuestionUri().isEmpty()){
-                questionImageView.setImageURI(Uri.parse(flashcard.getQuestionUri()));
-                questionImageView.setVisibility(View.VISIBLE);
-                questionImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Const.URI,flashcard.getQuestionUri());
-                        FullscreenImageFragment fragment = new FullscreenImageFragment();
-                        fragment.setArguments(bundle);
-                        mainActivity.replaceFragment(fragment,FullscreenImageFragment.class.getName(),true);
-                    }
-                });
+            question.setText(flashcard.getQuestion());
+            if(flashcard.getOption1() != null &&  !flashcard.getOption1().isEmpty() ){
+                initOptions(view,1,flashcard.getOption1(),imageOption1,option1,optionBox1);
             }
-            if(flashcard.getAnswerUri() != null &&  !flashcard.getAnswerUri().isEmpty() ){
-                answerImageView.setImageURI(Uri.parse(flashcard.getAnswerUri()));
-                answerImageView.setVisibility(View.VISIBLE);
-                answerImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Const.URI,flashcard.getAnswerUri());
-                        FullscreenImageFragment fragment = new FullscreenImageFragment();
-                        fragment.setArguments(bundle);
-                        mainActivity.replaceFragment(fragment,FullscreenImageFragment.class.getName(),true);
-                    }
-                });
+            if(flashcard.getOption2() != null &&  !flashcard.getOption2().isEmpty() ){
+                initOptions(view,2,flashcard.getOption2(),imageOption2,option2,optionBox2);
             }
+            if(flashcard.getOption3() != null &&  !flashcard.getOption3().isEmpty() ){
+                initOptions(view,3,flashcard.getOption3(),imageOption3,option3,optionBox3);
+            }
+            if(flashcard.getOption4() != null &&  !flashcard.getOption4().isEmpty() ){
+                initOptions(view,4,flashcard.getOption4(),imageOption4,option4,optionBox4);
+            }
+
             if(Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION) == null || Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION).equals("true")) {
                 if (mainActivity.textToSpeech != null && mainActivity.speechStatus) {
                     mainActivity.textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
@@ -150,15 +139,6 @@ public class ReviewFlashcard extends Fragment {
             return view;
         }
 
-        viewAnswerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                answerBox.setVisibility(View.VISIBLE);
-                viewAnswerBtn.setVisibility(View.INVISIBLE);
-                correctBtn.setVisibility(View.VISIBLE);
-                inCorrectBtn.setVisibility(View.VISIBLE);
-            }
-        });
 
         speech.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,35 +149,13 @@ public class ReviewFlashcard extends Fragment {
             }
         });
 
-        correctBtn.setOnClickListener(new View.OnClickListener() {
+     /*   correctBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flashcard.setNextVisit(getCorrectNextVisitDate(flashcard.getCurrentBox()));
-                flashcard.setCurrentBox(flashcard.getCurrentBox() + 1);
-                flashcardDao.update(flashcard);
-                Bundle boxArgs  = new Bundle();
-                boxArgs.putLong(Const.CATEGORY_ID,categoryId);
-                boxArgs.putBoolean(Const.REVIEW_MODE,true);
-                ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
-                reviewFlashcard.setArguments(boxArgs);
-                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
-            }
-        });
 
-        inCorrectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                flashcard.setNextVisit(getIncorrectNextVisitDate());
-                flashcard.setCurrentBox(1);
-                flashcardDao.update(flashcard);
-                Bundle boxArgs  = new Bundle();
-                boxArgs.putLong(Const.CATEGORY_ID,categoryId);
-                boxArgs.putBoolean(Const.REVIEW_MODE,true);
-                ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
-                reviewFlashcard.setArguments(boxArgs);
-                mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
             }
-        });
+        });*/
+
         //update last review
         Category category = categoryDao.load(categoryId);
         category.setLastVisit(new Date());
@@ -275,13 +233,13 @@ public class ReviewFlashcard extends Fragment {
                     calendar.add(Calendar.DAY_OF_MONTH,2);
                     return calendar.getTime();
                 case 3:
-                    calendar.add(Calendar.DAY_OF_MONTH,4);
+                    calendar.add(Calendar.DAY_OF_MONTH,3);
                     return calendar.getTime();
                 case 4:
-                    calendar.add(Calendar.DAY_OF_MONTH,8);
+                    calendar.add(Calendar.DAY_OF_MONTH,4);
                     return calendar.getTime();
                 case 5:
-                    calendar.add(Calendar.DAY_OF_MONTH,16);
+                    calendar.add(Calendar.DAY_OF_MONTH,5);
                     return calendar.getTime();
             }
         } catch (ParseException e) {
@@ -298,4 +256,84 @@ public class ReviewFlashcard extends Fragment {
         super.onPause();
     }
 
+    private void initOptions(final View view, final int optionNumber, final String optionText, ImageView imageOption, TextView option, final LinearLayout optionBox){
+        ///////////////////////////////
+        if(optionText.contains(".jpg")){
+            InputStream ims = null;
+            try {
+                ims = getContext().getAssets().open(optionText);
+                Drawable d = Drawable.createFromStream(ims, null);
+                imageOption.setImageDrawable(d);
+                imageOption.setVisibility(View.VISIBLE);
+                imageOption.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Const.URI,optionText);
+                        FullscreenImageFragment fragment = new FullscreenImageFragment();
+                        fragment.setArguments(bundle);
+                        mainActivity.replaceFragment(fragment,FullscreenImageFragment.class.getName(),true);
+                    }
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            option.setText(optionText);
+        }
+        optionBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (optionNumber  == flashcard.getCorrectOption() ){
+                    Drawable drawable = getContext().getResources().getDrawable(R.drawable.round_button_green);
+                    optionBox.setBackground(drawable);
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            flashcard.setNextVisit(getCorrectNextVisitDate(flashcard.getCurrentBox()));
+                            flashcard.setCurrentBox(flashcard.getCurrentBox() + 1);
+                            flashcardDao.update(flashcard);
+                            Bundle boxArgs  = new Bundle();
+                            boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                            boxArgs.putBoolean(Const.REVIEW_MODE,true);
+                            ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
+                            reviewFlashcard.setArguments(boxArgs);
+                            mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
+                        }
+                    }, 3000);
+
+                }else {
+                    Drawable drawable = getContext().getResources().getDrawable(R.drawable.round_button_red);
+                    optionBox.setBackground(drawable);
+
+                    // green the correct  option
+                    int resID = getResources().getIdentifier("option_box_" + flashcard.getCorrectOption(), "id", getContext().getPackageName());
+                    LinearLayout correctOptionBox  =  view.findViewById(resID);
+                    drawable = getContext().getResources().getDrawable(R.drawable.round_button_green);
+                    correctOptionBox.setBackground(drawable);
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            flashcard.setNextVisit(getIncorrectNextVisitDate());
+                            flashcard.setCurrentBox(1);
+                            flashcardDao.update(flashcard);
+                            Bundle boxArgs  = new Bundle();
+                            boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                            boxArgs.putBoolean(Const.REVIEW_MODE,true);
+                            ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
+                            reviewFlashcard.setArguments(boxArgs);
+                            mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
+                        }
+                    }, 3000);
+                }
+            }
+        });
+        //////////////////////////////////
+    }
 }
+

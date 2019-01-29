@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:id="@+id/scroll_view">
     <LinearLayout
-        android:layout_width="match_parent" android:layoutDirection="rtl" android:background="#fff" android:orientation="vertical"
+        android:layout_width="match_parent" android:layoutDirection="ltr" android:background="#fff" android:orientation="vertical"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -15,14 +15,14 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/gradiant_4"
             android:orientation="vertical"
-            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:padding="@dimen/layout_padding">
 
             <ImageView
-                android:layout_gravity="left"
+                android:layout_gravity="right"
                 android:id="@+id/speech"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -48,90 +48,190 @@
 
         </LinearLayout>
 
+        <!--option1 -->
         <LinearLayout
-            android:id="@+id/answer_box"
             android:layout_width="match_parent"
-            android:layout_height="91dp"
-            android:layout_below="@+id/question_box"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/gradiant_4"
-            android:orientation="vertical"
-            android:padding="@dimen/layout_padding"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:text="A"
+                android:textSize="@dimen/header2" />
 
             <LinearLayout
+                android:id="@+id/option_box_1"
                 android:layout_width="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/gradiant_1"
+                android:orientation="vertical"
+                android:padding="@dimen/layout_padding"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/option1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="5dp"
+                        android:text=""
+                        android:textColor="#fff"
+                        android:textSize="@dimen/header2" />
+
+                    <ImageView
+                        android:id="@+id/image_option_1"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:textAlignment="center"
+                        android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--option2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:text="B"
+                android:textSize="@dimen/header2" />
+
+            <LinearLayout
+                android:id="@+id/option_box_2"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/gradiant_1"
+                android:orientation="vertical"
+                android:padding="@dimen/layout_padding"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/answer"
+                    android:id="@+id/option2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_margin="5dp"
-                    android:text="Answer"
+                    android:text=""
                     android:textColor="#fff"
                     android:textSize="@dimen/header2" />
 
                 <ImageView
-                    android:id="@+id/review_answer_image_view"
+                    android:id="@+id/image_option_2"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
                     android:textAlignment="center"
                     android:visibility="gone" />
             </LinearLayout>
-
         </LinearLayout>
 
+        <!--option3 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="293dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginTop="40dp"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:text="C"
+                android:textSize="@dimen/header2" />
 
-            <ImageButton
-                android:id="@+id/correct_btn"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/round_button_green"
-                android:padding="3dp"
-                android:visibility="invisible"
-                android:src="@drawable/ic_checkmark" />
-
-            <Button
-                android:id="@+id/view_answer_btn"
-                android:layout_width="218dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
+            <LinearLayout
+                android:id="@+id/option_box_3"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/gradiant_1"
-                android:gravity="center"
-                android:text="پاسخ"
-                android:textColor="#fff" />
+                android:orientation="vertical"
+                android:padding="@dimen/layout_padding"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/incorrect_btn"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_button_red"
-                android:padding="3dp"
-                android:visibility="invisible"
-                android:src="@drawable/ic_multiply" />
+                <TextView
+                    android:id="@+id/option3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:text=""
+                    android:textColor="#fff"
+                    android:textSize="@dimen/header2" />
 
+                <ImageView
+                    android:id="@+id/image_option_3"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
 
+        <!--option4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:text="D"
+                android:textSize="@dimen/header2" />
 
+            <LinearLayout
+                android:id="@+id/option_box_4"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/gradiant_1"
+                android:orientation="vertical"
+                android:padding="@dimen/layout_padding"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/option4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:text=""
+                    android:textColor="#fff"
+                    android:textSize="@dimen/header2" />
+
+                <ImageView
+                    android:id="@+id/image_option_4"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
+
+    </LinearLayout>
 
 </ScrollView>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layoutDirection="rtl"
+    android:layoutDirection="ltr"
     android:background="#fff"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -50,7 +50,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
-            <LinearLayout  android:layoutDirection="rtl"
+            <LinearLayout  android:layoutDirection="ltr"
                 android:orientation="vertical" android:layout_width="match_parent"
                 android:layout_height="match_parent" android:padding="@dimen/layout_padding">
                 <LinearLayout
