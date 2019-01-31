@@ -1,7 +1,6 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -15,11 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import android.widget.TextView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -28,7 +25,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-
 import lightner.sadeqzadeh.lightner.Const;
 import lightner.sadeqzadeh.lightner.MainActivity;
 import lightner.sadeqzadeh.lightner.R;
@@ -59,11 +55,15 @@ public class ReviewFlashcard extends Fragment {
     private LinearLayout optionBox2;
     private LinearLayout optionBox3;
     private LinearLayout optionBox4;
-    private int optionNumber;
+    private LinearLayout optionBoxContainer1;
+    private LinearLayout optionBoxContainer2;
+    private LinearLayout optionBoxContainer3;
+    private LinearLayout optionBoxContainer4;
     private boolean reviewMode;
     private ImageView speech;
     TextToSpeech textToSpeech;
     public static final String TAG = ReviewFlashcard.class.getName();
+    private boolean answered=false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +94,10 @@ public class ReviewFlashcard extends Fragment {
         optionBox2 = view.findViewById(R.id.option_box_2);
         optionBox3 = view.findViewById(R.id.option_box_3);
         optionBox4 = view.findViewById(R.id.option_box_4);
-
+        optionBoxContainer1= view.findViewById(R.id.option_box_container_1);
+        optionBoxContainer2= view.findViewById(R.id.option_box_container_2);
+        optionBoxContainer3= view.findViewById(R.id.option_box_container_3);
+        optionBoxContainer4= view.findViewById(R.id.option_box_container_4);
         final Date currentDate  =  new Date();
 
         //get current flash card
@@ -105,19 +108,10 @@ public class ReviewFlashcard extends Fragment {
         if(flashcardList.size() > 0 ){
             flashcard = flashcardList.get(0);
             question.setText(flashcard.getQuestion());
-            if(flashcard.getOption1() != null &&  !flashcard.getOption1().isEmpty() ){
-                initOptions(view,1,flashcard.getOption1(),imageOption1,option1,optionBox1);
-            }
-            if(flashcard.getOption2() != null &&  !flashcard.getOption2().isEmpty() ){
-                initOptions(view,2,flashcard.getOption2(),imageOption2,option2,optionBox2);
-            }
-            if(flashcard.getOption3() != null &&  !flashcard.getOption3().isEmpty() ){
-                initOptions(view,3,flashcard.getOption3(),imageOption3,option3,optionBox3);
-            }
-            if(flashcard.getOption4() != null &&  !flashcard.getOption4().isEmpty() ){
-                initOptions(view,4,flashcard.getOption4(),imageOption4,option4,optionBox4);
-            }
-
+            initOptions(view,1,flashcard.getOption1(),imageOption1,option1,optionBox1, optionBoxContainer1);
+            initOptions(view,2,flashcard.getOption2(),imageOption2,option2,optionBox2, optionBoxContainer2);
+            initOptions(view,3,flashcard.getOption3(),imageOption3,option3,optionBox3, optionBoxContainer3);
+            initOptions(view,4,flashcard.getOption4(),imageOption4,option4,optionBox4, optionBoxContainer4);
             if(Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION) == null || Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION).equals("true")) {
                 if (mainActivity.textToSpeech != null && mainActivity.speechStatus) {
                     mainActivity.textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
@@ -169,12 +163,13 @@ public class ReviewFlashcard extends Fragment {
             return;
         }
 
+/*
         new Handler().post(new Runnable() {
             @Override
             public void run() {
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
-                                TapTarget.forView((Button)mainActivity.findViewById(R.id.view_answer_btn),getString(R.string.answer_btn_short_hint), getString(R.string.answer_btn_long_hint))
+                                TapTarget.forView((Button)mainActivity.findViewById(R.id.option_box_1),getString(R.string.answer_btn_short_hint), getString(R.string.answer_btn_long_hint))
                                         .cancelable(false).transparentTarget(true)
                                         .targetRadius(100)
                                         .id(1)
@@ -198,6 +193,7 @@ public class ReviewFlashcard extends Fragment {
                 sequence.start();
             }
         });
+*/
 
     }
 
@@ -256,7 +252,11 @@ public class ReviewFlashcard extends Fragment {
         super.onPause();
     }
 
-    private void initOptions(final View view, final int optionNumber, final String optionText, ImageView imageOption, TextView option, final LinearLayout optionBox){
+    private void initOptions(final View view, final int optionNumber, final String optionText, ImageView imageOption, TextView option, final LinearLayout optionBox, LinearLayout optionBoxContainer){
+        if(optionText == null || optionText.isEmpty()){
+            optionBoxContainer.setVisibility(View.GONE);
+            return;
+        }
         ///////////////////////////////
         if(optionText.contains(".jpg")){
             InputStream ims = null;
@@ -265,17 +265,6 @@ public class ReviewFlashcard extends Fragment {
                 Drawable d = Drawable.createFromStream(ims, null);
                 imageOption.setImageDrawable(d);
                 imageOption.setVisibility(View.VISIBLE);
-                imageOption.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Const.URI,optionText);
-                        FullscreenImageFragment fragment = new FullscreenImageFragment();
-                        fragment.setArguments(bundle);
-                        mainActivity.replaceFragment(fragment,FullscreenImageFragment.class.getName(),true);
-                    }
-                });
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -285,6 +274,10 @@ public class ReviewFlashcard extends Fragment {
         optionBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(answered){
+                    return;
+                }
+                answered = true;
                 if (optionNumber  == flashcard.getCorrectOption() ){
                     Drawable drawable = getContext().getResources().getDrawable(R.drawable.round_button_green);
                     optionBox.setBackground(drawable);

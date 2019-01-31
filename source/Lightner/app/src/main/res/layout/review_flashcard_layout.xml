@@ -50,6 +50,7 @@
 
         <!--option1 -->
         <LinearLayout
+            android:id="@+id/option_box_container_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -87,6 +88,7 @@
 
                     <ImageView
                         android:id="@+id/image_option_1"
+                        android:layout_gravity="center"
                         android:layout_width="300dp"
                         android:layout_height="300dp"
                         android:textAlignment="center"
@@ -96,6 +98,7 @@
 
         <!--option2 -->
         <LinearLayout
+            android:id="@+id/option_box_container_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -134,6 +137,7 @@
                 <ImageView
                     android:id="@+id/image_option_2"
                     android:layout_width="300dp"
+                    android:layout_gravity="center"
                     android:layout_height="300dp"
                     android:textAlignment="center"
                     android:visibility="gone" />
@@ -142,6 +146,7 @@
 
         <!--option3 -->
         <LinearLayout
+            android:id="@+id/option_box_container_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -180,6 +185,7 @@
                 <ImageView
                     android:id="@+id/image_option_3"
                     android:layout_width="300dp"
+                    android:layout_gravity="center"
                     android:layout_height="300dp"
                     android:textAlignment="center"
                     android:visibility="gone" />
@@ -188,6 +194,7 @@
 
         <!--option4 -->
         <LinearLayout
+            android:id="@+id/option_box_container_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -226,6 +233,7 @@
                 <ImageView
                     android:id="@+id/image_option_4"
                     android:layout_width="300dp"
+                    android:layout_gravity="center"
                     android:layout_height="300dp"
                     android:textAlignment="center"
                     android:visibility="gone" />

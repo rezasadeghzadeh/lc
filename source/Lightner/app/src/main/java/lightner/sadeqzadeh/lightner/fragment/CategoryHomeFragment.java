@@ -301,7 +301,7 @@ public class CategoryHomeFragment extends Fragment {
             public void run() {
             final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                     .targets(
-                            TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_flashcard, getString(R.string.add_flashcard), getString(R.string.add_flashcard_help)).id(1),
+                            /*TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_flashcard, getString(R.string.add_flashcard), getString(R.string.add_flashcard_help)).id(1),*/
                             TapTarget.forView((Button)mainActivity.findViewById(R.id.start_review_btn),getString(R.string.review_short_hint), getString(R.string.review_long_hint))
                                     .transparentTarget(true)
                                     .targetRadius(100)

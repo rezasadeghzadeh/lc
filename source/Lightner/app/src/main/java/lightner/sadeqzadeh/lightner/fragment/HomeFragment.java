@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
             public void run() {
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
-                                TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help)).id(1).cancelable(false),
+                              /*  TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help)).id(1).cancelable(false),*/
                                 TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(2).cancelable(false)
                         )
                         .listener(new TapTargetSequence.Listener() {
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         MainActivity mainActivity  = (MainActivity) getActivity();
-        switch (item.getItemId()) {
+    /*    switch (item.getItemId()) {
             case R.id.action_add_category:
                 NewCategorymFragment fragment = new NewCategorymFragment();
                 mainActivity.replaceFragment(fragment, fragment.TAG,true);
@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
             default:
                 break;
         }
-
+*/
         return false;
     }
 

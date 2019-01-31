@@ -29,7 +29,11 @@ import com.yakivmospan.scytale.Crypto;
 import com.yakivmospan.scytale.Options;
 import com.yakivmospan.scytale.Store;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyStoreException;
@@ -68,8 +72,8 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getName();
     private SectionsStatePagerAdapter sectionsStatePagerAdapter;
     private SmoothProgressBar progressBar;
-    private EnCryptor encryptor;
-    private DeCryptor decryptor;
+   // private EnCryptor encryptor;
+   // private DeCryptor decryptor;
     private DaoSession daoSession;
     public TextToSpeech textToSpeech;
     public boolean speechStatus = false;
@@ -83,26 +87,31 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Util.context = getApplicationContext();
+        //copy database
+        if (Util.fetchFromPreferences("copyDb")  == null){
+            copyDb();
+        }
+
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setElevation(0);
 
-        initIAP();
+        //initIAP();
         initTextToSpeech();
 
         //init drawer
         drawer = findViewById(R.id.drawer_layout);
 
         //init encryption
-        encryptor = new EnCryptor();
+        //encryptor = new EnCryptor();
 
-        try {
+      /*  try {
             decryptor = new DeCryptor();
         } catch (CertificateException | NoSuchAlgorithmException | KeyStoreException |
                 IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         progressBar = findViewById(R.id.progressbar);
 
@@ -116,15 +125,42 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //check  if user doesn't registered already redirect to registration page
-        if (!Util.isUserLogged()) {
+/*        if (!Util.isUserLogged()) {
             GetMobileNumberFragment getMobileNumerFragment = new GetMobileNumberFragment();
             replaceFragment(getMobileNumerFragment, GetMobileNumberFragment.TAG,false);
             return;
         } else {
             HomeFragment fragment = new HomeFragment();
             replaceFragment(fragment, HomeFragment.TAG,false);
-        }
+        }*/
+        HomeFragment fragment = new HomeFragment();
+        replaceFragment(fragment, HomeFragment.TAG,false);
         registerAlaram();
+    }
+
+    private void copyDb() {
+        try {
+            // Open your local db as the input stream
+            String dbname = "Learnika";
+            InputStream myInput = getApplicationContext().getAssets().open(dbname);
+            // Path to the just created empty db
+            File outFileName = getApplicationContext().getDatabasePath(dbname);
+            // Open the empty db as the output stream
+            OutputStream myOutput = new FileOutputStream(outFileName);
+            // transfer bytes from the inputfile to the outputfile
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = myInput.read(buffer)) > 0) {
+                myOutput.write(buffer, 0, length);
+            }
+            // Close the streams
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
+            Util.saveInPreferences("copyDb","1");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void registerAlaram() {
@@ -248,7 +284,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         // set default lang to persian
-        Locale locale = new Locale("fa");
+        Locale locale = new Locale("en");
         Locale.setDefault(locale);
         Configuration config = getBaseContext().getResources().getConfiguration();
         config.locale = locale;

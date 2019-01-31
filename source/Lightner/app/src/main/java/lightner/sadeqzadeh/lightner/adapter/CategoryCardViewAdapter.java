@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -68,9 +69,8 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
             }
         });
         if(category.getLastVisit()!= null){
-            PersianDate  persianDate  = new PersianDate(category.getLastVisit().getTime());
-            PersianDateFormat persianDateFormat  = new PersianDateFormat("j F  y ");
-            holder.lastVisit.setText(String.format("%s %s",holder.lastVisit.getText(),persianDateFormat.format(persianDate)));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd");
+            holder.lastVisit.setText(String.format("%s %s",holder.lastVisit.getText(),simpleDateFormat.format(category.getLastVisit())));
         }
         //set stats
         try {

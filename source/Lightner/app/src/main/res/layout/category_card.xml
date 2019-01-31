@@ -36,40 +36,47 @@
 
                 <TextView
                     android:id="@+id/title"
-                    style="@style/header2"
-                    android:textDirection="rtl"
+                    style="@style/header3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:text="زبان ۱"
+                    android:text=""
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/category_title" />
 
-                <TextView
-                    android:id="@+id/reviewable"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/category_title_padding"
-                    android:paddingLeft="@dimen/category_title_padding"
-                    android:paddingRight="@dimen/category_title_padding"
-                    android:paddingTop="@dimen/category_title_padding"
-                    android:text="قابل مرور: "
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/header4" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/category_title_padding"
-                    android:paddingLeft="@dimen/category_title_padding"
-                    android:paddingRight="@dimen/category_title_padding"
-                    android:paddingTop="@dimen/category_title_padding"
-                    android:text="کل: "
-                    android:textColor="#ffffff"
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/category_title_padding"
+                        android:paddingLeft="@dimen/category_title_padding"
+                        android:paddingRight="@dimen/category_title_padding"
+                        android:paddingTop="@dimen/category_title_padding"
+                        android:text="@string/total"
+                        android:textColor="#ffffff"
 
-                    android:textSize="@dimen/header4" />
+                        android:textSize="@dimen/header4" />
+
+                    <TextView
+                        android:id="@+id/reviewable"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/category_title_padding"
+                        android:paddingLeft="@dimen/category_title_padding"
+                        android:paddingRight="@dimen/category_title_padding"
+                        android:paddingTop="@dimen/category_title_padding"
+                        android:text="@string/reviewable"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/header4" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/last_visit"
@@ -80,7 +87,7 @@
                     android:paddingTop="@dimen/category_title_padding"
                     android:paddingBottom="@dimen/category_title_padding"
                     android:textColor="#ffffff"
-                    android:text="آخرین مرور: "
+                    android:text="@string/last_review"
                     android:textSize="@dimen/header5" />
             </LinearLayout>
 
