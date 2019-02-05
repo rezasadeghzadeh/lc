@@ -70,13 +70,13 @@
     <string name="last_review">Last Review:</string>
     <string name="total">Total:</string>
     <string name="reviewable">Reviewable:</string>
-    <string name="start_review">Start Review</string>
-    <string name="box_1">Box 1</string>
+    <string name="start_lightner_review">Leitner Review</string>
+    <string name="box_1">Lightner Box 1</string>
     <string name="available">Available: </string>
-    <string name="box_2">Box 2</string>
-    <string name="box_3">Box 3</string>
-    <string name="box_4">Box 4</string>
-    <string name="box_5">Box 5</string>
+    <string name="box_2">Lightner Box 2</string>
+    <string name="box_3">Lightner Box 3</string>
+    <string name="box_4">Lightner Box 4</string>
+    <string name="box_5">Lightner Box 5</string>
     <string name="category_name">Category Name:</string>
     <string name="category_color">Category Color:</string>
     <string name="question">Question: </string>
@@ -90,5 +90,6 @@
     <string name="save">Save</string>
     <string name="delete_category">Delete Category</string>
     <string name="edit_category">Edit Category</string>
+    <string name="what_is_lightner">What is Leitner Method ?</string>
 </resources>
 

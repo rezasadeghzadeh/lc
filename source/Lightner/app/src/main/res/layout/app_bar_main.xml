@@ -1,24 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:orientation="vertical" android:background="#f5f5f5">
 
+<!--
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" style="@style/MyActionBar">
-
+        android:layout_height="150dp"  >
         <android.support.v7.widget.Toolbar
-            app:titleTextColor="@android:color/white"
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar1"
+            style="@style/MyActionBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
-
+        <ImageView
+            android:id="@+id/imageViewplaces"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:background="#42a5f5"
+            android:src="@drawable/toolbar_bg" />
     </android.support.design.widget.AppBarLayout>
+-->
 
-    <include layout="@layout/content_main" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewplaces"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:background="#42a5f5"
+            android:src="@drawable/toolbar_bg" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
+
+    <include
+        layout="@layout/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
    <!-- <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -28,4 +60,4 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add" />-->
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

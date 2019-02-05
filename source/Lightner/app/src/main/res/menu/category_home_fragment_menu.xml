@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
+   <!-- <item
         android:id="@+id/action_add_flashcard"
         android:orderInCategory="100"
         android:icon="@drawable/ic_add"
@@ -17,5 +17,5 @@
         android:orderInCategory="101" android:title="@string/edit_category"
         android:icon="@android:drawable/ic_menu_edit"
         app:showAsAction="never" />
-
+-->
 </menu>

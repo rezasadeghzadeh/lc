@@ -1,13 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#a74be9</item>
+        <item name="colorPrimaryDark">#42a5f5</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
-        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlNormal">#f5f5f5</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
@@ -70,9 +70,8 @@
     </style>
 
     <style name="MyActionBar">
-        <item name="android:background">@drawable/gradiant_6</item>
+        <item name="android:background">#f5f5f5</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="elevation">0dp</item>
-
     </style>
+
 </resources>

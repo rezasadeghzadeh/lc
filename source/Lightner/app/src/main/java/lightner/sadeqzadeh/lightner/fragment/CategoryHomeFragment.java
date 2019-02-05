@@ -1,9 +1,11 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -74,7 +76,7 @@ public class CategoryHomeFragment extends Fragment {
     private ImageView circle3;
     private ImageView circle4;
     private ImageView circle5;
-
+    private TextView whatIsLightnerLink;
 
     private HashMap<Integer,BoxStat> boxStatMap = new HashMap<>();
 
@@ -122,6 +124,14 @@ public class CategoryHomeFragment extends Fragment {
         circle4 = view.findViewById(R.id.circle4);
         circle5 = view.findViewById(R.id.circle5);
 
+        whatIsLightnerLink = view.findViewById(R.id.what_is_lightner);
+        whatIsLightnerLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://en.wikipedia.org/wiki/Leitner_system");
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+        });
         mainActivity.setTitle(category.getName());
         int color=0;
         try{
@@ -338,7 +348,7 @@ public class CategoryHomeFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         MainActivity mainActivity  = (MainActivity) getActivity();
-        switch (item.getItemId()) {
+    /*    switch (item.getItemId()) {
             case R.id.action_add_flashcard: {
                 Bundle argsFragment = new Bundle();
                 argsFragment.putLong(Const.CATEGORY_ID, categoryId);
@@ -374,7 +384,7 @@ public class CategoryHomeFragment extends Fragment {
 
             default:
                 break;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

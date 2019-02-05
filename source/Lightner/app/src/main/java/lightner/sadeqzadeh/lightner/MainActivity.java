@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -65,6 +66,8 @@ import lightner.sadeqzadeh.lightner.util.IabResult;
 import lightner.sadeqzadeh.lightner.util.Purchase;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static lightner.sadeqzadeh.lightner.Util.context;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Util.context = getApplicationContext();
+        context = getApplicationContext();
         //copy database
         if (Util.fetchFromPreferences("copyDb")  == null){
             copyDb();
@@ -136,6 +139,11 @@ public class MainActivity extends AppCompatActivity
         HomeFragment fragment = new HomeFragment();
         replaceFragment(fragment, HomeFragment.TAG,false);
         registerAlaram();
+        setupActionBar();
+    }
+
+    private void setupActionBar() {
+
     }
 
     private void copyDb() {
@@ -336,5 +344,4 @@ public class MainActivity extends AppCompatActivity
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
 }
