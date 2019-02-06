@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -51,13 +52,7 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Category category  =  categoryList.get(position);
         holder.name.setText(category.getName());
-        int color=0;
-        try{
-            color  =  Integer.parseInt(category.getCodeColor());
-        }catch (Exception e){
 
-        }
-        holder.parentContainer.setBackgroundColor(color);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +97,7 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
         TextView reviewable;
         TextView lastVisit;
         LinearLayout textContainer;
-        LinearLayout parentContainer;
+        RelativeLayout parentContainer;
         public ViewHolder(View itemView) {
             super(itemView);
             name =  itemView.findViewById(R.id.title);

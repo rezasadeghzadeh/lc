@@ -28,6 +28,7 @@
     <dimen name="header3">16dp</dimen>
     <dimen name="header4">12dp</dimen>
     <dimen name="header5">12dp</dimen>
+    <dimen name="header6">11dp</dimen>
     <dimen name="layout_padding">5dp</dimen>
     <dimen name="card_package_radius">5dp</dimen>
 

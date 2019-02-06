@@ -12,79 +12,83 @@
         android:layout_gravity="top"
         android:layout_margin="@dimen/card_margin"
         card_view:cardCornerRadius="@dimen/card_category_radius">
-
         <LinearLayout
-            android:id="@+id/parent_container"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" android:orientation="horizontal">
 
+            <ImageView
+                android:background="@drawable/gradiant_6"
+                android:layout_width="80dp"
+                android:layout_height="80dp" android:src="@drawable/ic_tick" />
             <RelativeLayout
-                android:id="@+id/category_header"
-                android:layout_width="match_parent"
-                android:layout_margin="@dimen/card_margin"
-                android:layout_height="20dp" >
-
-            </RelativeLayout>
-            <LinearLayout
-                android:background="#70000000"
-                android:id="@+id/text_container"
+                android:id="@+id/parent_container"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/layout_padding">
-
-                <TextView
-                    android:id="@+id/title"
-                    style="@style/header3"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:text=""
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/category_title" />
-
-                <TextView
-                    android:id="@+id/total"
-                    android:layout_width="match_parent"
+                android:layout_height="80dp">
+                <LinearLayout
+                    android:id="@+id/text_container"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/category_title_padding"
-                    android:paddingLeft="@dimen/category_title_padding"
-                    android:paddingRight="@dimen/category_title_padding"
-                    android:paddingTop="@dimen/category_title_padding"
-                    android:text="@string/total"
-                    android:textColor="#ffffff"
+                    android:padding="@dimen/layout_padding">
 
-                    android:textSize="@dimen/header4" />
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/header3"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:text=""
+                        android:textSize="@dimen/category_title" />
 
-                <TextView
-                    android:id="@+id/reviewable"
-                    android:layout_width="match_parent"
+
+
+                    <TextView
+                        android:id="@+id/last_visit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/category_title_padding"
+                        android:paddingRight="@dimen/category_title_padding"
+                        android:paddingTop="@dimen/category_title_padding"
+                        android:paddingBottom="@dimen/category_title_padding"
+                        android:text="@string/last_review"
+                        android:textSize="@dimen/header5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/text_container2"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/category_title_padding"
-                    android:paddingLeft="@dimen/category_title_padding"
-                    android:paddingRight="@dimen/category_title_padding"
-                    android:paddingTop="@dimen/category_title_padding"
-                    android:text="@string/reviewable"
-                    android:textColor="#ffffff"
-                    android:textSize="@dimen/header4" />
+                    android:padding="@dimen/layout_padding">
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/category_title_padding"
+                        android:paddingLeft="@dimen/category_title_padding"
+                        android:paddingRight="@dimen/category_title_padding"
+                        android:paddingTop="@dimen/category_title_padding"
+                        android:text="@string/total"
 
-                <TextView
-                    android:id="@+id/last_visit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/category_title_padding"
-                    android:paddingRight="@dimen/category_title_padding"
-                    android:paddingTop="@dimen/category_title_padding"
-                    android:paddingBottom="@dimen/category_title_padding"
-                    android:textColor="#ffffff"
-                    android:text="@string/last_review"
-                    android:textSize="@dimen/header5" />
-            </LinearLayout>
+                        android:textSize="@dimen/header4" />
 
+                    <TextView
+                        android:id="@+id/reviewable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/category_title_padding"
+                        android:paddingLeft="@dimen/category_title_padding"
+                        android:paddingRight="@dimen/category_title_padding"
+                        android:paddingTop="@dimen/category_title_padding"
+                        android:text="@string/reviewable"
+                        android:textSize="@dimen/header4" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
-
 
     </android.support.v7.widget.CardView>
 </LinearLayout>
