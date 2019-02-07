@@ -295,7 +295,7 @@ public class CategoryHomeFragment extends Fragment {
                                     .targetRadius(100)
                                     .cancelable(false)
                                     .id(2),
-                            TapTarget.forView((Button)mainActivity.findViewById(R.id.free_review_btn),getString(R.string.free_review_short_hint), getString(R.string.free_review_long_hint))
+                            TapTarget.forView((AppCompatImageButton)mainActivity.findViewById(R.id.free_review_btn),getString(R.string.free_review_short_hint), getString(R.string.free_review_long_hint))
                                     .transparentTarget(true)
                                     .targetRadius(100)
                                     .cancelable(true)
