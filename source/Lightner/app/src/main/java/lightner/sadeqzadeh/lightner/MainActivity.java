@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -286,8 +287,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -344,4 +343,6 @@ public class MainActivity extends AppCompatActivity
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-}
+
+
+    }

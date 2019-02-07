@@ -1,18 +1,13 @@
 package lightner.sadeqzadeh.lightner.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,13 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.getkeepsafe.taptargetview.TapTargetView;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -52,7 +45,7 @@ public class CategoryHomeFragment extends Fragment {
     private Category category;
     MainActivity mainActivity;
     Button startReviewBtn;
-    Button freeReviewBtn;
+    AppCompatImageButton freeReviewBtn;
     private LinearLayout box1;
     private LinearLayout box2;
     private LinearLayout box3;
@@ -71,7 +64,7 @@ public class CategoryHomeFragment extends Fragment {
     private TextView reviewable4;
     private TextView reviewable5;
 
-    private TextView whatIsLightnerLink;
+    private Button whatIsLightnerButton;
 
     private HashMap<Integer,BoxStat> boxStatMap = new HashMap<>();
 
@@ -114,8 +107,8 @@ public class CategoryHomeFragment extends Fragment {
         reviewable4  = view.findViewById(R.id.reviewable_4);
         reviewable5  = view.findViewById(R.id.reviewable_5);
 
-        whatIsLightnerLink = view.findViewById(R.id.what_is_lightner);
-        whatIsLightnerLink.setOnClickListener(new View.OnClickListener() {
+        whatIsLightnerButton = view.findViewById(R.id.what_is_lightner);
+        whatIsLightnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse("https://en.wikipedia.org/wiki/Leitner_system");
@@ -123,17 +116,12 @@ public class CategoryHomeFragment extends Fragment {
             }
         });
         mainActivity.setTitle(category.getName());
-        int color=0;
-        try{
-            color  =  Integer.parseInt(category.getCodeColor());
-        }catch (Exception e){
-
-        }
 
         populateBoxesStats();
         initStartReviewBtn();
         initFreeReviewBtn();
         Util.hideKeyboard(getActivity());
+
         return  view;
     }
 
@@ -186,12 +174,12 @@ public class CategoryHomeFragment extends Fragment {
             long reviewable = reviewableList.size();
             total1.setText(String.format("%s %d",total1.getText(),total));
             reviewable1.setText(String.format("%s %d",reviewable1.getText(), reviewable));
-         /*   if(reviewable > 0){
-                circle1.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+            if(reviewable > 0){
+                //circle1.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
                 hasReviewItems  = true;
             }else {
-                circle1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
-            }*/
+                //circle1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
+            }
 
 
             ////////////// box 2/////////////////////////////
@@ -207,12 +195,12 @@ public class CategoryHomeFragment extends Fragment {
             ).buildCount().count();
             total2.setText(String.format("%s %d",total2.getText(),total));
             reviewable2.setText(String.format("%s %d",reviewable2.getText(), reviewable));
-          /*  if(reviewable > 0){
-                circle2.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+            if(reviewable > 0){
+                //circle2.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
                 hasReviewItems  = true;
             }else {
-                circle2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
-            }*/
+                //circle2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
+            }
 
             /////////////////// box 3 //////////////////////
             queryBuilder = flashcardDao.queryBuilder();
@@ -227,12 +215,12 @@ public class CategoryHomeFragment extends Fragment {
             ).buildCount().count();
             total3.setText(String.format("%s %d",total3.getText(),total));
             reviewable3.setText(String.format("%s %d",reviewable3.getText(), reviewable));
-        /*    if(reviewable > 0){
-                circle3.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+            if(reviewable > 0){
+                //circle3.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
                 hasReviewItems  = true;
             }else {
-                circle3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
-            }*/
+                //circle3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
+            }
 
             /////////////////// box 4 //////////////////////
             queryBuilder = flashcardDao.queryBuilder();
@@ -247,12 +235,12 @@ public class CategoryHomeFragment extends Fragment {
             ).buildCount().count();
             total4.setText(String.format("%s %d",total4.getText(),total));
             reviewable4.setText(String.format("%s %d",reviewable4.getText(), reviewable));
-          /*  if(reviewable > 0){
-                circle4.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+            if(reviewable > 0){
+                //circle4.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
                 hasReviewItems  = true;
             }else {
-                circle4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
-            }*/
+                //circle4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
+            }
             /////////////////// box 5 //////////////////////
             queryBuilder = flashcardDao.queryBuilder();
             total  =  queryBuilder.where(
@@ -266,12 +254,12 @@ public class CategoryHomeFragment extends Fragment {
             ).buildCount().count();
             total5.setText(String.format("%s %d",total5.getText(),total));
             reviewable5.setText(String.format("%s %d",reviewable5.getText(), reviewable));
-          /*  if(reviewable > 0){
-                circle5.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
+            if(reviewable > 0){
+                //circle5.setImageDrawable(getResources().getDrawable(R.drawable.circle_green));
                 hasReviewItems  = true;
             }else {
-                circle5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
-            }*/
+                //circle5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
+            }
 
             startReviewBtn.setEnabled(hasReviewItems);
             if(!hasReviewItems){
