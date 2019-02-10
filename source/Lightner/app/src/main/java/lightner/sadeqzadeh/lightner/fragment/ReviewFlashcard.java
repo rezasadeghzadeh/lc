@@ -11,12 +11,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -51,6 +49,10 @@ public class ReviewFlashcard extends Fragment {
     private ImageView imageOption2;
     private ImageView imageOption3;
     private ImageView imageOption4;
+    private TextView optionLetter1;
+    private TextView optionLetter2;
+    private TextView optionLetter3;
+    private TextView optionLetter4;
     private LinearLayout optionBox1;
     private LinearLayout optionBox2;
     private LinearLayout optionBox3;
@@ -86,6 +88,10 @@ public class ReviewFlashcard extends Fragment {
         option2 = view.findViewById(R.id.option2);
         option3 = view.findViewById(R.id.option3);
         option4 = view.findViewById(R.id.option4);
+        optionLetter1 = view.findViewById(R.id.option_letter_1);
+        optionLetter2 = view.findViewById(R.id.option_letter_2);
+        optionLetter3 = view.findViewById(R.id.option_letter_3);
+        optionLetter4 = view.findViewById(R.id.option_letter_4);
         imageOption1 = view.findViewById(R.id.image_option_1);
         imageOption2 = view.findViewById(R.id.image_option_2);
         imageOption3 = view.findViewById(R.id.image_option_3);
@@ -108,10 +114,10 @@ public class ReviewFlashcard extends Fragment {
         if(flashcardList.size() > 0 ){
             flashcard = flashcardList.get(0);
             question.setText(flashcard.getQuestion());
-            initOptions(view,1,flashcard.getOption1(),imageOption1,option1,optionBox1, optionBoxContainer1);
-            initOptions(view,2,flashcard.getOption2(),imageOption2,option2,optionBox2, optionBoxContainer2);
-            initOptions(view,3,flashcard.getOption3(),imageOption3,option3,optionBox3, optionBoxContainer3);
-            initOptions(view,4,flashcard.getOption4(),imageOption4,option4,optionBox4, optionBoxContainer4);
+            initOptions(view,1,flashcard.getOption1(),imageOption1,option1,optionBox1, optionBoxContainer1,optionLetter1);
+            initOptions(view,2,flashcard.getOption2(),imageOption2,option2,optionBox2, optionBoxContainer2,optionLetter2);
+            initOptions(view,3,flashcard.getOption3(),imageOption3,option3,optionBox3, optionBoxContainer3,optionLetter3);
+            initOptions(view,4,flashcard.getOption4(),imageOption4,option4,optionBox4, optionBoxContainer4,optionLetter4);
             if(Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION) == null || Util.fetchFromPreferences(Const.AUTO_SPELL_QUESTION).equals("true")) {
                 if (mainActivity.textToSpeech != null && mainActivity.speechStatus) {
                     mainActivity.textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
@@ -252,7 +258,7 @@ public class ReviewFlashcard extends Fragment {
         super.onPause();
     }
 
-    private void initOptions(final View view, final int optionNumber, final String optionText, ImageView imageOption, TextView option, final LinearLayout optionBox, LinearLayout optionBoxContainer){
+    private void initOptions(final View view, final int optionNumber, final String optionText, ImageView imageOption, TextView option, final LinearLayout optionBox, LinearLayout optionBoxContainer, final TextView optionLetter){
         if(optionText == null || optionText.isEmpty()){
             optionBoxContainer.setVisibility(View.GONE);
             return;
@@ -270,63 +276,73 @@ public class ReviewFlashcard extends Fragment {
             }
         }else {
             option.setText(optionText);
+            option.setVisibility(View.VISIBLE);
         }
+
         optionBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(answered){
-                    return;
-                }
-                answered = true;
-                if (optionNumber  == flashcard.getCorrectOption() ){
-                    Drawable drawable = getContext().getResources().getDrawable(R.drawable.round_button_green);
-                    optionBox.setBackground(drawable);
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            flashcard.setNextVisit(getCorrectNextVisitDate(flashcard.getCurrentBox()));
-                            flashcard.setCurrentBox(flashcard.getCurrentBox() + 1);
-                            flashcardDao.update(flashcard);
-                            Bundle boxArgs  = new Bundle();
-                            boxArgs.putLong(Const.CATEGORY_ID,categoryId);
-                            boxArgs.putBoolean(Const.REVIEW_MODE,true);
-                            ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
-                            reviewFlashcard.setArguments(boxArgs);
-                            mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
-                        }
-                    }, 3000);
-
-                }else {
-                    Drawable drawable = getContext().getResources().getDrawable(R.drawable.round_button_red);
-                    optionBox.setBackground(drawable);
-
-                    // green the correct  option
-                    int resID = getResources().getIdentifier("option_box_" + flashcard.getCorrectOption(), "id", getContext().getPackageName());
-                    LinearLayout correctOptionBox  =  view.findViewById(resID);
-                    drawable = getContext().getResources().getDrawable(R.drawable.round_button_green);
-                    correctOptionBox.setBackground(drawable);
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            flashcard.setNextVisit(getIncorrectNextVisitDate());
-                            flashcard.setCurrentBox(1);
-                            flashcardDao.update(flashcard);
-                            Bundle boxArgs  = new Bundle();
-                            boxArgs.putLong(Const.CATEGORY_ID,categoryId);
-                            boxArgs.putBoolean(Const.REVIEW_MODE,true);
-                            ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
-                            reviewFlashcard.setArguments(boxArgs);
-                            mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
-                        }
-                    }, 3000);
-                }
+                onClickHandler(view, optionNumber, optionLetter);
             }
         });
-        //////////////////////////////////
+        optionLetter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickHandler(view, optionNumber, optionLetter);
+            }
+        });
+    }
+    private void onClickHandler(View view, int optionNumber, TextView optionLetter){
+        if(answered){
+            return;
+        }
+        answered = true;
+        if (optionNumber  == flashcard.getCorrectOption() ){
+            Drawable drawable = getContext().getResources().getDrawable(R.drawable.correct_option_letter);
+            optionLetter.setBackground(drawable);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    flashcard.setNextVisit(getCorrectNextVisitDate(flashcard.getCurrentBox()));
+                    flashcard.setCurrentBox(flashcard.getCurrentBox() + 1);
+                    flashcardDao.update(flashcard);
+                    Bundle boxArgs  = new Bundle();
+                    boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                    boxArgs.putBoolean(Const.REVIEW_MODE,true);
+                    ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
+                    reviewFlashcard.setArguments(boxArgs);
+                    mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
+                }
+            }, 3000);
+
+        }else {
+            Drawable drawable = getContext().getResources().getDrawable(R.drawable.incorrect_option_letter);
+            optionLetter.setBackground(drawable);
+
+            // green the correct  option
+            int resID = getResources().getIdentifier("option_letter_" + flashcard.getCorrectOption(), "id", getContext().getPackageName());
+            TextView correctOptionLetter  =  view.findViewById(resID);
+            drawable = getContext().getResources().getDrawable(R.drawable.correct_option_letter);
+            correctOptionLetter.setBackground(drawable);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    flashcard.setNextVisit(getIncorrectNextVisitDate());
+                    flashcard.setCurrentBox(1);
+                    flashcardDao.update(flashcard);
+                    Bundle boxArgs  = new Bundle();
+                    boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                    boxArgs.putBoolean(Const.REVIEW_MODE,true);
+                    ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
+                    reviewFlashcard.setArguments(boxArgs);
+                    mainActivity.replaceFragment(reviewFlashcard,ReviewFlashcard.TAG,false);
+                }
+            }, 3000);
+        }
     }
 }
 

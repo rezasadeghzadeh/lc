@@ -73,15 +73,7 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
-    <style name="answer_option_box_gray">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">2</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:textColor">#fff</item>
-        <item name="android:textSize">@dimen/header2</item>
-        <item name="android:background">@drawable/answer_option_box_gray</item>
-    </style>
+
 
     <style name="answers_container">
         <item name="android:orientation">vertical</item>
@@ -94,28 +86,43 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">5dp</item>
     </style>
 
     <style name="answer_box_container">
-        <item name="android:layout_weight">8</item>
         <item name="android:background">@drawable/text_answer_box</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">8</item>
     </style>
 
-
+    <style name="answer_option_box_gray">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/header2</item>
+        <item name="android:background">@drawable/answer_option_box_gray</item>
+    </style>
     <style name="answer_image">
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:minHeight">200dp</item>
         <item name="android:visibility">gone</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_margin">10dp</item>
     </style>
 
     <style name="answer_text">
+        <item name="android:visibility">gone</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">50dp</item>
         <item name="android:textSize">@dimen/header2</item>
+        <item name="android:padding">3dp</item>
     </style>
 
 
