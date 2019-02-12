@@ -25,8 +25,6 @@ import lightner.sadeqzadeh.lightner.entity.Category;
 import lightner.sadeqzadeh.lightner.entity.Flashcard;
 import lightner.sadeqzadeh.lightner.entity.FlashcardDao;
 import lightner.sadeqzadeh.lightner.fragment.CategoryHomeFragment;
-import saman.zamani.persiandate.PersianDate;
-import saman.zamani.persiandate.PersianDateFormat;
 
 public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardViewAdapter.ViewHolder> {
     MainActivity mainActivity;
@@ -51,6 +49,7 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Category category  =  categoryList.get(position);
+
         holder.name.setText(category.getName());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +64,7 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
         });
         if(category.getLastVisit()!= null){
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MMM dd");
-            holder.lastVisit.setText(String.format("%s %s",holder.lastVisit.getText(),simpleDateFormat.format(category.getLastVisit())));
+            holder.lastVisit.setText(simpleDateFormat.format(category.getLastVisit()));
         }
         //set stats
         try {
@@ -77,8 +76,8 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
                     FlashcardDao.Properties.NextVisit.le(currentDate),
                     FlashcardDao.Properties.CategoryId.eq(category.getId())
             ).buildCount().count();
-            holder.total.setText(String.format("%s %d",holder.total.getText(),total));
-            holder.reviewable.setText(String.format("%s %d",holder.reviewable.getText(),reviewable));
+            holder.total.setText(String.valueOf(total));
+            holder.reviewable.setText(String.valueOf(reviewable));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -96,14 +95,10 @@ public class CategoryCardViewAdapter extends RecyclerView.Adapter<CategoryCardVi
         TextView total;
         TextView reviewable;
         TextView lastVisit;
-        LinearLayout textContainer;
-        RelativeLayout parentContainer;
         public ViewHolder(View itemView) {
             super(itemView);
             name =  itemView.findViewById(R.id.title);
             cardView = itemView.findViewById(R.id.card_view);
-            textContainer = itemView.findViewById(R.id.text_container);
-            parentContainer = itemView.findViewById(R.id.parent_container);
             total = itemView.findViewById(R.id.total);
             reviewable = itemView.findViewById(R.id.reviewable);
             lastVisit  =  itemView.findViewById(R.id.last_visit);
