@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,7 @@ public class FreeReviewFlashcard extends Fragment {
     private AppCompatImageButton previousBtn;
     private boolean answered=false;
     private ImageView speech;
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,6 +111,7 @@ public class FreeReviewFlashcard extends Fragment {
         totalFlashcardsTextView = view.findViewById(R.id.total_flashcard);
         nextBtn = view.findViewById(R.id.next_btn);
         previousBtn = view.findViewById(R.id.previous_btn);
+        progressBar  = view.findViewById(R.id.progress);
 
         //get current flash card
         List<Flashcard> flashcardList =  flashcardDao.queryBuilder().where(
@@ -128,6 +131,10 @@ public class FreeReviewFlashcard extends Fragment {
         }
         currentFlashcardTextView.setText(String.valueOf(numberFlashcardToShow+1));
         totalFlashcardsTextView.setText(String.valueOf(flashcardList.size()));
+
+        //set progress values
+        progressBar.setMax(flashcardList.size());
+        progressBar.setProgress(numberFlashcardToShow);
         if(flashcard != null){
             question.setText(flashcard.getQuestion());
             initOptions(view,1,flashcard.getOption1(),imageOption1,option1,optionBox1, optionBoxContainer1, optionLetter1);

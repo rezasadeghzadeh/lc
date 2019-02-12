@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -66,6 +67,9 @@ public class ReviewFlashcard extends Fragment {
     TextToSpeech textToSpeech;
     public static final String TAG = ReviewFlashcard.class.getName();
     private boolean answered=false;
+    private ProgressBar progressBar;
+    private Integer numberFlashcardToShow=0;
+    private Integer reviewableFlashcardsCount = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +80,13 @@ public class ReviewFlashcard extends Fragment {
         categoryDao =  mainActivity.getDaoSession().getCategoryDao();
         categoryId  = args.getLong(Const.CATEGORY_ID);
         reviewMode  =  args.getBoolean(Const.REVIEW_MODE,false);
+        numberFlashcardToShow = args.getInt(Const.FLASHCARD_TO_SHOW);
+        if(numberFlashcardToShow == null || numberFlashcardToShow<0){
+            numberFlashcardToShow = 0;
+        }
+        if(reviewableFlashcardsCount == null){
+            reviewableFlashcardsCount =  args.getInt(Const.REVIEWABLE_FLASH_CARDS_COUNTS);
+        }
     }
 
     @Override
@@ -104,13 +115,27 @@ public class ReviewFlashcard extends Fragment {
         optionBoxContainer2= view.findViewById(R.id.option_box_container_2);
         optionBoxContainer3= view.findViewById(R.id.option_box_container_3);
         optionBoxContainer4= view.findViewById(R.id.option_box_container_4);
+        progressBar  = view.findViewById(R.id.progress);
+
         final Date currentDate  =  new Date();
 
-        //get current flash card
+        if(reviewableFlashcardsCount == null || reviewableFlashcardsCount == 0){
+            //get current flash card
+            List<Flashcard> reviwableFlashcards  =  flashcardDao.queryBuilder().where(
+                    FlashcardDao.Properties.NextVisit.le(currentDate),
+                    FlashcardDao.Properties.CategoryId.eq(categoryId)
+            ).orderDesc(FlashcardDao.Properties.CurrentBox).list();
+            reviewableFlashcardsCount  =  reviwableFlashcards.size();
+        }
+
+
         List<Flashcard> flashcardList  =  flashcardDao.queryBuilder().where(
                 FlashcardDao.Properties.NextVisit.le(currentDate),
                 FlashcardDao.Properties.CategoryId.eq(categoryId)
         ).orderDesc(FlashcardDao.Properties.CurrentBox).limit(1).list();
+        //set progress values
+        progressBar.setMax(reviewableFlashcardsCount);
+        progressBar.setProgress(numberFlashcardToShow);
         if(flashcardList.size() > 0 ){
             flashcard = flashcardList.get(0);
             question.setText(flashcard.getQuestion());
@@ -310,6 +335,8 @@ public class ReviewFlashcard extends Fragment {
                     flashcardDao.update(flashcard);
                     Bundle boxArgs  = new Bundle();
                     boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                    boxArgs.putInt(Const.FLASHCARD_TO_SHOW,numberFlashcardToShow+1);
+                    boxArgs.putInt(Const.REVIEWABLE_FLASH_CARDS_COUNTS,reviewableFlashcardsCount);
                     boxArgs.putBoolean(Const.REVIEW_MODE,true);
                     ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
                     reviewFlashcard.setArguments(boxArgs);
@@ -336,6 +363,8 @@ public class ReviewFlashcard extends Fragment {
                     flashcardDao.update(flashcard);
                     Bundle boxArgs  = new Bundle();
                     boxArgs.putLong(Const.CATEGORY_ID,categoryId);
+                    boxArgs.putInt(Const.FLASHCARD_TO_SHOW,numberFlashcardToShow+1);
+                    boxArgs.putInt(Const.REVIEWABLE_FLASH_CARDS_COUNTS,reviewableFlashcardsCount);
                     boxArgs.putBoolean(Const.REVIEW_MODE,true);
                     ReviewFlashcard reviewFlashcard = new ReviewFlashcard();
                     reviewFlashcard.setArguments(boxArgs);

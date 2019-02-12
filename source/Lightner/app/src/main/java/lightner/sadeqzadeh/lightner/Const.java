@@ -29,4 +29,5 @@ public class Const {
     public static final String ALARM_MINUTE = "ALARM_MINUTE";
     public static final String AUTO_SPELL_QUESTION = "AUTO_SPELL_QUESTION";
     public static final String ENABLE_ALARM = "ENABLE_ALARM";
+    public static final String REVIEWABLE_FLASH_CARDS_COUNTS = "REVIEWABLE_FLASH_CARDS_COUNTS";
 }
