@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
             keys[i] = String.valueOf(category.getId());
             values[i]=category.getName();
         }
-        KeyValueAdapter spinnerAdapter = new KeyValueAdapter(mainActivity,keys,values);;
+        KeyValueAdapter spinnerAdapter = new KeyValueAdapter(mainActivity,keys,values);
         categoriesSpinner.setAdapter(spinnerAdapter);
         categoriesSpinner.post(new Runnable() {
             public void run() {
@@ -125,7 +125,6 @@ public class HomeFragment extends Fragment {
             public void run() {
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
-                              /*  TapTarget.forToolbarMenuItem(mainActivity.toolbar, R.id.action_add_category, getString(R.string.add_category), getString(R.string.add_category_help)).id(1).cancelable(false),*/
                                 TapTarget.forToolbarNavigationIcon(mainActivity.toolbar, getString(R.string.action_settings), getString(R.string.action_settings_help)).id(2).cancelable(false)
                         )
                         .listener(new TapTargetSequence.Listener() {
